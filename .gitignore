@@ -1,4 +1,29 @@
+# Vercel & Logs (You already have these)
 .vercel
-# Ignore local DNS propagation logs
 DNS-watch.log
 
+# Operating System Files (Clean up clutter)
+.DS_Store
+Thumbs.db
+*.local
+
+# Docker (Ignore local data or logs if they appear)
+.docker/
+*.log
+
+# Environment Variables (CRITICAL for security)
+# This prevents you from accidentally sharing passwords or API keys
+.env
+.env.local
+.env.*.local
+
+# Build/Dist folders
+# Only include these if you are NOT using a build service like Vercel/GitHub Actions
+# node_modules/
+# dist/
+# build/
+
+# IDE / Editor Files
+.vscode/
+.idea/
+*.swp
