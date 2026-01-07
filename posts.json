@@ -71,4 +71,11 @@
     "slug": "ci-cd-pipeline",
     "kind": "post"
   }
+  {
+    "title": "When a Single Warning Turned Into a Docs-as-Code Masterclass",
+    "description": "How a stubborn html-validate warning about a raw '>' pushed a docs pipeline to production-grade rigor.",
+    "url": "/posts/docs-pipeline-warning-to-masterclass.html",
+    "date": "2026-01-06",
+    "tags": ["devops", "documentation", "ci/cd", "html", "automation"]
+  }
 ]

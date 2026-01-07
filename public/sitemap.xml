@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://justine6.github.io/jutellane-blogs/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/%5B%5D/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/%5Bdevops%5D/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/Automation/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/ci-cd/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/CI%2FCD/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/DevOps/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/GitHub%20Actions/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/GitHub%20Pages/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/Mindset/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/performance/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/pipelines/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/PowerShell/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/Productivity/</loc><changefreq>weekly</changefreq></url>
-  <url><loc>https://justine6.github.io/jutellane-blogs/tags/Workflow/</loc><changefreq>weekly</changefreq></url>
+  <url><loc>/</loc></url>
+  <url><loc>/tags</loc></url>
+  <url><loc>/feed.xml</loc></url>
+  <url><loc>/posts/2025/11/audit-containers-with-powershell</loc></url>
+  <url><loc>/posts/2025/11/audit-html-powershell</loc></url>
+  <url><loc>/posts/2025/11/cicd-pipeline-performance</loc></url>
+  <url><loc>/posts/2025/11/self-healing-blog-pipeline</loc></url>
+  <url><loc>/posts/2025/12/post</loc></url>
+  <url><loc>/posts/2026/01/docs-pipeline-warning-to-masterclass</loc></url>
 </urlset>
