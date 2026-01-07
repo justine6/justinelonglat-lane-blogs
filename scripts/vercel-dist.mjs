@@ -1,40 +1,34 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-async function cleanDir(dir) {
-  await fs.rm(dir, { recursive: true, force: true });
-}
-
 async function main() {
-  // 1) Clean old outputs
-  await cleanDir("dist");
-  await cleanDir(".vercel/output");
+  // 1) Clean any previous Build Output
+  await fs.rm(".vercel/output", { recursive: true, force: true });
 
-  // 2) Your existing behaviour: public -> dist
+  // 2) Build static assets: copy public → dist
+  await fs.rm("dist", { recursive: true, force: true });
   await fs.cp("public", "dist", { recursive: true });
   console.log("✓ copied public/ → dist/");
 
-  // 3) Prepare Vercel Build Output v3
-  const outRoot = ".vercel/output";
-  const outStatic = path.join(outRoot, "static");
-
-  await fs.mkdir(outStatic, { recursive: true });
-
-  // copy the built site into the static output
-  await fs.cp("dist", outStatic, { recursive: true });
+  // 3) Copy dist → .vercel/output/static (Build Output API)
+  const outDir = ".vercel/output";
+  const staticDir = path.join(outDir, "static");
+  await fs.mkdir(staticDir, { recursive: true });
+  await fs.cp("dist", staticDir, { recursive: true });
   console.log("✓ copied dist/ → .vercel/output/static");
 
-  // Minimal config for a pure static site
+  // 4) Minimal config: let filesystem handle routes first
   const config = {
-    // Build Output API v3
-    version: 3
-    // No custom routes or overrides:
-    // Vercel will just serve files directly from /static
-    // so / maps to static/index.html, /posts/... to static/posts/...
+    version: 3,
+    routes: [
+      { handle: "filesystem" },
+      // Optional: custom 404, assuming you have /404.html or /404/index.html
+      { src: "/.*", dest: "/404", status: 404 },
+    ],
   };
 
   await fs.writeFile(
-    path.join(outRoot, "config.json"),
+    path.join(outDir, "config.json"),
     JSON.stringify(config, null, 2),
     "utf8"
   );
