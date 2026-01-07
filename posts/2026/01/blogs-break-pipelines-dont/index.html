@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Blogs Break. Pipelines Don’t. — Justine Longla T Tech Blobs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="How I turned a fragile personal blog into a deterministic, validated publishing pipeline — with CI/CD, link checks, RSS + sitemap validation, and versioned releases."
+  />
+  <link rel="canonical" href="/posts/2026/01/blogs-break-pipelines-dont/" />
+</head>
+<body>
+  <main id="main-content">
+    <article class="post">
+      <header class="post-header">
+        <p class="post-meta">
+          <time datetime="2026-01-07">January 7, 2026</time>
+          <span aria-hidden="true">·</span>
+          <span>DevOps · CI/CD · Static Sites</span>
+        </p>
+        <h1>Blogs Break. Pipelines Don’t.</h1>
+        <p class="post-subtitle">
+          How I engineered my static blog like a production system.
+        </p>
+      </header>
+
+      <section class="post-body">
+        <p>I didn’t “revamp my blog.”</p>
+        <p><strong>I engineered it.</strong></p>
+
+        <p>
+          Today, every post ships through a
+          <strong>deterministic, validated publishing pipeline</strong> — the
+          same way I treat production systems. CI/CD, integrity checks,
+          reproducible builds, and versioned releases are now part of how words
+          move from my editor to your screen.
+        </p>
+
+        <p>Because here’s the truth:</p>
+
+        <blockquote>
+          <p><strong>Blogs break. Pipelines don’t.</strong></p>
+        </blockquote>
+
+        <hr />
+
+        <h2 id="why-i-stopped-trusting-quick-edits">
+          Why I Stopped Trusting “Quick Edits”
+        </h2>
+
+        <p>For years, my blog behaved like most personal sites:</p>
+
+        <ul>
+          <li>Manual tweaks directly in HTML</li>
+          <li>Links quietly breaking as pages moved</li>
+          <li>RSS and sitemap as “nice-to-haves” (or forgotten)</li>
+          <li>No clear record of what shipped when</li>
+        </ul>
+
+        <p>
+          It worked… until it didn’t. The more I treated it like a side
+          project, the more fragile it became. One rushed change could easily
+          introduce broken routes, missing pages, or subtle SEO regressions.
+          There was no safety net.
+        </p>
+
+        <p>
+          As a DevSecOps engineer, that contradiction started to bother me. If I
+          won’t ship <strong>infrastructure</strong> without a pipeline, why was
+          I shipping <strong>content</strong> without one?
+        </p>
+
+        <hr />
+
+        <h2 id="content-as-a-system">The Mental Shift: Content as a System</h2>
+
+        <p>
+          The breakthrough was simple: if users depend on it, it deserves
+          production-grade reliability — even if it’s “just content.”
+        </p>
+
+        <p>
+          I stopped thinking about “my blog” and started thinking about
+          <strong>a content system</strong>:
+        </p>
+
+        <ul>
+          <li>Every post is a source file (Markdown with frontmatter).</li>
+          <li>The site is a build artifact.</li>
+          <li>Deployments are releases, not copy-paste moments.</li>
+          <li>Validation is non-negotiable, not “when I have time.”</li>
+        </ul>
+
+        <p>Once I saw it that way, the rest followed naturally.</p>
+
+        <hr />
+
+        <h2 id="pipeline">The Pipeline: How Posts Ship Now</h2>
+
+        <p>Here’s what happens when I add or update a post.</p>
+
+        <h3 id="markdown-metadata">1. Source of truth: Markdown + metadata</h3>
+
+        <p>
+          Every post lives as a Markdown file with structured frontmatter:
+          title, description, date, tags, and a consistent folder structure like
+          <code>/posts/YYYY/MM/slug.md</code>. The published HTML is derived,
+          not edited by hand.
+        </p>
+
+        <h3 id="deterministic-build">2. Deterministic build</h3>
+
+        <p>
+          When I run the pipeline, it generates indexes, builds static HTML
+          output, and copies the site into a clean <code>dist/</code> folder.
+          Same input, same output — that’s a reproducible build, even for a
+          static blog.
+        </p>
+
+        <h3 id="validation-gates">3. Validation gates</h3>
+
+        <p>Before I consider a release “ready”, the pipeline:</p>
+
+        <ul>
+          <li>Walks all internal links for posts and the <code>/tags</code> page</li>
+          <li>Confirms each expected post route exists</li>
+          <li>Validates that the RSS feed includes all posts</li>
+          <li>Checks that <code>sitemap.xml</code> declares all important URLs</li>
+        </ul>
+
+        <p>
+          If something is missing, the pipeline fails fast. No silent 404s, no
+          ghost posts, and no invisible pages the sitemap forgot to mention.
+        </p>
+
+        <h3 id="versioned-releases">4. Versioned releases</h3>
+
+        <p>
+          Every meaningful change becomes a tagged release:
+          <code>v1.2.0</code> for content automation and layout improvements,
+          <code>v1.3.0</code> for deterministic publishing across the ecosystem,
+          and <code>v1.4.0</code> for RSS + sitemap validation and integrity
+          gates.
+        </p>
+
+        <p>
+          I can point to a tag and answer what was live, when it changed, and
+          why. That’s release engineering applied to static content.
+        </p>
+
+        <hr />
+
+        <h2 id="what-v140-unlocks">What v1.4.0 Unlocks</h2>
+
+        <p>This release adds something more important than “just more posts”:</p>
+
+        <ul>
+          <li>I know every published post has a valid HTML route.</li>
+          <li>I know <code>/tags</code> exists and is wired correctly.</li>
+          <li>I know RSS and sitemap stay in sync with reality.</li>
+          <li>I know the site can be rebuilt from scratch without surprises.</li>
+        </ul>
+
+        <p>
+          My readers may never see the pipeline, but they feel the reliability:
+          no broken links mid-article, no new post missing from the feed, no
+          silent regressions when I “just change one thing.”
+        </p>
+
+        <hr />
+
+        <h2 id="beyond-blogging">Why This Matters Beyond Blogging</h2>
+
+        <p>
+          I didn’t build this just to be fancy. I built it as a worked example
+          of how DevOps thinking applies outside traditional apps:
+        </p>
+
+        <ul>
+          <li>Documentation sites</li>
+          <li>Internal knowledge bases</li>
+          <li>Campaign micro-sites</li>
+          <li>Community blogs and newsletters</li>
+        </ul>
+
+        <p>
+          Anywhere you have humans depending on information, multiple
+          iterations, and a desire not to break things accidentally, a
+          lightweight publishing pipeline will pay for itself.
+        </p>
+
+        <hr />
+
+        <h2 id="devops-mindset">DevOps Is a Mindset, Not a Tool Stack</h2>
+
+        <p>
+          There’s nothing magical about my tech stack. What matters is the
+          intentional discipline:
+        </p>
+
+        <ul>
+          <li>Treat content as code.</li>
+          <li>Make builds reproducible.</li>
+          <li>Add validation gates where failure would hurt.</li>
+          <li>Ship with version tags instead of vibes.</li>
+          <li>Let automation protect your attention.</li>
+        </ul>
+
+        <p>
+          DevOps isn’t Kubernetes or YAML. DevOps is the decision to engineer
+          <strong>trustworthy systems</strong> — including the quiet ones like
+          “just a blog.”
+        </p>
+
+        <hr />
+
+        <h2 id="see-it-live">Want to See It in Action?</h2>
+
+        <p>You can explore the pipeline-driven ecosystem here:</p>
+
+        <ul>
+          <li><a href="/posts/">All blog posts</a></li>
+          <li><a href="/projects/">Projects &amp; case studies</a></li>
+        </ul>
+
+        <p>
+          Behind each of those pages is the same philosophy:
+          <strong>Blogs break. Pipelines don’t.</strong>
+        </p>
+
+        <p>
+          And I’m building my career — and my content — around the pipeline.
+        </p>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
