@@ -1,27 +1,32 @@
+// scripts/vercel-dist.mjs
 import fs from "node:fs/promises";
+import path from "node:path";
 
 async function main() {
-  await fs.rm(".vercel/output", { recursive: true, force: true });
+  const outputRoot = ".vercel/output";
+  const staticDir = path.join(outputRoot, "static");
 
-  await fs.cp("public", ".vercel/output/static", { recursive: true });
+  // 1) Clean previous output
+  await fs.rm(outputRoot, { recursive: true, force: true });
 
+  // 2) Recreate static dir
+  await fs.mkdir(staticDir, { recursive: true });
+
+  // 3) Copy public → .vercel/output/static
+  await fs.cp("public", staticDir, { recursive: true });
+  console.log("✓ copied public/ → .vercel/output/static");
+
+  // 4) Minimal config for Build Output v3
+  const config = { version: 3 };
   await fs.writeFile(
-    ".vercel/output/config.json",
-    JSON.stringify(
-      {
-        version: 3,
-        routes: [
-          { handle: "filesystem" },
-          { src: "/.*", status: 404 }
-        ]
-      },
-      null,
-      2
-    )
+    path.join(outputRoot, "config.json"),
+    JSON.stringify(config, null, 2),
+    "utf8"
   );
-
-  console.log("✓ Static output ready for Vercel");
+  console.log("✓ wrote .vercel/output/config.json (version 3 only)");
 }
 
-main();
-  
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
