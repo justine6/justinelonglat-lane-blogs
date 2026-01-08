@@ -3,32 +3,35 @@ import fs from "node:fs/promises";
 import path from "node:path";
 
 async function main() {
-  const outputRoot = ".vercel/output";
-  const staticDir = path.join(outputRoot, "static");
+  const outDir = ".vercel/output";
+  const staticDir = path.join(outDir, "static");
 
-  // 1. Clean old output
-  await fs.rm(outputRoot, { recursive: true, force: true });
+  // 1) Clean previous output
+  await fs.rm(outDir, { recursive: true, force: true });
 
-  // 2. Recreate .vercel/output/static
+  // 2) Recreate static dir
   await fs.mkdir(staticDir, { recursive: true });
 
-  // 3. Copy public/ → .vercel/output/static
+  // 3) Copy public/ -> .vercel/output/static
   await fs.cp("public", staticDir, { recursive: true });
-  console.log("✓ copied public/ → .vercel/output/static");
 
-  // 4. Minimal config.json for static site
-  //    Build Output v3 – filesystem routing only
+  // 4) Minimal config for Build Output v3 + explicit "/" route
   const config = {
-    version: 3
-    // no routes, no overrides, nothing fancy
+    version: 3,
+    routes: [
+      { handle: "filesystem" },         // serve any matching static file first
+      { src: "/", dest: "/index.html" } // ensure "/" serves your homepage
+    ]
   };
 
   await fs.writeFile(
-    path.join(outputRoot, "config.json"),
+    path.join(outDir, "config.json"),
     JSON.stringify(config, null, 2),
     "utf8"
   );
-  console.log("✓ wrote .vercel/output/config.json (version 3 only)");
+
+  console.log("✓ Static output ready for Vercel");
+  console.log("✓ wrote .vercel/output/config.json (version 3, filesystem + / route)");
 }
 
 main().catch((err) => {
