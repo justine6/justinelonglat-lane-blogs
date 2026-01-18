@@ -1,7 +1,7 @@
 <header class="site-header">
   <div class="container header-row">
-    <a class="brand" href="/">
-      <img class="brand-logo" src="/logo.png" alt="logo" />
+    <a class="brand" href="/" aria-label="Blog home">
+      <img class="brand-logo" src="/logo.png" alt="Justine Longla T. logo" />
       <span class="brand-title">
         Justine Longla T.
         <span class="brand-subtitle">DevSecOps • Cloud • Sustainability</span>
@@ -9,14 +9,25 @@
     </a>
 
     <nav class="site-nav" aria-label="Primary">
-      <a href="/">Home</a>
+      <!-- Ecosystem (external, canonical) -->
+      <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site</a>
+      <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting</a>
+      <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs</a>
+
+      <!-- Blog (internal) -->
+      <a href="/" aria-current="page">Home</a>
       <a href="/posts/">All Blog Posts</a>
       <a href="/projects/">Projects</a>
-      <a href="/docs/">Automation Toolkit</a>
+
+      <!-- Toolkit (cross-site canonical) -->
+      <a href="https://docs.justinelonglat-lane.com/automation-toolkit.html" target="_blank" rel="noopener noreferrer">
+        Automation Toolkit
+      </a>
+
       <a href="/tags/">Tags</a>
       <a href="/feed.xml">RSS</a>
       <a href="/sitemap.xml">Sitemap</a>
-      <a href="https://github.com/justine6/jutellane-blogs" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://github.com/justine6/jutellane-blogs" target="_blank" rel="noopener noreferrer">GitHub</a>
     </nav>
   </div>
 </header>
