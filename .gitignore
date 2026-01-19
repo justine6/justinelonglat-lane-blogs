@@ -43,3 +43,8 @@ public/
 .vscode/
 .idea/
 *.swp
+# Build outputs
+dist/
+.vercel/
+scripts/public/
+public/_partials/
