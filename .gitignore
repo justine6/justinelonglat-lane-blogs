@@ -48,3 +48,7 @@ dist/
 .vercel/
 scripts/public/
 public/_partials/
+
+# local backups
+.backups/
+
