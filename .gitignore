@@ -78,4 +78,9 @@ dist/
 .vercel/output/
 
 # deps
-node_modules/
+nod# Temporary backups
+_backup_repo_*/
+
+# Generated blog output
+blog/
+e_modules/
