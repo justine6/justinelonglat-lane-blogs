@@ -1,24 +1,44 @@
+// scripts/copy-public-to-output.mjs
 import fs from "fs";
 import path from "path";
 
-const root = process.cwd();
-const srcDir = path.join(root, "public");
-const outDir = path.join(root, ".vercel", "output", "static");
+const ROOT = process.cwd();
+const SRC = path.join(ROOT, "public");
+const OUT_STATIC = path.join(ROOT, ".vercel", "output", "static");
 
-function copyRecursive(src, dest) {
-  fs.mkdirSync(dest, { recursive: true });
-  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
-    const s = path.join(src, entry.name);
-    const d = path.join(dest, entry.name);
-    if (entry.isDirectory()) copyRecursive(s, d);
-    else fs.copyFileSync(s, d);
+function ensureDir(p) {
+  fs.mkdirSync(p, { recursive: true });
+}
+
+function copyEntry(srcPath, destPath) {
+  // Node 18+ supports fs.cpSync
+  fs.cpSync(srcPath, destPath, { recursive: true });
+}
+
+function main() {
+  if (!fs.existsSync(SRC)) {
+    console.error(`✗ public/ not found at: ${SRC}`);
+    process.exit(1);
   }
+
+  ensureDir(OUT_STATIC);
+
+  // If a previous buggy copy created .vercel/output/static/public, remove it
+  const nestedPublic = path.join(OUT_STATIC, "public");
+  if (fs.existsSync(nestedPublic)) {
+    fs.rmSync(nestedPublic, { recursive: true, force: true });
+  }
+
+  // Copy CONTENTS of public/ into .vercel/output/static/
+  for (const name of fs.readdirSync(SRC)) {
+    const from = path.join(SRC, name);
+    const to = path.join(OUT_STATIC, name);
+    // remove existing destination to avoid stale leftovers
+    fs.rmSync(to, { recursive: true, force: true });
+    copyEntry(from, to);
+  }
+
+  console.log("✓ copied contents of public/ -> .vercel/output/static/");
 }
 
-if (!fs.existsSync(srcDir)) {
-  console.error("Missing public/ directory");
-  process.exit(1);
-}
-
-copyRecursive(srcDir, outDir);
-console.log("✓ copied public/ -> .vercel/output/static/");
+main();
