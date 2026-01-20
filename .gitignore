@@ -52,3 +52,30 @@ public/_partials/
 # local backups
 .backups/
 
+# backups
+_backup_repo_*/
+.backups/
+*.bak*
+
+# generated site output
+blog/
+dist/
+.vercel/
+.vercel/output/
+
+# deps
+node_modules/
+
+# backups
+_backup_repo_*/
+.backups/
+*.bak*
+
+# generated site output
+blog/
+dist/
+.vercel/
+.vercel/output/
+
+# deps
+node_modules/
