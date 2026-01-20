@@ -1,44 +1,31 @@
-// scripts/copy-public-to-output.mjs
 import fs from "fs";
 import path from "path";
 
+// ...your existing code...
+
 const ROOT = process.cwd();
-const SRC = path.join(ROOT, "public");
 const OUT_STATIC = path.join(ROOT, ".vercel", "output", "static");
 
-function ensureDir(p) {
-  fs.mkdirSync(p, { recursive: true });
+// Ensure output dir exists
+fs.mkdirSync(OUT_STATIC, { recursive: true });
+
+// ✅ Ensure homepage exists in output root
+const rootIndex = path.join(ROOT, "index.html");
+const outIndex = path.join(OUT_STATIC, "index.html");
+
+if (fs.existsSync(rootIndex)) {
+  fs.copyFileSync(rootIndex, outIndex);
+  console.log("✓ copied root index.html -> .vercel/output/static/index.html");
+} else {
+  console.log("⚠ root index.html not found; homepage not copied");
 }
 
-function copyEntry(srcPath, destPath) {
-  // Node 18+ supports fs.cpSync
-  fs.cpSync(srcPath, destPath, { recursive: true });
+// (Optional but recommended) also copy these if they live at repo root
+for (const f of ["favicon.ico", "feed.xml", "sitemap.xml", "robots.txt"]) {
+  const src = path.join(ROOT, f);
+  const dst = path.join(OUT_STATIC, f);
+  if (fs.existsSync(src)) {
+    fs.copyFileSync(src, dst);
+    console.log(`✓ copied ${f} -> .vercel/output/static/${f}`);
+  }
 }
-
-function main() {
-  if (!fs.existsSync(SRC)) {
-    console.error(`✗ public/ not found at: ${SRC}`);
-    process.exit(1);
-  }
-
-  ensureDir(OUT_STATIC);
-
-  // If a previous buggy copy created .vercel/output/static/public, remove it
-  const nestedPublic = path.join(OUT_STATIC, "public");
-  if (fs.existsSync(nestedPublic)) {
-    fs.rmSync(nestedPublic, { recursive: true, force: true });
-  }
-
-  // Copy CONTENTS of public/ into .vercel/output/static/
-  for (const name of fs.readdirSync(SRC)) {
-    const from = path.join(SRC, name);
-    const to = path.join(OUT_STATIC, name);
-    // remove existing destination to avoid stale leftovers
-    fs.rmSync(to, { recursive: true, force: true });
-    copyEntry(from, to);
-  }
-
-  console.log("✓ copied contents of public/ -> .vercel/output/static/");
-}
-
-main();
