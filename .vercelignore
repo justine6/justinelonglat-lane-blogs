@@ -1,0 +1,9 @@
+# keep repo light; DO NOT block site content
+node_modules
+dist
+.vercel
+.DS_Store
+*.log
+.backups
+_site-backup*
+_backup-*
