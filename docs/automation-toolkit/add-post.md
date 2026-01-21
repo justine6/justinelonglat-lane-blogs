@@ -19,3 +19,4 @@ operation.
 
   ```text
   posts\YEAR\MM\slug\
+

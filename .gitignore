@@ -84,3 +84,6 @@ _backup_repo_*/
 # Generated blog output
 blog/
 e_modules/
+
+.vercel
+.env*.local
