@@ -206,8 +206,24 @@ async function main() {
   );
 
   // listing pages (already inside public/)
-  await ensureIndexPage("/_data/posts.json", path.join(PUBLIC_DIR, "blog", "index.html"), "All Blog Posts");
-  await ensureIndexPage("/_data/projects.json", path.join(PUBLIC_DIR, "projects", "index.html"), "Projects");
+  await ensureIndexPage(
+    "/_data/posts.json",
+    path.join(PUBLIC_DIR, "posts", "index.html"),
+    "All Blog Posts"
+  );
+
+  await ensureIndexPage(
+    "/_data/projects.json",
+    path.join(PUBLIC_DIR, "projects", "index.html"),
+    "Projects"
+  );
+
+  // OPTIONAL: keep /blog/ as a friendly alias for /posts/
+  await ensureIndexPage(
+    "/_data/posts.json",
+    path.join(PUBLIC_DIR, "blog", "index.html"),
+    "All Blog Posts"
+  );
 
   console.log(`\n✓ generated ${(posts || []).length} posts and ${(projects || []).length} projects`);
 }
