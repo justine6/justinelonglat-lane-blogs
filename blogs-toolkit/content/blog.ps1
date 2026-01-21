@@ -28,7 +28,7 @@ switch ($cmd) {
     if (-not $DraftPath) {
       $draftsDir = Join-Path $root "drafts"
       $draft = Get-ChildItem $draftsDir -Filter *.md | Sort-Object LastWriteTime -Descending | Select-Object -First 1
-      if (-not $draft) { throw "No drafts found. Add one with: pwsh tools/blog.ps1 new -Title '...'" }
+      if (-not $draft) { throw "No drafts found. Add one with: pwsh blogs-toolkit/content/blog.ps1 new -Title '...'" }
       $DraftPath = $draft.FullName
     }
     & "$PSScriptRoot\Add-Post.ps1" -DraftPath $DraftPath
@@ -40,9 +40,9 @@ switch ($cmd) {
 Jutellane Blogs CLI
 
 Examples:
-  pwsh tools/blog.ps1 new -Title "AWS Landing Zone Tips" -Tags aws,security -Summary "notes"
-  pwsh tools/blog.ps1 publish
-  pwsh tools/blog.ps1 build -SiteUrl "https://justine6.github.io/jutellane-blogs"
+  pwsh blogs-toolkit/content/blog.ps1 new -Title "AWS Landing Zone Tips" -Tags aws,security -Summary "notes"
+  pwsh blogs-toolkit/content/blog.ps1 publish
+  pwsh blogs-toolkit/content/blog.ps1 build -SiteUrl "https://justine6.github.io/jutellane-blogs"
 "@ | Write-Host
   }
 }

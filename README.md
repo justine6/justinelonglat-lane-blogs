@@ -163,4 +163,4 @@ Generated files are never pushed blindly to `main`.
 Handles rejected pushes safely and consistently.
 
 ```powershell
-pwsh ./tools/Safe-Rebase.ps1
+pwsh ./blogs-toolkit/dev/Safe-Rebase.ps1

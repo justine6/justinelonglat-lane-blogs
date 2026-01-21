@@ -4,13 +4,13 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-# Directory of this script (tools/ops)
+# Directory of this script (blogs-toolkit/ops)
 $scriptDir = $PSScriptRoot
 
-# Repo root = two levels up from tools/ops
+# Repo root = two levels up from blogs-toolkit/ops
 $repoRoot = Resolve-Path (Join-Path $scriptDir "..\..")
 
-# Path to metadata generator under tools/content
+# Path to metadata generator under blogs-toolkit/content
 $metadataScript = Join-Path $scriptDir "..\content\Generate-Metadata.ps1"
 
 Write-Host "📂 Repo root: $repoRoot" -ForegroundColor Cyan
@@ -27,7 +27,7 @@ if (-not $SkipMetadata) {
         }
     }
     else {
-        Write-Host "⚠ Generate-Metadata.ps1 not found under tools/content. Skipping metadata step." -ForegroundColor Yellow
+        Write-Host "⚠ Generate-Metadata.ps1 not found under blogs-toolkit/content. Skipping metadata step." -ForegroundColor Yellow
     }
 }
 

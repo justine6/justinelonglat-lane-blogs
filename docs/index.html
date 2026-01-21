@@ -609,7 +609,7 @@
     <aside class="hero-side-card">
       <h2>How this toolkit fits in</h2>
       <p>
-        These scripts live under <code>.\tools\</code> and <code>.\scripts\</code> and are
+        These scripts live under <code>.\blogs-toolkit\</code> and <code>.\scripts\</code> and are
         wired into the blog/docs layout. They:
       </p>
       <ul>
@@ -651,13 +651,13 @@
     <article class="toolkit-card">
       <header class="toolkit-card-header">
         <p class="toolkit-card-eyebrow">Content</p>
-        <h3>tools\Add-Post.ps1</h3>
+        <h3>blogs-toolkit\Add-Post.ps1</h3>
         <p class="toolkit-card-sub">
           One command to create a new post skeleton, wired to the unified layout and card grid.
         </p>
       </header>
 
-      <pre class="toolkit-code"><code>pwsh .\tools\Add-Post.ps1</code></pre>
+      <pre class="toolkit-code"><code>pwsh .\blogs-toolkit\Add-Post.ps1</code></pre>
 
       <ul class="toolkit-list">
         <li>Prompts for title, slug, date, tags, and a short summary.</li>
@@ -709,13 +709,13 @@
     <article class="toolkit-card">
       <header class="toolkit-card-header">
         <p class="toolkit-card-eyebrow">Safety net</p>
-        <h3>tools\Safe-Rebase.ps1</h3>
+        <h3>blogs-toolkit\Safe-Rebase.ps1</h3>
         <p class="toolkit-card-sub">
           A guardrail around <code>git rebase</code> that keeps a recoverable backup of your branch.
         </p>
       </header>
 
-      <pre class="toolkit-code"><code>pwsh .\tools\Safe-Rebase.ps1 main</code></pre>
+      <pre class="toolkit-code"><code>pwsh .\blogs-toolkit\Safe-Rebase.ps1 main</code></pre>
 
       <ul class="toolkit-list">
         <li>Verifies the working tree is clean before touching history.</li>
@@ -738,14 +738,14 @@
         <!-- CONTENT: Add-Post -->
         <article class="tool-card">
           <div class="tool-label">Content</div>
-          <h3 class="tool-name">tools\Add-Post.ps1</h3>
+          <h3 class="tool-name">blogs-toolkit\Add-Post.ps1</h3>
           <p class="tool-desc">
             Adds a new post skeleton in <code>posts\YEAR\MM\slug\index.html</code>, wired to the unified
             layout and card grid. Prompts for title, date, tags, and a short summary.
           </p>
           <div class="tool-path">
             <span class="label">pwsh</span>
-            <code>.\tools\Add-Post.ps1</code>
+            <code>.\blogs-toolkit\Add-Post.ps1</code>
           </div>
           <div class="tool-stack">
             <span>PowerShell</span>
@@ -757,14 +757,14 @@
         <!-- CONTENT: Find-Post -->
         <article class="tool-card">
           <div class="tool-label">Content</div>
-          <h3 class="tool-name">tools\Find-Post.ps1</h3>
+          <h3 class="tool-name">blogs-toolkit\Find-Post.ps1</h3>
           <p class="tool-desc">
             Quick search by slug; opens the exact post folder so you never edit the wrong copy.
             Great for jumping straight into Visual Studio Code for a given post.
           </p>
           <div class="tool-path">
             <span class="label">pwsh</span>
-            <code>.\tools\Find-Post.ps1 new-devops-insights</code>
+            <code>.\blogs-toolkit\Find-Post.ps1 new-devops-insights</code>
           </div>
           <div class="tool-stack">
             <span>PowerShell</span>
@@ -775,14 +775,14 @@
         <!-- QUALITY: check-slugs / tags -->
         <article class="tool-card">
           <div class="tool-label">Quality</div>
-          <h3 class="tool-name">tools\check-slugs.ps1</h3>
+          <h3 class="tool-name">blogs-toolkit\check-slugs.ps1</h3>
           <p class="tool-desc">
             Scans all posts and projects to make sure slugs are unique and match the
             <code>[a-z0-9-]</code> pattern used by the site router.
           </p>
           <div class="tool-path">
             <span class="label">pwsh</span>
-            <code>.\tools\check-slugs.ps1</code>
+            <code>.\blogs-toolkit\check-slugs.ps1</code>
           </div>
           <div class="tool-stack">
             <span>Slug hygiene</span>
@@ -792,14 +792,14 @@
 
         <article class="tool-card">
           <div class="tool-label">Quality</div>
-          <h3 class="tool-name">tools\check-missing-tags.ps1</h3>
+          <h3 class="tool-name">blogs-toolkit\check-missing-tags.ps1</h3>
           <p class="tool-desc">
             Finds posts missing <code>tags:</code> and suggests labels based on the content path and
             existing taxonomy. Keeps your tag pages and filters honest.
           </p>
           <div class="tool-path">
             <span class="label">pwsh</span>
-            <code>.\tools\check-missing-tags.ps1</code>
+            <code>.\blogs-toolkit\check-missing-tags.ps1</code>
           </div>
           <div class="tool-stack">
             <span>Metadata</span>
@@ -810,14 +810,14 @@
 
         <article class="tool-card">
           <div class="tool-label">Quality</div>
-          <h3 class="tool-name">tools\fix-missing-tags.ps1</h3>
+          <h3 class="tool-name">blogs-toolkit\fix-missing-tags.ps1</h3>
           <p class="tool-desc">
             Applies the suggested tags, updates local backups, and keeps metadata consistent across
             posts, projects, and deep dives.
           </p>
           <div class="tool-path">
             <span class="label">pwsh</span>
-            <code>.\tools\fix-missing-tags.ps1</code>
+            <code>.\blogs-toolkit\fix-missing-tags.ps1</code>
           </div>
           <div class="tool-stack">
             <span>Metadata repair</span>
@@ -882,7 +882,7 @@
         <!-- SAFETY -->
         <article class="tool-card">
           <div class="tool-label">Safety</div>
-          <h3 class="tool-name">tools\Safe-Rebase.ps1</h3>
+          <h3 class="tool-name">blogs-toolkit\Safe-Rebase.ps1</h3>
           <p class="tool-desc">
             Guard-rail rebase: checks for a clean working tree, creates a backup branch, and only
             proceeds if everything is safe. Designed for human-friendly, low-stress history
@@ -890,7 +890,7 @@
           </p>
           <div class="tool-path">
             <span class="label">pwsh</span>
-            <code>.\tools\Safe-Rebase.ps1 main</code>
+            <code>.\blogs-toolkit\Safe-Rebase.ps1 main</code>
           </div>
           <div class="tool-stack">
             <span>Git safety</span>
@@ -900,7 +900,7 @@
 
         <article class="tool-card">
           <div class="tool-label">Safety</div>
-          <h3 class="tool-name">tools\git-suture.ps1</h3>
+          <h3 class="tool-name">blogs-toolkit\git-suture.ps1</h3>
           <p class="tool-desc">
             Stitches together mismatched changes after a risky operation (rebase, force push,
             manual file surgery). Helps you recover a known-good “reference state” without
@@ -908,7 +908,7 @@
           </p>
           <div class="tool-path">
             <span class="label">pwsh</span>
-            <code>.\tools\git-suture.ps1</code>
+            <code>.\blogs-toolkit\git-suture.ps1</code>
           </div>
           <div class="tool-stack">
             <span>Recovery</span>
@@ -932,7 +932,7 @@
           <div class="cmd-row">
             <div class="cmd">
               <span class="cmd-label">New post:</span>
-              <code>pwsh .\tools\Add-Post.ps1</code>
+              <code>pwsh .\blogs-toolkit\Add-Post.ps1</code>
             </div>
             <span class="cmd-key">content</span>
           </div>
@@ -940,7 +940,7 @@
           <div class="cmd-row">
             <div class="cmd">
               <span class="cmd-label">Open by slug:</span>
-              <code>pwsh .\tools\Find-Post.ps1 new-devops-insights</code>
+              <code>pwsh .\blogs-toolkit\Find-Post.ps1 new-devops-insights</code>
             </div>
             <span class="cmd-key">navigate</span>
           </div>
@@ -952,7 +952,7 @@
           <div class="cmd-row">
             <div class="cmd">
               <span class="cmd-label">Check slugs:</span>
-              <code>pwsh .\tools\check-slugs.ps1</code>
+              <code>pwsh .\blogs-toolkit\check-slugs.ps1</code>
             </div>
             <span class="cmd-key">slugs</span>
           </div>
@@ -960,7 +960,7 @@
           <div class="cmd-row">
             <div class="cmd">
               <span class="cmd-label">Find missing tags:</span>
-              <code>pwsh .\tools\check-missing-tags.ps1</code>
+              <code>pwsh .\blogs-toolkit\check-missing-tags.ps1</code>
             </div>
             <span class="cmd-key">tags</span>
           </div>
@@ -968,7 +968,7 @@
           <div class="cmd-row">
             <div class="cmd">
               <span class="cmd-label">Apply fixes:</span>
-              <code>pwsh .\tools\fix-missing-tags.ps1</code>
+              <code>pwsh .\blogs-toolkit\fix-missing-tags.ps1</code>
             </div>
             <span class="cmd-key">repair</span>
           </div>
@@ -992,7 +992,7 @@
           <div class="cmd-row">
             <div class="cmd">
               <span class="cmd-label">Guarded rebase:</span>
-              <code>pwsh .\tools\Safe-Rebase.ps1 main</code>
+              <code>pwsh .\blogs-toolkit\Safe-Rebase.ps1 main</code>
             </div>
             <span class="cmd-key">safety</span>
           </div>
@@ -1000,7 +1000,7 @@
           <div class="cmd-row">
             <div class="cmd">
               <span class="cmd-label">Suture history:</span>
-              <code>pwsh .\tools\git-suture.ps1</code>
+              <code>pwsh .\blogs-toolkit\git-suture.ps1</code>
             </div>
             <span class="cmd-key">recover</span>
           </div>

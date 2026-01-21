@@ -17,10 +17,10 @@
     Optional tag annotation message.
 
 .EXAMPLE
-    pwsh ./tools/git-suture.ps1 -Message "fix: layout bug"
+    pwsh ./blogs-toolkit/dev/git-suture.ps1 -Message "fix: layout bug"
 
 .EXAMPLE
-    pwsh ./tools/git-suture.ps1 `
+    pwsh ./blogs-toolkit/dev/git-suture.ps1 `
       -Message "refactor: improve automation" `
       -Tag "v-refactor-001" `
       -TagMessage "Reference snapshot for refactor work"

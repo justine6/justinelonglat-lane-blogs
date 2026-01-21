@@ -1,4 +1,4 @@
-# tools\Add-Post.ps1
+# blogs-toolkit\Add-Post.ps1
 
 **Category:** Content creation  
 **Repo:** `jutellane-blogs` (portable to any static blog)
