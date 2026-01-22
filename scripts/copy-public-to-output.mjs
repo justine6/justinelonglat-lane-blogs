@@ -10,22 +10,17 @@ const OUT_STATIC = path.join(ROOT, ".vercel", "output", "static");
 fs.mkdirSync(OUT_STATIC, { recursive: true });
 
 // ✅ Ensure homepage exists in output root
+// Prefer the rich homepage from /public if present; fallback to repo-root index.html.
 const rootIndex = path.join(ROOT, "index.html");
+const publicIndex = path.join(ROOT, "public", "index.html");
 const outIndex = path.join(OUT_STATIC, "index.html");
 
-if (fs.existsSync(rootIndex)) {
-  fs.copyFileSync(rootIndex, outIndex);
-  console.log("✓ copied root index.html -> .vercel/output/static/index.html");
-} else {
-  console.log("⚠ root index.html not found; homepage not copied");
-}
+const srcIndex = fs.existsSync(publicIndex) ? publicIndex : rootIndex;
 
-// (Optional but recommended) also copy these if they live at repo root
-for (const f of ["favicon.ico", "feed.xml", "sitemap.xml", "robots.txt"]) {
-  const src = path.join(ROOT, f);
-  const dst = path.join(OUT_STATIC, f);
-  if (fs.existsSync(src)) {
-    fs.copyFileSync(src, dst);
-    console.log(`✓ copied ${f} -> .vercel/output/static/${f}`);
-  }
+if (fs.existsSync(srcIndex)) {
+  fs.copyFileSync(srcIndex, outIndex);
+  const label = srcIndex === publicIndex ? "public/index.html" : "root index.html";
+  console.log(`✓ copied ${label} -> .vercel/output/static/index.html`);
+} else {
+  console.log("⚠ No index.html found (neither /public nor repo root); homepage not copied");
 }
