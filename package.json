@@ -10,7 +10,8 @@
     "buildCommand": "npm run deploy:check",
     "outputDirectory": ".vercel/output/static",
     "vercel:build": "vercel build",
-    "vercel:deploy:preview": "vercel deploy --prebuilt"
+    "vercel:deploy:preview": "vercel deploy --prebuilt",
+    "validate": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/validate.ps1"
   },
   "devDependencies": {
     "cheerio": "^1.1.2",
