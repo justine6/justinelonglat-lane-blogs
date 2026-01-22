@@ -1,52 +1,62 @@
+# blogs-toolkit/ops/build.ps1
+[CmdletBinding()]
 param(
+  [string]$SiteUrl = "https://blogs.justinelonglat-lane.com",
+  [string]$PostsRoot = "",
   [switch]$SkipMetadata
 )
 
 $ErrorActionPreference = "Stop"
 
-# Directory of this script (blogs-toolkit/ops)
-$scriptDir = $PSScriptRoot
+# Where this script lives: <repo>\blogs-toolkit\ops
+$OpsDir      = $PSScriptRoot
+$ToolkitRoot = (Resolve-Path (Join-Path $OpsDir "..")).Path          # <repo>\blogs-toolkit
+$RepoRoot    = (Resolve-Path (Join-Path $ToolkitRoot "..")).Path     # <repo>
 
-# Repo root = two levels up from blogs-toolkit/ops
-$repoRoot = Resolve-Path (Join-Path $scriptDir "..\..")
+Write-Host "📂 Repo root:    $RepoRoot"
+Write-Host "🧰 Toolkit root: $ToolkitRoot"
 
-# Path to metadata generator under blogs-toolkit/content
-$metadataScript = Join-Path $scriptDir "..\content\Generate-Metadata.ps1"
-
-Write-Host "📂 Repo root: $repoRoot" -ForegroundColor Cyan
-Set-Location $repoRoot
-
-# 1) Run metadata generator if available
+# 1) Metadata generation (optional)
 if (-not $SkipMetadata) {
-    if (Test-Path $metadataScript) {
-        Write-Host "📝 Running metadata generator: $metadataScript" -ForegroundColor Cyan
-        & $metadataScript
-        $metaExit = $LASTEXITCODE
-        if ($metaExit -ne $null -and $metaExit -ne 0) {
-            Write-Host "⚠ Generate-Metadata.ps1 exited with code $metaExit" -ForegroundColor Yellow
-        }
-    }
-    else {
-        Write-Host "⚠ Generate-Metadata.ps1 not found under blogs-toolkit/content. Skipping metadata step." -ForegroundColor Yellow
-    }
+  $Gen = Join-Path $ToolkitRoot "content\Generate-Metadata.ps1"
+  if (-not (Test-Path -LiteralPath $Gen)) { throw "Missing generator: $Gen" }
+
+  if (-not $PostsRoot) { $PostsRoot = (Join-Path $RepoRoot "posts") }
+
+  Write-Host "📝 Running metadata generator: $Gen"
+  & pwsh -NoProfile -ExecutionPolicy Bypass -File $Gen `
+    -SiteUrl $SiteUrl `
+    -PostsRoot $PostsRoot `
+    -RepoRoot $RepoRoot `
+    -ToolkitRoot $ToolkitRoot
+
+  if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+}
+else {
+  Write-Host "⏭ Skipping metadata generation (-SkipMetadata)."
 }
 
 # 2) Run the JS build
-Write-Host "🏗 Running site build..." -ForegroundColor Cyan
+Write-Host "🏗 Running site build..."
 
-if (Test-Path "pnpm-lock.yaml") {
+Push-Location $RepoRoot
+try {
+  if (Test-Path "pnpm-lock.yaml") {
     pnpm build
-}
-elseif (Test-Path "package.json") {
+  }
+  elseif (Test-Path "package.json") {
     npm run build
-}
-else {
-    Write-Host "⚠ No package.json or pnpm-lock.yaml found; nothing to build." -ForegroundColor Yellow
-}
+  }
+  else {
+    Write-Host "⚠ No package.json or pnpm-lock.yaml found; nothing to build."
+  }
 
-$exit = $LASTEXITCODE
-if ($exit -ne $null -and $exit -ne 0) {
-    Write-Host "⚠ Build exited with code $exit" -ForegroundColor Yellow
+  $exit = $LASTEXITCODE
+  if ($exit -ne $null -and $exit -ne 0) {
+    Write-Host "⚠ Build exited with code $exit"
     exit $exit
+  }
 }
-
+finally {
+  Pop-Location
+}

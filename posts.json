@@ -1,81 +1,8 @@
-[
-  {
-    "title": "unfinished-ideas",
-    "description": "Justine Longla T. DevOps Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
-    "tags": [],
-    "url": "/posts/2025/10/unfinished-ideas/",
-    "slug": "unfinished-ideas",
-    "kind": "post"
-  },
-  {
-    "title": "perfect-build",
-    "description": "Justine Longla T. DevOps Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
-    "tags": [],
-    "url": "/posts/2025/10/perfect-build/",
-    "slug": "perfect-build",
-    "kind": "post"
-  },
-  {
-    "title": "observability-basics",
-    "description": "Justine Longla T. DevOps Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
-    "tags": [],
-    "url": "/posts/2025/10/observability-basics/",
-    "slug": "observability-basics",
-    "kind": "post"
-  },
-  {
-    "title": "observability-basics-ii",
-    "description": "Justine Longla T. DevOps Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
-    "tags": [],
-    "url": "/posts/2025/10/observability-basics-ii/",
-    "slug": "observability-basics-ii",
-    "kind": "post"
-  },
-  {
-    "title": "new-devops-insights",
-    "description": "Justine Longla T. DevOps Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
-    "tags": [],
-    "url": "/posts/2025/10/new-devops-insights/",
-    "slug": "new-devops-insights",
-    "kind": "post"
-  },
-  {
-    "title": "kubernetes-101",
-    "description": "Justine Longla T. DevOps Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
-    "tags": [],
-    "url": "/posts/2025/10/kubernetes-101/",
-    "slug": "kubernetes-101",
-    "kind": "post"
-  },
-  {
-    "title": "hello-world",
-    "description": "Justine Longla T. DevOps Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
-    "tags": [],
-    "url": "/posts/2025/10/hello-world/",
-    "slug": "hello-world",
-    "kind": "post"
-  },
-  {
-    "title": "first-post",
-    "description": "Justine Longla T. DevOps Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
-    "tags": [],
-    "url": "/posts/2025/10/first-post/",
-    "slug": "first-post",
-    "kind": "post"
-  },
-  {
-    "title": "ci-cd-pipeline",
-    "description": "Justine Longla T. DevOps Blog — Exploring Cloud, DevOps, AI, and Sustainability.",
-    "tags": [],
-    "url": "/posts/2025/10/ci-cd-pipeline/",
-    "slug": "ci-cd-pipeline",
-    "kind": "post"
-  }
-  {
-    "title": "When a Single Warning Turned Into a Docs-as-Code Masterclass",
-    "description": "How a stubborn html-validate warning about a raw '>' pushed a docs pipeline to production-grade rigor.",
-    "url": "/posts/docs-pipeline-warning-to-masterclass.html",
-    "date": "2026-01-06",
-    "tags": ["devops", "documentation", "ci/cd", "html", "automation"]
-  }
-]
+{
+  "title": "Shipping Content Like Code",
+  "date": "2025-12-20",
+  "tags": [],
+  "summary": null,
+  "url": "/posts/2025/12/shipping-content-like-code/",
+  "cover": null
+}

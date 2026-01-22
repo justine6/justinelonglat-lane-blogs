@@ -1,35 +1,84 @@
-param([string] $SiteUrl = "https://justine6.github.io/jutellane-blogs")
+# blogs-toolkit/content/Generate-Metadata.ps1
+[CmdletBinding()]
+param(
+  [string] $SiteUrl   = "https://justine6.github.io/justinelonglat-lane-blogs",
+  [string] $PostsRoot = "",
+
+  # Optional overrides (normally not needed, but safe for CI/ops wrappers)
+  [string] $RepoRoot  = "",
+  [string] $ToolkitRoot = ""
+)
+
 $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.Web
 
 # -----------------------------
-# Resolve repo root (parent of /tools)
+# Resolve roots (ALWAYS)
 # -----------------------------
 $scriptDir = $PSScriptRoot
 if (-not $scriptDir) {
   $scriptDir = Split-Path -Parent $PSCommandPath -ErrorAction SilentlyContinue
   if (-not $scriptDir) { $scriptDir = (Get-Location).Path }
 }
-$repoRoot = Split-Path -Parent $scriptDir  # ...\jutellane-blogs
 
-# Base path for GitHub Pages under a repo (important for correct URLs)
-$BasePath = "/jutellane-blogs"
+# If caller didn't supply them, derive from file location:
+# This file lives at: <repo>\blogs-toolkit\content\Generate-Metadata.ps1
+if (-not $ToolkitRoot) {
+  $ToolkitRoot = (Resolve-Path (Join-Path $scriptDir "..")).Path
+}
+if (-not $RepoRoot) {
+  $RepoRoot = (Resolve-Path (Join-Path $ToolkitRoot "..")).Path
+}
 
 # -----------------------------
-# Paths
+# Base path:
+# - GitHub Pages project sites need "/<repo>"
+# - Vercel custom domains should be empty
 # -----------------------------
-$postsDir         = Join-Path $repoRoot 'posts'
-$tagsDir          = Join-Path $repoRoot 'tags'
-$postPageTemplate = Join-Path $postsDir 'postpage.html'   # posts\postpage.html
-$coverPartial     = Join-Path $postsDir 'template.html'   # posts\template.html
+$BasePath = if ($SiteUrl -match "github\.io") { "/justinelonglat-lane-blogs" } else { "" }
 
-Write-Host "Repo root:          $repoRoot"
+# -----------------------------
+# Choose posts root:
+# - If -PostsRoot provided, it MUST exist (supports relative paths)
+# - Else default to <repo>\posts (create if missing)
+# -----------------------------
+$PostsRoot = ($PostsRoot ?? "").Trim()
+
+if ($PostsRoot) {
+  $candidate = $PostsRoot
+  if (-not [IO.Path]::IsPathRooted($candidate)) {
+    $candidate = Join-Path $RepoRoot $candidate
+  }
+  if (-not (Test-Path -LiteralPath $candidate)) {
+    throw "PostsRoot does not exist: $candidate"
+  }
+  $postsDir = (Resolve-Path -LiteralPath $candidate).Path
+}
+else {
+  $defaultPosts = Join-Path $RepoRoot "posts"
+  if (-not (Test-Path -LiteralPath $defaultPosts)) {
+    New-Item -ItemType Directory -Path $defaultPosts | Out-Null
+  }
+  $postsDir = (Resolve-Path -LiteralPath $defaultPosts).Path
+}
+
+# -----------------------------
+# Paths (inputs/templates under toolkit; outputs under repo)
+# -----------------------------
+$tagsDir          = Join-Path $RepoRoot "tags"
+$postPageTemplate = Join-Path $ToolkitRoot "templates\posts\postpage.html"
+$coverPartial     = Join-Path $ToolkitRoot "templates\posts\template.html"
+
+Write-Host "Repo root:          $RepoRoot"
+Write-Host "Toolkit root:       $ToolkitRoot"
+Write-Host "Posts root:         $postsDir"
 Write-Host "Post page template: $postPageTemplate"
 Write-Host "Cover partial:      $coverPartial"
+Write-Host "BasePath:           $BasePath"
 
-if (-not (Test-Path $postPageTemplate)) { throw "Missing post page template: $postPageTemplate" }
-if (-not (Test-Path $coverPartial))     { throw "Missing cover partial: $coverPartial" }
-if (-not (Test-Path $tagsDir))          { New-Item -ItemType Directory -Path $tagsDir | Out-Null }
+if (-not (Test-Path -LiteralPath $tagsDir)) { New-Item -ItemType Directory -Path $tagsDir | Out-Null }
+if (-not (Test-Path -LiteralPath $postPageTemplate)) { throw "Missing post page template: $postPageTemplate" }
+if (-not (Test-Path -LiteralPath $coverPartial))     { throw "Missing cover partial: $coverPartial" }
 
 # -----------------------------
 # Helpers (must be defined BEFORE use)
@@ -106,12 +155,24 @@ function Get-DateAndSlugFromFolder([IO.DirectoryInfo]$dir) {
   # expects ...\posts\YYYY\MM\<slug>\
   $sep   = [IO.Path]::DirectorySeparatorChar
   $parts = $dir.FullName -split [regex]::Escape($sep)
+
+  if ($parts.Count -lt 3) { return $null }
+
   $slug  = $parts[-1]
   $mm    = $parts[-2]
   $yyyy  = $parts[-3]
-  @{
-    Date = [datetime]::ParseExact("$yyyy-$mm-01",'yyyy-MM-dd',$null)
-    Slug = ($slug.ToLower() -replace '[^a-z0-9\-]','-' -replace '-+','-')
+
+  # Guardrails: only accept strict YYYY/MM
+  if ($yyyy -notmatch '^\d{4}$') { return $null }
+  if ($mm   -notmatch '^\d{2}$') { return $null }
+
+  try {
+    return @{
+      Date = [datetime]::ParseExact("$yyyy-$mm-01",'yyyy-MM-dd',$null)
+      Slug = ($slug.ToLower() -replace '[^a-z0-9\-]','-' -replace '-+','-')
+    }
+  } catch {
+    return $null
   }
 }
 
@@ -155,14 +216,23 @@ foreach ($f in $mdFiles) {
   else                       { $fromFlat   = Get-DateAndSlugFromFlatName $f.Name }
 
   $dt = $null
+
+  # 1) Front-matter date (preferred)
   if ($m.date) { try { $dt = [datetime]::Parse($m.date) } catch {} }
-  if (-not $dt) { $dt = if ($fromFolder) { $fromFolder.Date } elseif ($fromFlat) { $fromFlat.Date } else { $null } }
-  if (-not $dt) { continue }  # still missing date → skip
+
+  # 2) Fallbacks (folder / flat filename)
+  if (-not $dt) {
+    if ($fromFolder -and $fromFolder.Date) { $dt = $fromFolder.Date }
+    elseif ($fromFlat -and $fromFlat.Date) { $dt = $fromFlat.Date }
+  }
+
+  # 3) Still no date? Skip this file (prevents null crash)
+  if (-not $dt) { continue }
 
   $slug = $null
   if     ($m.slug)      { $slug = ($m.slug.ToLower() -replace '[^a-z0-9\-]','-' -replace '-+','-') }
-  elseif ($fromFolder)  { $slug = $fromFolder.Slug }
-  elseif ($fromFlat)    { $slug = $fromFlat.Slug }
+  elseif ($fromFolder -and $fromFolder.Slug)  { $slug = $fromFolder.Slug }
+  elseif ($fromFlat   -and $fromFlat.Slug)    { $slug = $fromFlat.Slug }
   else {
     $slug = (($m.title) -replace "[^a-zA-Z0-9\s-]","").ToLower() -replace "\s+","-" -replace "-+","-"
   }
@@ -201,12 +271,13 @@ foreach ($f in $mdFiles) {
   $items += [pscustomobject]@{
     title   = $m.title
     date    = $dt.ToString('yyyy-MM-dd')
-    tags    = @($m.tags)
+    tags    = @(@($m.tags) | ForEach-Object { $_ } | Where-Object { $_ -and $_.ToString().Trim() -ne "" })
     summary = $m.summary
     url     = $url
     cover   = $m.cover
   }
 }
+
 
 # newest first
 $items = $items | Sort-Object { [datetime]::Parse($_.date) } -Descending
@@ -214,7 +285,7 @@ $items = $items | Sort-Object { [datetime]::Parse($_.date) } -Descending
 # -----------------------------
 # posts.json
 # -----------------------------
-$items | ConvertTo-Json -Depth 5 | Set-Content -Path (Join-Path $repoRoot "posts.json") -Encoding UTF8
+$items | ConvertTo-Json -Depth 5 | Set-Content -Path (Join-Path $RepoRoot "posts.json") -Encoding UTF8
 
 # -----------------------------
 # feed.xml
@@ -237,13 +308,22 @@ foreach ($i in $items) {
   $rss += "  </item>"
 }
 $rss += "</channel></rss>"
-Set-Content -Path (Join-Path $repoRoot "feed.xml") -Value ($rss -join "`n") -Encoding UTF8
+Set-Content -Path (Join-Path $RepoRoot "feed.xml") -Value ($rss -join "`n") -Encoding UTF8
 
 # -----------------------------
 # tags index + pages
 # -----------------------------
 $tagMap = @{}
-foreach ($i in $items) { foreach ($t in ($i.tags)) { if (-not $tagMap.ContainsKey($t)) { $tagMap[$t] = @() }; $tagMap[$t] += ,$i } }
+foreach ($i in $items) {
+  foreach ($t in @($i.tags)) {
+    if (-not $t) { continue }
+    $key = $t.ToString().Trim()
+    if ($key -eq "") { continue }
+
+    if (-not $tagMap.ContainsKey($key)) { $tagMap[$key] = @() }
+    $tagMap[$key] += ,$i
+  }
+}
 
 $tagsIndex = @"
 <!doctype html><meta charset="utf-8"><title>Tags — Jutellane Blogs</title>
@@ -285,6 +365,6 @@ $siteMap += '<?xml version="1.0" encoding="UTF-8"?>'
 $siteMap += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
 $siteMap += ($urls | Sort-Object -Unique | ForEach-Object { "  <url><loc>$_</loc><changefreq>weekly</changefreq></url>" })
 $siteMap += '</urlset>'
-Set-Content -Path (Join-Path $repoRoot "sitemap.xml") -Value ($siteMap -join "`n") -Encoding UTF8
+Set-Content -Path (Join-Path $RepoRoot "sitemap.xml")-Value ($siteMap -join "`n") -Encoding UTF8
 
 Write-Host "Generated: posts.json ($($items.Count)), feed.xml, sitemap.xml, tags/"

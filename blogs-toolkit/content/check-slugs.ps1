@@ -32,12 +32,14 @@ Get-ChildItem -Path $postsRoot -Recurse -Filter "index.html" | ForEach-Object {
     $month  = Split-Path (Split-Path $folder -Parent) -Leaf
     $year   = Split-Path (Split-Path (Split-Path $folder -Parent) -Parent) -Leaf
 
-    $items += [pscustomobject]@{
-        Slug  = $slug
-        Year  = $year
-        Month = $month
-        Path  = $file
-    }
+  $items += [pscustomobject]@{
+    title   = $m.title
+    date    = $dt.ToString('yyyy-MM-dd')
+    tags    = @(@($m.tags) | ForEach-Object { $_ } | Where-Object { $_ -and $_.ToString().Trim() -ne "" })
+    summary = $m.summary
+    url     = $url
+    cover   = $m.cover
+  }
 }
 
 if (-not $items) {
