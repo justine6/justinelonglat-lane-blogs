@@ -2,6 +2,15 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
+async function exists(p) {
+  try {
+    await fs.access(p);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function main() {
   const outDir = ".vercel/output";
   const staticDir = path.join(outDir, "static");
@@ -15,12 +24,28 @@ async function main() {
   // 3) Copy public/ -> .vercel/output/static
   await fs.cp("public", staticDir, { recursive: true });
 
-  // 4) Build Output v3 config: filesystem first, then "/" -> "/index.html"
+  // 4) Ensure required root index exists
+  // If public/index.html doesn't exist, make "/" land on posts grid by copying posts index.
+  const rootIndex = path.join(staticDir, "index.html");
+  const postsIndex = path.join(staticDir, "posts", "index.html");
+
+  if (!(await exists(rootIndex))) {
+    if (await exists(postsIndex)) {
+      await fs.copyFile(postsIndex, rootIndex);
+      console.log("✓ created .vercel/output/static/index.html from /posts/index.html");
+    } else {
+      throw new Error(
+        "Missing required output: no .vercel/output/static/index.html and no /posts/index.html to fallback to."
+      );
+    }
+  }
+
+  // 5) Minimal config for Build Output v3
   const config = {
     version: 3,
     routes: [
-      { handle: "filesystem" },
-      { src: "/", dest: "/index.html" }
+      { handle: "filesystem" },              // serve any matching static file first
+      { src: "/", dest: "/index.html" }      // ensure "/" serves root index
     ]
   };
 
