@@ -40,13 +40,11 @@ async function main() {
     }
   }
 
-  // 5) Minimal config for Build Output v3
+  // 5) Minimal config for Build Output v3 (filesystem only)
+  // "/" will serve /index.html automatically because it's in the static filesystem.
   const config = {
     version: 3,
-    routes: [
-      { handle: "filesystem" },        // serve any matching static file first
-      { src: "/", dest: "/index.html"} // ensure "/" serves root index
-    ]
+    routes: [{ handle: "filesystem" }],
   };
 
   await fs.writeFile(
