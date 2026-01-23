@@ -45,7 +45,11 @@ async function main() {
     version: 3,
     routes: [
       { handle: "filesystem" },              // serve any matching static file first
-      { src: "/", dest: "/index.html" }      // ensure "/" serves root index
+      routes: [
+      { handle: "filesystem" },
+      { src: "/", dest: "/index.html" }
+    ]
+    // ensure "/" serves root index
     ]
   };
 

@@ -10,50 +10,113 @@
   <title>Justine Longla T. — DevSecOps • Cloud • Sustainability</title>
   <meta
     name="description"
-    content="DevSecOps, Cloud, and sustainability — projects, deep dives, and automation notes from Justine Longla T."
+    content="Deep dives on reproducible environments, observability, secure delivery, and sustainable cloud systems."
   />
-  <meta name="tags" content="devsecops, cloud, automation, powershell, static-sites, ci/cd, scripting" />
+  <meta name="tags" content="devsecops, cloud, observability, automation, ci/cd, reliability" />
 
   <!-- Primary favicon (root-safe) -->
-  <link rel="icon" href="/assets/css/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/img/favicon.ico" sizes="any" />
 
   <!-- Global site styles -->
   <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <!-- Minimal landing-only tweaks (safe even if main.css evolves) -->
+  <style>
+    .landing-hero{
+      padding: 4.5rem 0 3rem;
+      background: radial-gradient(1200px 600px at 50% -10%, rgba(56,189,248,.20), transparent 60%),
+                  radial-gradient(900px 500px at 10% 10%, rgba(99,102,241,.18), transparent 55%),
+                  linear-gradient(180deg, rgba(2,6,23,.92), rgba(2,6,23,.84));
+      color: #e5e7eb;
+      border-bottom: 1px solid rgba(148,163,184,.18);
+    }
+    .landing-hero h1{
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      color: #ffffff;
+    }
+    .landing-hero p{
+      margin: .9rem 0 0;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: rgba(229,231,235,.88);
+      max-width: 52rem;
+    }
+    .landing-actions{
+      margin-top: 1.5rem;
+      display: flex;
+      gap: .9rem;
+      flex-wrap: wrap;
+    }
+    .landing-actions a{
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .78rem 1.05rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid rgba(148,163,184,.22);
+      background: rgba(15,23,42,.35);
+      color: #e5e7eb;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      backdrop-filter: blur(6px);
+    }
+    .landing-actions a:hover{
+      transform: translateY(-2px);
+      border-color: rgba(56,189,248,.40);
+      background: rgba(15,23,42,.55);
+    }
+    .landing-actions a.primary{
+      background: rgba(56,189,248,.16);
+      border-color: rgba(56,189,248,.35);
+    }
+
+    .landing-grid{
+      padding: 2.25rem 0 3rem;
+    }
+    .landing-card{
+      border: 1px solid rgba(148,163,184,.18);
+      border-radius: 18px;
+      padding: 1.25rem 1.25rem 1.1rem;
+      background: #0b1220;
+      box-shadow: 0 1px 0 rgba(255,255,255,.03) inset;
+      color: #e5e7eb;
+    }
+    .landing-card h2{
+      margin: 0 0 .5rem;
+      font-size: 1.15rem;
+      letter-spacing: -.01em;
+    }
+    .landing-card p{
+      margin: 0;
+      color: rgba(229,231,235,.82);
+      line-height: 1.6;
+    }
+    .landing-card .small{
+      margin-top: .75rem;
+      color: rgba(148,163,184,.92);
+      font-size: .92rem;
+    }
+
+    .landing-columns{
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    @media (max-width: 980px){
+      .landing-columns{ grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-<script>
-  (function () {
-    var KEY = "jlt-theme"; // "light" | "dark"
-
-    function apply(theme) {
-      document.documentElement.setAttribute("data-theme", theme);
-      try { localStorage.setItem(KEY, theme); } catch (e) {}
-
-      var icon = document.querySelector(".theme-toggle-icon");
-      if (icon) icon.textContent = theme === "dark" ? "☀️" : "🌙";
-    }
-
-    function getPreferred() {
-      try {
-        var saved = localStorage.getItem(KEY);
-        if (saved === "light" || saved === "dark") return saved;
-      } catch (e) {}
-      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light";
-    }
-
-    window.__toggleTheme = function () {
-      var current = document.documentElement.getAttribute("data-theme") || getPreferred();
-      apply(current === "dark" ? "light" : "dark");
-    };
-
-    apply(getPreferred());
-  })();
-</script>
 
 <body>
+  <!-- Unified header (your partials injection will keep this consistent) -->
+  <!--#include virtual="/_partials/header.html" -->
+  <!-- If you are not using SSI includes, your partial injector will replace the block below. -->
 
-  <!-- Unified header (single-source look) -->
   <header class="site-header">
     <div class="container header-row">
       <a class="brand" href="/">
@@ -68,134 +131,97 @@
         <nav class="site-nav" aria-label="Primary">
           <a href="/">Home</a>
           <a href="/posts/">All Blog Posts</a>
-
-          <!-- ✅ Projects opens MAIN website projects block -->
           <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
-
           <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Docs site</a>
           <a href="/docs/">Automation toolkit</a>
+          <!-- ✅ heavy page -->
+          <a href="/home/">Work with Justine</a>
         </nav>
-
-      <!-- ✅ Combined pill: profile + theme toggle -->
-      <div class="header-pill" role="group" aria-label="Profile and theme">
-        <!-- Profile link -->
-      <a
-      class="header-profile-pill"
-      href="https://justinelonglat-lane.com/"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Open JustineLonglaT-Lane main website"
-      title="Open main site"
-    >
-      <!-- Avatar -->
-      <img
-        src="/assets/img/justine-profile.jpg"
-        alt="Justine Longla T."
-        class="header-profile-avatar"
-        loading="lazy"
-      />
-
-      <span class="header-profile-label">Justine</span>
-
-      <!-- 🔥 Theme toggle INSIDE the pill -->
-      <button
-        id="theme-toggle"
-        class="theme-toggle-pill"
-        aria-label="Toggle light/dark mode"
-      >
-        <span class="theme-icon light">☀️</span>
-        <span class="theme-icon dark">🌙</span>
-      </button>
-    </a>
-
-
-      </div>
-
       </div>
     </div>
   </header>
 
-  <!-- Work with Justine: profile + CTAs -->
-  <section class="home-profile-cta" aria-labelledby="meet-justine">
-    <div class="container home-profile-inner">
-      <div class="home-profile-photo">
-        <img
-          src="/assets/img/justine-profile.jpg"
-          alt="Portrait of Justine Longla T., DevSecOps and Cloud engineer"
-          loading="lazy"
-        />
-      </div>
+  <!-- LIGHTWEIGHT LANDING -->
+  <section class="landing-hero" aria-labelledby="landing-title">
+    <div class="container">
+      <h1 id="landing-title">Deep dives on reproducible environments, observability, secure delivery, and sustainable cloud systems.</h1>
+      <p>
+        Practical notes from real pipelines: how I ship static sites with guardrails, keep builds deterministic,
+        and turn “blogging” into an engineering system.
+      </p>
 
-      <div class="home-profile-copy">
-        <p class="eyebrow">Work with Justine</p>
-        <h2 id="meet-justine">Bring this DevSecOps playbook into your systems.</h2>
-        <p class="home-profile-blurb">
-          If you’re looking to level-up reliability, security, and observability in real projects,
-          let’s talk. From intro calls to hands-on consulting, everything here is built from
-          production-grade experience.
-        </p>
-
-        <div class="home-profile-buttons">
-          <a href="https://justinelonglat-lane.com/booking" class="btn-cta btn-cta-primary">Intro call</a>
-          <a href="https://justinelonglat-lane.com/resume" class="btn-cta">Resume (PDF)</a>
-          <a href="https://www.justinelonglat-lane.com/files/JLT-Consulting-Brochure.pdf" class="btn-cta">Brochure (PDF)</a>
-          <a href="/docs/" class="btn-cta">Automation toolkit</a>
-        </div>
+      <div class="landing-actions" aria-label="Primary actions">
+        <a class="primary" href="/posts/">Explore posts →</a>
+        <a href="/docs/">Automation toolkit →</a>
+        <a href="/home/">Work with Justine →</a>
       </div>
     </div>
   </section>
 
-  <footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-left">
-      <div class="footer-brand">
-        <img
-          src="/assets/img/logo.png"
-          alt="Justine Longla T. logo"
-          class="footer-logo"
-          width="40"
-          height="40"
-        />
-        <div class="footer-brand-text">
-          <span class="footer-name">Justine Longla T.</span>
-          <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+  <main class="landing-grid">
+    <div class="container">
+      <div class="landing-columns">
+        <div class="landing-card">
+          <h2>Latest posts</h2>
+          <p>Browse the grid, search by tags, and open deep dives.</p>
+          <p class="small"><a href="/posts/" style="color:#7dd3fc;text-decoration:none;">Go to All Blog Posts →</a></p>
+        </div>
+
+        <div class="landing-card">
+          <h2>Automation Toolkit</h2>
+          <p>Scripts and guardrails: validate, inject partials, generate indexes, and keep releases safe.</p>
+          <p class="small"><a href="/docs/" style="color:#7dd3fc;text-decoration:none;">Open toolkit →</a></p>
+        </div>
+
+        <div class="landing-card">
+          <h2>Work with Justine</h2>
+          <p>Intro call, resume, brochure, and the consulting entrypoint — on the full homepage.</p>
+          <p class="small"><a href="/home/" style="color:#7dd3fc;text-decoration:none;">Open homepage →</a></p>
         </div>
       </div>
+    </div>
+  </main>
 
-      <p class="footer-copy">
-        © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting.
-        All rights reserved.
-      </p>
+  <!-- Footer (partial-friendly) -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="/assets/img/logo.png" alt="Justine Longla T. logo" class="footer-logo" width="40" height="40" />
+          <div class="footer-brand-text">
+            <span class="footer-name">Justine Longla T.</span>
+            <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+          </div>
+        </div>
 
-      <!-- ✅ Ecosystem strip (canonical + consistent) -->
-      <nav class="eco-footer" aria-label="Ecosystem">
-        <span class="eco-footer__label">Ecosystem:</span>
-        <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site ↗</a>
-        <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
-        <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
-        <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
+        <p class="footer-copy">
+          © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting. All rights reserved.
+        </p>
+
+        <nav class="eco-footer" aria-label="Ecosystem">
+          <span class="eco-footer__label">Ecosystem:</span>
+          <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site ↗</a>
+          <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
+          <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
+          <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
+        </nav>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/posts/">All posts</a>
+        <a href="/docs/">Toolkit</a>
+        <a href="/home/">Work with Justine</a>
+        <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
+        <a href="https://justinelonglat-lane.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
       </nav>
     </div>
 
-      <nav class="footer-links" aria-label="Footer navigation">
-
-        <!-- ✅ Projects icon/link in footer points to MAIN projects page -->
-        <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
-
-        <a href="https://justinelonglat-lane.com/blog">Deep-dive blog</a>
-        <a href="https://justinelonglat-lane.com/contact">Contact</a>
-
-        </a>
-      </nav>
-  </div>
-
-  <script>
-    (function () {
-      var el = document.getElementById("footer-year");
-      if (el) el.textContent = new Date().getFullYear();
-    })();
-  </script>
-</footer>
-
+    <script>
+      (function () {
+        var el = document.getElementById("footer-year");
+        if (el) el.textContent = new Date().getFullYear();
+      })();
+    </script>
+  </footer>
 </body>
 </html>
