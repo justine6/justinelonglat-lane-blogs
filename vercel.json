@@ -1,4 +1,6 @@
 {
   "buildCommand": "npm run deploy:check",
-  "outputDirectory": ".vercel/output/static"
+  "outputDirectory": ".vercel/output",
+  "framework": null
 }
+
