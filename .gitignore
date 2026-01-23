@@ -31,11 +31,34 @@ Thumbs.db
 node_modules/
 
 # -------------------------
+# -------------------------
 # Build Output (Generated)
 # -------------------------
 dist/
+blog/
+.vercel/output/
+
+# Ignore generated public output by default…
 public/
+
+# …but allowlist the contract-critical public artifacts we DO want tracked
 !public/.gitkeep
+!public/index.html
+
+!public/posts/
+!public/posts/index.html
+
+!public/projects/
+!public/projects/index.html
+
+!public/_data/
+!public/_data/**
+
+!public/docs/
+!public/docs/**
+
+!public/assets/
+!public/assets/**
 
 # -------------------------
 # IDE / Editor Files
@@ -87,3 +110,4 @@ e_modules/
 
 .vercel
 .env*.local
+
