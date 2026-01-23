@@ -44,12 +44,8 @@ async function main() {
   const config = {
     version: 3,
     routes: [
-      { handle: "filesystem" },              // serve any matching static file first
-      routes: [
-      { handle: "filesystem" },
-      { src: "/", dest: "/index.html" }
-    ]
-    // ensure "/" serves root index
+      { handle: "filesystem" },        // serve any matching static file first
+      { src: "/", dest: "/index.html"} // ensure "/" serves root index
     ]
   };
 
@@ -60,7 +56,7 @@ async function main() {
   );
 
   console.log("✓ Static output ready for Vercel");
-  console.log("✓ wrote .vercel/output/config.json (version 3, filesystem + /index.html)");
+  console.log('✓ wrote .vercel/output/config.json (version 3, filesystem + "/index.html")');
 }
 
 main().catch((err) => {
