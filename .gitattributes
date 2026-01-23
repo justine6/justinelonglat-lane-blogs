@@ -4,3 +4,12 @@
 *.yaml text eol=lf
 *.html text eol=lf
 *.json text eol=lf
+# Normalize line endings to LF in repo (prevents CRLF drift in generated/injected files)
+* text=auto eol=lf
+# Explicitly enforce LF for the files we inject / generate
+*.html text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+*.mjs  text eol=lf
+*.json text eol=lf
+*.ps1  text eol=lf
