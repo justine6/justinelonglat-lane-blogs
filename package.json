@@ -4,14 +4,13 @@
   },
 "scripts": {
   "prebuild": "node scripts/generate-indexes.mjs",
-  "build": "node scripts/generate-indexes.mjs && node scripts/vercel-dist.mjs && node scripts/copy-public-to-output.mjs",
   "verify:output": "node scripts/verify-output.mjs",
   "deploy:check": "npm run build && npm run verify:output",
   "vercel:build": "vercel build",
+  "buildCommand": "npm run deploy:check",
+  "outputDirectory": ".vercel/output/static",
   "vercel:deploy:preview": "vercel deploy --prebuilt",
-  "validate": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/validate.ps1",
-  "partials:check": "node scripts/check-partials.mjs",
-  "partials:inject": "node scripts/inject-partials.mjs"
+  "validate": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/validate.ps1"
 },
 
   "devDependencies": {

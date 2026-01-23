@@ -15,13 +15,12 @@ async function main() {
   // 3) Copy public/ -> .vercel/output/static
   await fs.cp("public", staticDir, { recursive: true });
 
-  // 4) Build Output v3 config
-  // Make "/" explicitly serve the posts grid (so homepage drift can't happen).
+  // 4) Build Output v3 config: filesystem first, then "/" -> "/index.html"
   const config = {
     version: 3,
     routes: [
-      { src: "^/$", dest: "/posts/index.html" },
-      { handle: "filesystem" }
+      { handle: "filesystem" },
+      { src: "/", dest: "/index.html" }
     ]
   };
 
@@ -32,7 +31,7 @@ async function main() {
   );
 
   console.log("✓ Static output ready for Vercel");
-  console.log("✓ wrote .vercel/output/config.json (version 3)");
+  console.log("✓ wrote .vercel/output/config.json (version 3, filesystem + /index.html)");
 }
 
 main().catch((err) => {
