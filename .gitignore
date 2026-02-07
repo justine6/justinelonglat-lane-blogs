@@ -61,9 +61,17 @@ public/feed.xml
 public/sitemap.xml
 public/tags/
 
+# -------------------------
 # Generated content folders
-public/posts/
+# -------------------------
+
+# ✅ Track posts output (deployable)
+!public/posts/
+!public/posts/**
+
+# 🚫 Do NOT track projects output (projects live on main site now)
 public/projects/
+
 
 # Backup files
 public/projects/*.bak-*
