@@ -56,6 +56,21 @@ async function main() {
   console.log("✓ Static output ready for Vercel");
   console.log('✓ wrote .vercel/output/config.json (version 3, filesystem + "/index.html")');
 }
+// scripts/vercel-dist.mjs
+import fs from "fs";
+import path from "path";
+
+const ROOT = process.cwd();
+const OUT = path.join(ROOT, ".vercel", "output", "static");
+
+// ✅ Force Vercel to serve the curated posts index from /public
+const curatedPostsIndex = path.join(ROOT, "public", "posts", "index.html");
+const vercelPostsIndex  = path.join(OUT, "posts", "index.html");
+
+fs.mkdirSync(path.dirname(vercelPostsIndex), { recursive: true });
+fs.copyFileSync(curatedPostsIndex, vercelPostsIndex);
+
+console.log("✓ overwrote Vercel posts index from public/posts/index.html");
 
 main().catch((err) => {
   console.error(err);
