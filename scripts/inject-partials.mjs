@@ -9,8 +9,8 @@ const FOOTER = fs.readFileSync(path.join(PARTIALS, "footer.html"), "utf8").trim(
 
 const TARGET_DIRS = [
   path.join(ROOT, "public", "posts"),
-  // Add more if you want injection elsewhere:
-  // path.join(ROOT, "public"),
+  path.join(ROOT, "public", "docs"),
+  path.join(ROOT, "public"),
 ];
 
 function walkHtml(dir) {

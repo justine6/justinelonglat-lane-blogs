@@ -7,7 +7,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>Automation Toolkit for Justine Longla T.</title>
+  <title>Automation Toolkit for Justine Longla T. blogs</title>
   <meta
     name="description"
     content="A living collection of DevSecOps automation scripts used by Justine Longla T. — keeping blogs, docs, and project sites fast, safe, reproducible, and effortless to maintain."
@@ -17,65 +17,586 @@
   <!-- Favicon (path-safe for project root) -->
   <link rel="icon" href="/assets/css/favicon.ico" sizes="any" />
 
-  
+  <!-- ✅ FIX: stable absolute path from /docs/ -->
   <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <style>
+    /* ==========================================================
+       TOOLKIT PAGE FALLBACK STYLES (works even if main.css breaks)
+       ========================================================== */
+
+    :root{
+      --ink:#0f172a;
+      --muted:#475569;
+
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --panel-soft: rgba(248,250,252,.85);
+
+      --border: rgba(148,163,184,.25);
+      --border-strong: rgba(148,163,184,.35);
+
+      --accent:#38bdf8;
+      --accent-2:#0284c7;
+
+      --dark-1: rgba(2,6,23,.96);
+      --dark-2: rgba(15,23,42,.92);
+
+      --radius: 18px;
+      --shadow: 0 16px 40px rgba(15,23,42,.10);
+      --shadow-strong: 0 20px 60px rgba(0,0,0,.25);
+
+      --max: 1120px;
+      --pad: 24px;
+
+      --font: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    }
+
+    *{ box-sizing: border-box; }
+    body{
+      margin: 0;
+      font-family: var(--font);
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+
+    /* ---------------- Header ---------------- */
+    header{
+      background:#fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 22px var(--pad);
+    }
+
+    .brand-row{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+    .brand-title{
+      margin:0;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
+    .brand-sub{
+      margin-top: 2px;
+      color: var(--muted);
+    }
+
+    .primary-nav{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      margin-top:14px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .primary-nav .nav-left,
+    .primary-nav .nav-right{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .primary-nav a{
+      text-decoration:none;
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .primary-nav a.active{
+      color: var(--accent-2);
+      text-decoration: underline;
+      text-underline-offset: 6px;
+      font-weight: 900;
+    }
+
+    /* ---------------- Hero ---------------- */
+    .hero{
+      background:
+        radial-gradient(circle at top left, rgba(59,130,246,.25), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(56,189,248,.14), transparent 60%),
+        linear-gradient(135deg, var(--dark-1), var(--dark-2));
+      color:#e5e7eb;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 42px var(--pad);
+      display:grid;
+      gap: 18px;
+      align-items:start;
+    }
+    @media (min-width: 980px){
+      .hero-inner{
+        grid-template-columns: 1.2fr .8fr;
+      }
+    }
+
+    .hero-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:.5rem;
+      padding:.35rem .7rem;
+      border-radius:999px;
+      background: rgba(56,189,248,.14);
+      border:1px solid rgba(56,189,248,.25);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .02em;
+    }
+    .hero-pill-dot{
+      width:8px;height:8px;border-radius:999px;background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(56,189,248,.12);
+    }
+
+    .hero-title{
+      margin:.9rem 0 .55rem;
+      font-size: clamp(28px, 3.6vw, 42px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 950;
+      color:#ffffff;
+    }
+
+    .hero-sub{
+      margin:0;
+      max-width: 70ch;
+      color: rgba(226,232,240,.85);
+      line-height: 1.65;
+    }
+
+    /* ✅ Missing in your fallback: hero-meta / hero-badges / chips */
+    .hero-meta{
+      margin-top: 14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: .6rem 1rem;
+      color: rgba(226,232,240,.72);
+      font-size: .92rem;
+    }
+    .hero-meta span{
+      position: relative;
+      padding-left: .9rem;
+    }
+    .hero-meta span::before{
+      content:"•";
+      position:absolute;
+      left:0;
+      opacity:.75;
+    }
+
+    .hero-badges{
+      margin-top: 14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: .55rem;
+    }
+
+    .hero-badge-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      padding:.45rem .65rem;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.22);
+      background: rgba(2,6,23,.22);
+      color: rgba(226,232,240,.84);
+      font-size: .84rem;
+      white-space: nowrap;
+    }
+    .hero-badge-chip code{
+      font-family: var(--mono);
+      font-size:.85em;
+      padding: .12rem .38rem;
+      border-radius: 999px;
+      border:1px solid rgba(148,163,184,.18);
+      background: rgba(2,6,23,.35);
+      color: rgba(226,232,240,.92);
+    }
+
+    .hero-side-card{
+      background: rgba(15,23,42,.78);
+      border:1px solid rgba(148,163,184,.22);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow-strong);
+    }
+    .hero-side-card h2{
+      margin:0 0 8px;
+      font-size: 16px;
+      font-weight: 950;
+      color:#fff;
+    }
+    .hero-side-card p,
+    .hero-side-card li{
+      color: rgba(226,232,240,.85);
+      line-height: 1.6;
+    }
+    .hero-side-card ul{
+      margin: .35rem 0 .6rem;
+      padding-left: 1.15rem;
+    }
+    .hero-side-note{
+      margin: .65rem 0 0;
+      color: rgba(226,232,240,.72);
+      font-size: .92rem;
+    }
+
+    /* ---------------- Main ---------------- */
+    .main-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 38px var(--pad) 64px;
+    }
+
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:baseline;
+      margin-bottom: 16px;
+      flex-wrap:wrap;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 22px;
+      font-weight: 950;
+      letter-spacing: -0.01em;
+    }
+    .section-head span{
+      color: var(--muted);
+    }
+
+    .section-gap{
+      margin-top: 28px;
+    }
+
+    /* two-column layout (cards + runbook) */
+    .grid.grid-two{
+      display:grid;
+      gap: 18px;
+    }
+    @media (min-width: 980px){
+      .grid.grid-two{
+        grid-template-columns: 1fr 340px;
+        align-items:start;
+      }
+    }
+
+    /* cards grid */
+    .grid{
+      display:grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    }
+
+    .tool-card{
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .tool-label{
+      font-size: 11px;
+      font-weight: 950;
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .tool-name{
+      margin: 6px 0 8px;
+      font-size: 14px;
+      font-weight: 950;
+    }
+
+    .tool-desc{
+      margin:0;
+      color:#334155;
+      line-height: 1.6;
+    }
+
+    .tool-path{
+      margin-top: 10px;
+      display:flex;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .tool-path .label{
+      font-weight: 950;
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(56,189,248,.12);
+      border: 1px solid rgba(56,189,248,.22);
+      color: #0b1220;
+    }
+
+    .tool-path code{
+      font-family: var(--mono);
+      font-size: .92rem;
+      padding: .18rem .5rem;
+      border-radius: 10px;
+      border: 1px solid rgba(148,163,184,.22);
+      background: rgba(2,6,23,.05);
+    }
+
+    .tool-stack{
+      margin-top: 10px;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      color:#475569;
+      font-size: 12px;
+    }
+    .tool-stack span{
+      padding: .22rem .5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,.20);
+      background: rgba(148,163,184,.08);
+    }
+
+    /* ---------------- Runbook ---------------- */
+    .runbook{
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      background: var(--panel-soft);
+      padding: 14px;
+      box-shadow: 0 10px 25px rgba(15,23,42,.06);
+    }
+
+    .runbook h2{
+      margin: 0 0 8px;
+      font-size: 16px;
+      font-weight: 950;
+    }
+
+    .runbook p{
+      margin: .55rem 0 .9rem;
+      color: #334155;
+      line-height: 1.6;
+      font-size: .95rem;
+    }
+
+    /* ✅ Missing titles in your fallback */
+    .runbook-group-title{
+      font-weight: 950;
+      font-size: .9rem;
+      margin: .95rem 0 .55rem;
+      color: #0f172a;
+    }
+
+    .cmd-row{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+      padding: 8px 0;
+      border-bottom: 1px dashed rgba(148,163,184,.35);
+    }
+    .cmd-row:last-child{ border-bottom:0; }
+
+    .cmd{
+      display:flex;
+      flex-direction:column;
+      gap: .25rem;
+      min-width: 0;
+    }
+    .cmd-label{
+      font-size: .82rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .cmd code{
+      font-family: var(--mono);
+      font-size: .86rem;
+      overflow-wrap: anywhere;
+    }
+    .cmd-key{
+      font-size: 11px;
+      font-weight: 950;
+      color: var(--accent-2);
+      white-space: nowrap;
+    }
+
+    .runbook-note{
+      margin-top: 1rem;
+      color: #475569;
+      font-size: .92rem;
+      line-height: 1.6;
+    }
+
+    /* ---------------- Learn more pill row ---------------- */
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap: .55rem;
+    }
+    .pill-row a{
+      display:inline-flex;
+      padding: .45rem .65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,.28);
+      background: rgba(2,6,23,.04);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: .92rem;
+      color: #0f172a;
+    }
+    .pill-row a:hover{
+      border-color: rgba(56,189,248,.55);
+      background: rgba(56,189,248,.10);
+    }
+
+    /* ---------------- Footer ---------------- */
+    .site-footer{
+      margin-top: 26px;
+      background: #0b1220;
+      color: rgba(226,232,240,.78);
+    }
+    .site-footer a{
+      color:#7dd3fc;
+      text-decoration:none;
+    }
+    .site-footer a:hover{
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+  </style>
 </head>
+<script>
+  (function () {
+    var path = location.pathname || "/";
+    var posts = document.querySelector('[data-nav="posts"]');
+    var toolkit = document.querySelector('[data-nav="toolkit"]');
+
+    if (posts && (path === "/posts/" || path.startsWith("/posts/"))) {
+      posts.classList.add("is-active");
+    }
+    if (toolkit && (path === "/docs/" || path.startsWith("/docs/"))) {
+      toolkit.classList.add("is-active");
+    }
+  })();
+</script>
+<script>
+  (function () {
+    const root = document.documentElement;
+    const KEY = "jlt-theme";
+
+    function apply(theme) {
+      root.setAttribute("data-theme", theme);
+    }
+
+    // init
+    const saved = localStorage.getItem(KEY);
+    if (saved === "dark" || saved === "light") apply(saved);
+    else apply("light");
+
+    // expose for inline onclick compatibility
+    window.__toggleTheme = function () {
+      const cur = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      const next = cur === "dark" ? "light" : "dark";
+      localStorage.setItem(KEY, next);
+      apply(next);
+      return next;
+    };
+  })();
+</script>
 <body>
 
-<header>
-  <div class="wrap">
-
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
     <!-- Brand -->
-    <div class="brand-row">
-      <img
-        class="logo"
-        src="/assets/img/logo.png"
-        alt="Justine Longla T. personal logo"
-        width="40"
-        height="40"
-      />
-      <div>
-        <h1 class="brand-title">Justine Longla T. DevOps Blog</h1>
-        <div class="brand-sub">
-          DevSecOps • Cloud • Sustainability — practical notes and automation.
-        </div>
-      </div>
-    </div>
+    <a class="site-brand" href="/" aria-label="Home">
+      <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+      <span class="site-brand-text">
+        <span class="site-brand-name">Justine Longla T.</span>
+        <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+      </span>
+    </a>
 
-    <!-- Unified Navigation -->
-    <nav class="primary-nav" aria-label="Primary">
-      <div class="nav-left">
-        <a href="/">Home</a>
-        <a href="/blog/">All Blog Posts</a>
-        <a href="/projects/">Projects</a>
-        <a href="/docs/" class="active">Automation Toolkit</a>
-      </div>
+    <!-- Primary nav -->
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
 
-      <div class="nav-right">
-        <a href="/feed.xml">RSS</a>
-        <a href="/sitemap.xml">Sitemap</a>
-        <a href="/tags/" id="nav-tags">Tags</a>
-        <a href="https://github.com/justine6/jutellane-blogs"
-           target="_blank"
-           rel="noopener">
-          GitHub
-        </a>
-      </div>
+      <!-- ✅ Canonical posts index -->
+      <a href="/posts/" data-nav="posts">All Blog Posts</a>
+
+      <a
+        class="is-primary"
+        href="https://www.justinelonglat-lane.com/engineering-mesh"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="nav-ico">🧩</span>
+        Engineering MeshHub
+      </a>
+
+      <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">
+        Docs site
+      </a>
+
+      <a class="is-primary" href="/docs/" data-nav="toolkit">
+        <span class="nav-ico">🛠️</span>
+        Automation toolkit
+      </a>
     </nav>
 
+    <!-- Right side -->
+    <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+      <a
+        class="header-profile-pill"
+        href="https://justinelonglat-lane.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open main site"
+        title="Open main site"
+      >
+        <img
+          src="/assets/img/justine-profile.jpg"
+          alt="Justine Longla T."
+          class="header-profile-avatar"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="header-profile-label">Justine</span>
+      </a>
+
+      <button
+        id="theme-toggle"
+        class="theme-toggle-pill"
+        type="button"
+        aria-label="Toggle light/dark mode"
+        title="Toggle theme"
+        onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
+      >
+        <span class="theme-icon light">☀️</span>
+        <span class="theme-icon dark">🌙</span>
+      </button>
+    </div>
   </div>
 </header>
-
-<!-- Hero: dark header band -->
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="hero-pill">
-        <span class="hero-pill-dot"></span>
-        Automation · PowerShell · HTML
-      </div>
+      <div class="hero-pill"><span class="hero-pill-dot"></span> Automation · PowerShell · HTML</div>
 
-      <h2 class="hero-title">Automation Toolkit for Justine Longla T.</h2>
+      <h2 class="hero-title">Automation Toolkit for Justine Longla T blogs.</h2>
 
       <p class="hero-sub">
         A living collection of DevSecOps automation scripts used by Justine Longla T. — keeping
@@ -117,7 +638,6 @@
 <main>
   <div class="main-inner">
 
-    <!-- Core tools + quick runbook -->
     <div class="section-head">
       <h2>Core tools</h2>
       <span>Day-to-day commands for posts, projects, and validation.</span>
@@ -145,7 +665,6 @@
           </div>
         </article>
 
-        <!-- CONTENT: Find-Post -->
         <article class="tool-card">
           <div class="tool-label">Content</div>
           <h3 class="tool-name">tools\Find-Post.ps1</h3>
@@ -163,7 +682,6 @@
           </div>
         </article>
 
-        <!-- QUALITY: check-slugs / tags -->
         <article class="tool-card">
           <div class="tool-label">Quality</div>
           <h3 class="tool-name">tools\check-slugs.ps1</h3>
@@ -216,7 +734,6 @@
           </div>
         </article>
 
-        <!-- BUILD & PREVIEW -->
         <article class="tool-card">
           <div class="tool-label">Build &amp; preview</div>
           <h3 class="tool-name">scripts\build-serve.ps1</h3>
@@ -234,7 +751,6 @@
           </div>
         </article>
 
-        <!-- RELEASE & DEPLOY -->
         <article class="tool-card">
           <div class="tool-label">Release &amp; Deploy</div>
           <h3 class="tool-name">scripts\Cut-Release.ps1</h3>
@@ -270,7 +786,6 @@
           </div>
         </article>
 
-        <!-- SAFETY -->
         <article class="tool-card">
           <div class="tool-label">Safety</div>
           <h3 class="tool-name">tools\Safe-Rebase.ps1</h3>
@@ -309,7 +824,6 @@
 
       </div>
 
-      <!-- Quick runbook column -->
       <aside class="runbook">
         <h2>Quick runbook</h2>
         <p>
@@ -413,7 +927,6 @@
       </aside>
     </div>
 
-    <!-- Secondary section: where to learn more -->
     <div class="section-gap">
       <div class="section-head">
         <h2>Learn more</h2>
@@ -425,75 +938,76 @@
           This toolkit doesn’t live in isolation — it supports the DevOps stories and deep dives
           on the rest of the site. When you want to see these scripts “in the wild”, start here:
         </p>
+
         <div class="pill-row">
-          <span><a href="/posts/2025/10/reproducible-environments/">Why Every Engineer Needs a Reproducible Environment</a></span>
-          <span><a href="/posts/2025/11/audit-containers-with-powershell/">Audit Containers With PowerShell</a></span>
-          <span><a href="/projects/2025/11/self-healing-pipeline/">Self-Healing Delivery Pipeline for Legacy Apps</a></span>
+          <a href="/posts/2025/10/reproducible-environments/">Why Every Engineer Needs a Reproducible Environment</a>
+          <a href="/posts/2025/11/audit-containers-with-powershell/">Audit Containers With PowerShell</a>
+          <a href="/projects/2025/11/self-healing-pipeline/">Self-Healing Delivery Pipeline for Legacy Apps</a>
         </div>
       </div>
 
       <footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-left">
-      <div class="footer-brand">
-        <img
-          src="/assets/img/logo.png"
-          alt="Justine Longla T. logo"
-          class="footer-logo"
-          width="40"
-          height="40"
-        />
-        <div class="footer-brand-text">
-          <span class="footer-name">Justine Longla T.</span>
-          <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+        <div class="footer-inner">
+          <div class="footer-left">
+            <div class="footer-brand">
+              <img
+                src="/assets/img/logo.png"
+                alt="Justine Longla T. logo"
+                class="footer-logo"
+                width="40"
+                height="40"
+              />
+              <div class="footer-brand-text">
+                <span class="footer-name">Justine Longla T.</span>
+                <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+              </div>
+            </div>
+
+            <p class="footer-copy">
+              © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting.
+              All rights reserved.
+            </p>
+
+            <nav class="eco-footer" aria-label="Ecosystem">
+              <span class="eco-footer__label">Ecosystem:</span>
+              <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site ↗</a>
+              <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
+              <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
+              <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
+            </nav>
+          </div>
+
+          <nav class="footer-links" aria-label="Footer navigation">
+            <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site</a>
+            <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting</a>
+            <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs</a>
+            <a href="https://docs.justinelonglat-lane.com/automation-toolkit.html" target="_blank" rel="noopener noreferrer">
+              Automation Toolkit
+            </a>
+          </nav>
         </div>
-      </div>
-
-      <p class="footer-copy">
-        © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting.
-        All rights reserved.
-      </p>
-
-      <!-- ✅ Ecosystem strip (canonical + consistent) -->
-      <nav class="eco-footer" aria-label="Ecosystem">
-        <span class="eco-footer__label">Ecosystem:</span>
-        <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site ↗</a>
-        <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
-        <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
-        <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
-      </nav>
-    </div>
-
-    <nav class="footer-links" aria-label="Footer navigation">
-      <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site</a>
-      <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting</a>
-      <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs</a>
-      <a href="https://docs.justinelonglat-lane.com/automation-toolkit.html" target="_blank" rel="noopener noreferrer">
-        Automation Toolkit
-      </a>
-    </nav>
-  </div>
-
-  <script>
-    (function () {
-      var el = document.getElementById("footer-year");
-      if (el) el.textContent = new Date().getFullYear();
-    })();
-  </script>
-</footer>
+      </footer>
 
     </div>
-
   </div>
 </main>
 
 <script>
+  // year (✅ fixed to match the span id you actually have)
+  (function () {
+    var el = document.getElementById("footer-year");
+    if (el) el.textContent = new Date().getFullYear();
+  })();
+
   // highlight "Tags" if we ever land on /tags from this layout
-  const path = window.location.pathname;
-  if (path.includes("/tags")) {
-    document.getElementById("nav-tags")?.classList.add("active");
-  }
+  (function () {
+    var path = window.location.pathname || "";
+    if (path.includes("/tags")) {
+      var t = document.getElementById("nav-tags");
+      if (t) t.classList.add("active");
+    }
+  })();
 </script>
+
 </body>
 </html>
-

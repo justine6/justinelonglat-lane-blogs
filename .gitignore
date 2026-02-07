@@ -5,25 +5,13 @@
 DNS-watch.log
 
 # -------------------------
-# OS Files
+# OS / Editor
 # -------------------------
 .DS_Store
 Thumbs.db
-*.local
-
-# -------------------------
-# Docker
-# -------------------------
-.docker/
-*.log
-
-# -------------------------
-# Environment Files
-# -------------------------
-# ⚠️ CRITICAL: Never commit secrets
-.env
-.env.*
-!.env.example
+*.swp
+.vscode/
+.idea/
 
 # -------------------------
 # Dependencies
@@ -31,83 +19,30 @@ Thumbs.db
 node_modules/
 
 # -------------------------
-# -------------------------
-# Build Output (Generated)
+# Build Outputs / Generated
 # -------------------------
 dist/
 blog/
-.vercel/output/
-
-# Ignore generated public output by default…
-public/
-
-# …but allowlist the contract-critical public artifacts we DO want tracked
-!public/.gitkeep
-!public/index.html
-
-!public/posts/
-!public/posts/index.html
-
-!public/projects/
-!public/projects/index.html
-
-!public/_data/
-!public/_data/**
-
-!public/docs/
-!public/docs/**
-
-!public/assets/
-!public/assets/**
+_backup_repo_*/
+.backups/
+*.bak*
+*.log
 
 # -------------------------
-# IDE / Editor Files
+# Env (never commit secrets)
 # -------------------------
-.vscode/
-.idea/
-*.swp
-# Build outputs
-dist/
-.vercel/
-scripts/public/
+.env
+.env.*
+!.env.example
+
+# -------------------------
+# IMPORTANT:
+# We DO track public/ because it is the deployable artifact for this repo.
+# -------------------------
+!public/
+!public/**
+
+# Optional: do NOT track partial mirrors or temp output folders
 public/_partials/
-
-# local backups
-.backups/
-
-# backups
-_backup_repo_*/
-.backups/
-*.bak*
-
-# generated site output
-blog/
-dist/
-.vercel/
+scripts/public/
 .vercel/output/
-
-# deps
-node_modules/
-
-# backups
-_backup_repo_*/
-.backups/
-*.bak*
-
-# generated site output
-blog/
-dist/
-.vercel/
-.vercel/output/
-
-# deps
-nod# Temporary backups
-_backup_repo_*/
-
-# Generated blog output
-blog/
-e_modules/
-
-.vercel
-.env*.local
-

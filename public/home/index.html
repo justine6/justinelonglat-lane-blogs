@@ -50,100 +50,110 @@
     apply(getPreferred());
   })();
 </script>
-
+<script src="/assets/js/nav-active.js" defer></script>
 <body>
 
-  <!-- Unified header (single-source look) -->
-  <header class="site-header">
-    <div class="container header-row">
-      <a class="brand" href="/">
-        <img class="brand-logo" src="/logo.png" alt="logo" />
-        <span class="brand-title">
-          Justine Longla T.
-          <span class="brand-subtitle">DevSecOps • Cloud • Sustainability</span>
-        </span>
+<!-- Unified header (single-source look) -->
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <!-- Brand -->
+    <a class="site-brand" href="/" aria-label="Home">
+      <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+      <span class="site-brand-text">
+        <span class="site-brand-name">Justine Longla T.</span>
+        <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+      </span>
+    </a>
+
+    <!-- Primary nav -->
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/posts/">All Blog Posts</a>
+
+      <!-- ✅ Projects opens MAIN website projects block -->
+      <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
+
+      <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Docs site</a>
+      <a href="/docs/">Automation toolkit</a>
+    </nav>
+
+    <!-- Right side: profile + theme (NOT nested) -->
+    <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+      <a
+        class="header-profile-pill"
+        href="https://justinelonglat-lane.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open JustineLonglaT-Lane main website"
+        title="Open main site"
+      >
+        <img
+          src="/assets/img/justine-profile.jpg"
+          alt="Justine Longla T."
+          class="header-profile-avatar"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="header-profile-label">Justine</span>
       </a>
 
-      <div class="header-right">
-        <nav class="site-nav" aria-label="Primary">
-          <a href="/">Home</a>
-          <a href="/posts/">All Blog Posts</a>
-
-          <!-- ✅ Projects opens MAIN website projects block -->
-          <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
-
-          <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Docs site</a>
-          <a href="/docs/">Automation toolkit</a>
-        </nav>
-
-      <!-- ✅ Combined pill: profile + theme toggle -->
-      <div class="header-pill" role="group" aria-label="Profile and theme">
-        <!-- Profile link -->
-      <a
-      class="header-profile-pill"
-      href="https://justinelonglat-lane.com/"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Open JustineLonglaT-Lane main website"
-      title="Open main site"
-    >
-      <!-- Avatar -->
-      <img
-        src="/assets/img/justine-profile.jpg"
-        alt="Justine Longla T."
-        class="header-profile-avatar"
-        loading="lazy"
-      />
-
-      <span class="header-profile-label">Justine</span>
-
-      <!-- 🔥 Theme toggle INSIDE the pill -->
       <button
         id="theme-toggle"
         class="theme-toggle-pill"
+        type="button"
         aria-label="Toggle light/dark mode"
+        title="Toggle theme"
+        onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
       >
         <span class="theme-icon light">☀️</span>
         <span class="theme-icon dark">🌙</span>
       </button>
-    </a>
-
-
-      </div>
-
-      </div>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- Work with Justine: profile + CTAs -->
-  <section class="home-profile-cta" aria-labelledby="meet-justine">
-    <div class="container home-profile-inner">
-      <div class="home-profile-photo">
-        <img
-          src="/assets/img/justine-profile.jpg"
-          alt="Portrait of Justine Longla T., DevSecOps and Cloud engineer"
-          loading="lazy"
-        />
-      </div>
+<!-- =========================
+     Work with Justine (Landing)
+     ========================= -->
+<section class="section-white" id="work-with-justine" aria-labelledby="work-with-justine-title">
+  <div class="container">
+    <p class="eyebrow">Work with Justine</p>
+    <h2 id="work-with-justine-title">Bring this DevSecOps playbook into your systems.</h2>
 
-      <div class="home-profile-copy">
-        <p class="eyebrow">Work with Justine</p>
-        <h2 id="meet-justine">Bring this DevSecOps playbook into your systems.</h2>
-        <p class="home-profile-blurb">
-          If you’re looking to level-up reliability, security, and observability in real projects,
-          let’s talk. From intro calls to hands-on consulting, everything here is built from
-          production-grade experience.
-        </p>
+    <p class="desc" style="max-width: 70ch;">
+      If you’re looking to level-up reliability, security, and observability in real projects, let’s talk.
+      From intro calls to hands-on consulting, everything here is built from production-grade experience.
+    </p>
 
-        <div class="home-profile-buttons">
-          <a href="https://justinelonglat-lane.com/booking" class="btn-cta btn-cta-primary">Intro call</a>
-          <a href="https://justinelonglat-lane.com/resume" class="btn-cta">Resume (PDF)</a>
-          <a href="https://www.justinelonglat-lane.com/files/JLT-Consulting-Brochure.pdf" class="btn-cta">Brochure (PDF)</a>
-          <a href="/docs/" class="btn-cta">Automation toolkit</a>
-        </div>
-      </div>
+    <div class="home-profile-buttons" style="margin-top: 1rem;">
+      <a class="btn-cta btn-cta-primary" href="https://justinelonglat-lane.com/booking" target="_blank" rel="noopener noreferrer">
+        Intro call
+      </a>
+
+      <a class="btn-cta" href="https://justinelonglat-lane.com/resume" target="_blank" rel="noopener noreferrer">
+        Resume (PDF)
+      </a>
+
+      <a class="btn-cta" href="https://www.justinelonglat-lane.com/files/JLT-Consulting-Brochure.pdf" target="_blank" rel="noopener noreferrer">
+        Brochure (PDF)
+      </a>
+
+      <!-- ✅ Deep dives entrypoint -->
+      <a class="btn-cta" href="https://justinelonglat-lane.com/blog" target="_blank" rel="noopener noreferrer">
+        Deep dives
+      </a>
+
+      <a class="btn-cta" href="/docs/">
+        Automation toolkit
+      </a>
+
+      <!-- Optional: if you’re using /home/ as the “full homepage” -->
+      <a class="btn-cta" href="/home/">
+        Full homepage
+      </a>
     </div>
-  </section>
+  </div>
+</section>
 
   <footer class="site-footer">
   <div class="footer-inner">

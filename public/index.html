@@ -1,4 +1,4 @@
-<!doctype html>
++<!doctype html>
 <html lang="en">
 <head>
   <!-- Legacy favicon path for safety (GitHub Pages / project path) -->
@@ -10,218 +10,397 @@
   <title>Justine Longla T. — DevSecOps • Cloud • Sustainability</title>
   <meta
     name="description"
-    content="Deep dives on reproducible environments, observability, secure delivery, and sustainable cloud systems."
+    content="DevSecOps, Cloud, and sustainability — projects, deep dives, and automation notes from Justine Longla T."
   />
-  <meta name="tags" content="devsecops, cloud, observability, automation, ci/cd, reliability" />
+  <meta name="tags" content="devsecops, cloud, automation, powershell, static-sites, ci/cd, scripting" />
 
   <!-- Primary favicon (root-safe) -->
-  <link rel="icon" href="/assets/img/favicon.ico" sizes="any" />
+  <link rel="icon" href="/assets/css/favicon.ico" sizes="any" />
 
   <!-- Global site styles -->
   <link rel="stylesheet" href="/assets/css/main.css" />
 
-  <!-- Minimal landing-only tweaks (safe even if main.css evolves) -->
+  <!-- Theme bootstrap -->
+  <script>
+  (function () {
+    const root = document.documentElement;
+    const KEY = "jlt-theme";
+
+    function apply(theme) {
+      root.setAttribute("data-theme", theme);
+    }
+
+    // Load saved theme or default to light
+    const saved = localStorage.getItem(KEY);
+    apply(saved === "dark" ? "dark" : "light");
+
+    // Expose toggle globally for your header button
+    window.__toggleTheme = function () {
+      const current = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      const next = current === "dark" ? "light" : "dark";
+      localStorage.setItem(KEY, next);
+      apply(next);
+    };
+  })();
+  </script>
+
+  <script src="/assets/js/nav-active.js" defer></script>
+
+  <!-- Minimal page-local styling for the new hero layout (safe + scoped) -->
   <style>
-    .landing-hero{
-      padding: 4.5rem 0 3rem;
-      background: radial-gradient(1200px 600px at 50% -10%, rgba(56,189,248,.20), transparent 60%),
-                  radial-gradient(900px 500px at 10% 10%, rgba(99,102,241,.18), transparent 55%),
-                  linear-gradient(180deg, rgba(2,6,23,.92), rgba(2,6,23,.84));
-      color: #e5e7eb;
-      border-bottom: 1px solid rgba(148,163,184,.18);
+    /* ===== Work-with-Justine hero layout (scoped) ===== */
+    .jlt-hero {
+      padding: clamp(2.25rem, 3.5vw, 3.5rem) 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
     }
-    .landing-hero h1{
-      margin: 0;
-      font-size: clamp(2rem, 4vw, 3rem);
-      line-height: 1.15;
-      letter-spacing: -.02em;
-      color: #ffffff;
-    }
-    .landing-hero p{
-      margin: .9rem 0 0;
-      font-size: 1.05rem;
-      line-height: 1.6;
-      color: rgba(229,231,235,.88);
-      max-width: 52rem;
-    }
-    .landing-actions{
-      margin-top: 1.5rem;
-      display: flex;
-      gap: .9rem;
-      flex-wrap: wrap;
-    }
-    .landing-actions a{
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .78rem 1.05rem;
-      border-radius: 999px;
-      text-decoration: none;
-      font-weight: 700;
-      border: 1px solid rgba(148,163,184,.22);
-      background: rgba(15,23,42,.35);
-      color: #e5e7eb;
-      transition: transform .15s ease, border-color .15s ease, background .15s ease;
-      backdrop-filter: blur(6px);
-    }
-    .landing-actions a:hover{
-      transform: translateY(-2px);
-      border-color: rgba(56,189,248,.40);
-      background: rgba(15,23,42,.55);
-    }
-    .landing-actions a.primary{
-      background: rgba(56,189,248,.16);
-      border-color: rgba(56,189,248,.35);
-    }
-
-    .landing-grid{
-      padding: 2.25rem 0 3rem;
-    }
-    .landing-card{
-      border: 1px solid rgba(148,163,184,.18);
-      border-radius: 18px;
-      padding: 1.25rem 1.25rem 1.1rem;
-      background: #0b1220;
-      box-shadow: 0 1px 0 rgba(255,255,255,.03) inset;
-      color: #e5e7eb;
-    }
-    .landing-card h2{
-      margin: 0 0 .5rem;
-      font-size: 1.15rem;
-      letter-spacing: -.01em;
-    }
-    .landing-card p{
-      margin: 0;
-      color: rgba(229,231,235,.82);
-      line-height: 1.6;
-    }
-    .landing-card .small{
-      margin-top: .75rem;
-      color: rgba(148,163,184,.92);
-      font-size: .92rem;
-    }
-
-    .landing-columns{
+    .jlt-hero__grid {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
+      gap: 2rem;
+      align-items: center;
     }
-    @media (max-width: 980px){
-      .landing-columns{ grid-template-columns: 1fr; }
+    @media (min-width: 900px) {
+      .jlt-hero__grid {
+        grid-template-columns: 240px 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    .jlt-hero__avatarWrap {
+      display: flex;
+      justify-content: center;
+    }
+    .jlt-hero__avatar {
+      width: 200px;
+      height: 200px;
+      border-radius: 999px;
+      object-fit: cover;
+      border: 4px solid rgba(59, 130, 246, 0.35);
+      box-shadow: 0 18px 50px rgba(15, 23, 42, 0.25);
+      background: #0b1220;
+    }
+    @media (min-width: 900px) {
+      .jlt-hero__avatar {
+        width: 220px;
+        height: 220px;
+      }
+    }
+
+    .jlt-hero__eyebrow {
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 0.72rem;
+      opacity: 0.7;
+      margin-bottom: 0.65rem;
+    }
+
+    .jlt-hero__title {
+      font-size: clamp(2rem, 3.2vw, 3rem);
+      line-height: 1.05;
+      margin: 0;
+    }
+
+    .jlt-hero__desc {
+      margin-top: 0.9rem;
+      max-width: 70ch;
+      opacity: 0.9;
+    }
+
+    .jlt-hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.25rem;
+    }
+
+    /* ===== Deep dives banner (secondary hero) ===== */
+    .deepdives-hero {
+      padding: clamp(2.4rem, 3.5vw, 3.8rem) 0;
+    }
+    .deepdives-hero__title {
+      font-size: clamp(2.1rem, 3.3vw, 3.2rem);
+      line-height: 1.06;
+      margin: 0;
+      max-width: 28ch;
+    }
+    .deepdives-hero__desc {
+      margin-top: 0.9rem;
+      max-width: 78ch;
+      opacity: 0.9;
+    }
+    .deepdives-hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1.25rem;
+    }
+
+    /* ===== Quick links row (3 cards) ===== */
+    .quick-grid {
+      display: grid;
+      gap: 1rem;
+      padding: 1.5rem 0 0;
+    }
+    @media (min-width: 900px) {
+      .quick-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .quick-card {
+      border-radius: 16px;
+      padding: 1.1rem;
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      background: rgba(2, 6, 23, 0.55);
+    }
+    html[data-theme="light"] .quick-card {
+      background: rgba(255, 255, 255, 0.85);
+    }
+    .quick-card h3 {
+      margin: 0 0 0.35rem;
+      font-size: 1rem;
+    }
+    .quick-card p {
+      margin: 0.25rem 0 0.9rem;
+      opacity: 0.9;
+      font-size: 0.95rem;
+    }
+    .quick-card a {
+      font-weight: 700;
+      text-decoration: none;
     }
   </style>
 </head>
 
 <body>
-  <!-- Unified header (your partials injection will keep this consistent) -->
-  <!--#include virtual="/_partials/header.html" -->
-  <!-- If you are not using SSI includes, your partial injector will replace the block below. -->
 
-  <header class="site-header">
-    <div class="container header-row">
-      <a class="brand" href="/">
-        <img class="brand-logo" src="/logo.png" alt="logo" />
-        <span class="brand-title">
-          Justine Longla T.
-          <span class="brand-subtitle">DevSecOps • Cloud • Sustainability</span>
-        </span>
+<!-- Unified header (single-source look) -->
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <!-- Brand -->
+    <a class="site-brand" href="/" aria-label="Home">
+      <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+      <span class="site-brand-text">
+        <span class="site-brand-name">Justine Longla T.</span>
+        <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+      </span>
+    </a>
+
+    <!-- Primary nav -->
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
+
+      <!-- ✅ Canonical posts index -->
+      <a href="/posts/" data-nav="posts">All Blog Posts</a>
+
+      <a
+        class="is-primary"
+        href="https://www.justinelonglat-lane.com/engineering-mesh"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="nav-ico">🧩</span>
+        Engineering MeshHub
       </a>
 
-      <div class="header-right">
-        <nav class="site-nav" aria-label="Primary">
-          <a href="/">Home</a>
-          <a href="/posts/">All Blog Posts</a>
-          <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
-          <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Docs site</a>
-          <a href="/docs/">Automation toolkit</a>
-          <!-- ✅ heavy page -->
-          <a href="/home/">Work with Justine</a>
-        </nav>
-      </div>
+      <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">
+        Docs site
+      </a>
+
+      <a class="is-primary" href="/docs/" data-nav="toolkit">
+        <span class="nav-ico">🛠️</span>
+        Automation toolkit
+      </a>
+    </nav>
+
+    <!-- Right side -->
+    <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+      <a
+        class="header-profile-pill"
+        href="https://justinelonglat-lane.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open main site"
+        title="Open main site"
+      >
+        <img
+          src="/assets/img/justine-profile.jpg"
+          alt="Justine Longla T."
+          class="header-profile-avatar"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="header-profile-label">Justine</span>
+      </a>
+
+      <button
+        id="theme-toggle"
+        class="theme-toggle-pill"
+        type="button"
+        aria-label="Toggle light/dark mode"
+        title="Toggle theme"
+        onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
+      >
+        <span class="theme-icon light">☀️</span>
+        <span class="theme-icon dark">🌙</span>
+      </button>
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- LIGHTWEIGHT LANDING -->
-  <section class="landing-hero" aria-labelledby="landing-title">
-    <div class="container">
-      <h1 id="landing-title">Deep dives on reproducible environments, observability, secure delivery, and sustainable cloud systems.</h1>
-      <p>
-        Practical notes from real pipelines: how I ship static sites with guardrails, keep builds deterministic,
-        and turn “blogging” into an engineering system.
-      </p>
-
-      <div class="landing-actions" aria-label="Primary actions">
-        <a class="primary" href="/posts/">Explore posts →</a>
-        <a href="/docs/">Automation toolkit →</a>
-        <a href="/home/">Work with Justine →</a>
+<!-- =========================
+     HERO: Work with Justine (now on homepage)
+     ========================= -->
+<section class="jlt-hero section-white" id="work-with-justine" aria-labelledby="work-with-justine-title">
+  <div class="container">
+    <div class="jlt-hero__grid">
+      <!-- Left: Profile image -->
+      <div class="jlt-hero__avatarWrap">
+        <img
+          class="jlt-hero__avatar"
+          src="/assets/img/justine-profile.jpg"
+          alt="Justine Longla T."
+          loading="lazy"
+          decoding="async"
+        />
       </div>
-    </div>
-  </section>
 
-  <main class="landing-grid">
-    <div class="container">
-      <div class="landing-columns">
-        <div class="landing-card">
-          <h2>Latest posts</h2>
-          <p>Browse the grid, search by tags, and open deep dives.</p>
-          <p class="small"><a href="/posts/" style="color:#7dd3fc;text-decoration:none;">Go to All Blog Posts →</a></p>
-        </div>
+      <!-- Right: Copy + CTAs -->
+      <div>
+        <p class="jlt-hero__eyebrow">Work with Justine</p>
+        <h1 class="jlt-hero__title" id="work-with-justine-title">
+          Bring this DevSecOps playbook into your systems.
+        </h1>
 
-        <div class="landing-card">
-          <h2>Automation Toolkit</h2>
-          <p>Scripts and guardrails: validate, inject partials, generate indexes, and keep releases safe.</p>
-          <p class="small"><a href="/docs/" style="color:#7dd3fc;text-decoration:none;">Open toolkit →</a></p>
-        </div>
-
-        <div class="landing-card">
-          <h2>Work with Justine</h2>
-          <p>Intro call, resume, brochure, and the consulting entrypoint — on the full homepage.</p>
-          <p class="small"><a href="/home/" style="color:#7dd3fc;text-decoration:none;">Open homepage →</a></p>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <!-- Footer (partial-friendly) -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-left">
-        <div class="footer-brand">
-          <img src="/assets/img/logo.png" alt="Justine Longla T. logo" class="footer-logo" width="40" height="40" />
-          <div class="footer-brand-text">
-            <span class="footer-name">Justine Longla T.</span>
-            <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
-          </div>
-        </div>
-
-        <p class="footer-copy">
-          © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting. All rights reserved.
+        <p class="jlt-hero__desc">
+          If you’re looking to level-up reliability, security, and observability in real projects, let’s talk.
+          From intro calls to hands-on consulting, everything here is built from production-grade experience.
         </p>
 
-        <nav class="eco-footer" aria-label="Ecosystem">
-          <span class="eco-footer__label">Ecosystem:</span>
-          <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site ↗</a>
-          <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
-          <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
-          <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
-        </nav>
+        <div class="jlt-hero__actions">
+          <a class="btn-cta btn-cta-primary" href="https://justinelonglat-lane.com/booking" target="_blank" rel="noopener noreferrer">
+            Intro call
+          </a>
+
+          <a class="btn-cta" href="https://justinelonglat-lane.com/resume" target="_blank" rel="noopener noreferrer">
+            Resume (PDF)
+          </a>
+
+          <a class="btn-cta" href="https://www.justinelonglat-lane.com/files/JLT-Consulting-Brochure.pdf" target="_blank" rel="noopener noreferrer">
+            Brochure (PDF)
+          </a>
+
+          <a class="btn-cta" href="/posts/">
+            All blog posts
+          </a>
+
+          <a class="btn-cta" href="/docs/">
+            Automation toolkit
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     SECONDARY HERO: Deep dives
+     ========================= -->
+<section class="deepdives-hero" aria-labelledby="deepdives-title">
+  <div class="container">
+    <h2 class="deepdives-hero__title" id="deepdives-title">
+      Deep dives on reproducible environments, observability, secure delivery, and sustainable cloud systems.
+    </h2>
+
+    <p class="deepdives-hero__desc">
+      Practical notes from real pipelines: how I ship static sites with guardrails, keep builds deterministic,
+      and turn “blogging” into an engineering system.
+    </p>
+
+    <div class="deepdives-hero__actions">
+      <a class="btn-cta btn-cta-primary" href="/posts/">
+        Deep dives →
+      </a>
+      <a class="btn-cta" href="/docs/">
+        Automation toolkit →
+      </a>
+      <a class="btn-cta" href="https://www.justinelonglat-lane.com/engineering-mesh" target="_blank" rel="noopener noreferrer">
+      Engineering MeshHub → 
+      </a>
+    </div>
+
+    <!-- Quick links (optional but matches your screenshot #2 style) -->
+    <div class="quick-grid" aria-label="Quick links">
+      <div class="quick-card">
+        <h3>Latest posts</h3>
+        <p>Browse the grid, search by tags, and open deep dives.</p>
+        <a href="/posts/">Go to All Blog Posts →</a>
       </div>
 
-      <nav class="footer-links" aria-label="Footer navigation">
-        <a href="/posts/">All posts</a>
-        <a href="/docs/">Toolkit</a>
-        <a href="/home/">Work with Justine</a>
-        <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
-        <a href="https://justinelonglat-lane.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+      <div class="quick-card">
+        <h3>Automation toolkit</h3>
+        <p>Scripts and guardrails: validate, inject partials, generate indexes, and keep releases safe.</p>
+        <a href="/docs/">Open toolkit →</a>
+      </div>
+
+      <div class="quick-card">
+        <h3>Work with Justine</h3>
+        <p>Intro call, resume, brochure, and the consulting entrypoint — on the full homepage.</p>
+        <a href="https://justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Open homepage →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     Footer
+     ========================= -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-brand">
+        <img
+          src="/assets/img/logo.png"
+          alt="Justine Longla T. logo"
+          class="footer-logo"
+          width="40"
+          height="40"
+        />
+        <div class="footer-brand-text">
+          <span class="footer-name">Justine Longla T.</span>
+          <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+        </div>
+      </div>
+
+      <p class="footer-copy">
+        © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting.
+        All rights reserved.
+      </p>
+
+      <!-- Ecosystem strip (canonical + consistent) -->
+      <nav class="eco-footer" aria-label="Ecosystem">
+        <span class="eco-footer__label">Ecosystem:</span>
+        <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site ↗</a>
+        <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
+        <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
+        <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
       </nav>
     </div>
 
-    <script>
-      (function () {
-        var el = document.getElementById("footer-year");
-        if (el) el.textContent = new Date().getFullYear();
-      })();
-    </script>
-  </footer>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/posts/">All posts</a>
+      <a href="/docs/">Toolkit</a>
+      <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
+      <a href="https://justinelonglat-lane.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+    </nav>
+  </div>
+
+  <script>
+    (function () {
+      var el = document.getElementById("footer-year");
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+</footer>
+
 </body>
 </html>
