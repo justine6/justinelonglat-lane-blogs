@@ -1,6 +1,6 @@
 // scripts/vercel-dist.mjs
-import fs from "node:fs/promises";
-import path from "node:path";
+import path from "path";
+import fs from "fs/promises";
 
 async function exists(p) {
   try {
@@ -12,7 +12,8 @@ async function exists(p) {
 }
 
 async function main() {
-  const outDir = ".vercel/output";
+  const ROOT = process.cwd();
+  const outDir = path.join(ROOT, ".vercel", "output");
   const staticDir = path.join(outDir, "static");
 
   // 1) Clean previous output
@@ -22,7 +23,19 @@ async function main() {
   await fs.mkdir(staticDir, { recursive: true });
 
   // 3) Copy public/ -> .vercel/output/static
-  await fs.cp("public", staticDir, { recursive: true });
+  await fs.cp(path.join(ROOT, "public"), staticDir, { recursive: true });
+
+  // 3.5) Overwrite Vercel posts index from curated public/posts/index.html (your dark grid)
+  const curatedPostsIndex = path.join(ROOT, "public", "posts", "index.html");
+  const outPostsIndex = path.join(staticDir, "posts", "index.html");
+
+  if (await exists(curatedPostsIndex)) {
+    await fs.mkdir(path.dirname(outPostsIndex), { recursive: true });
+    await fs.copyFile(curatedPostsIndex, outPostsIndex);
+    console.log("✓ overwrote Vercel posts index from public/posts/index.html");
+  } else {
+    console.warn("! curated posts index not found:", curatedPostsIndex);
+  }
 
   // 4) Ensure required root index exists
   // If public/index.html doesn't exist, make "/" land on posts grid by copying posts index.
@@ -41,7 +54,6 @@ async function main() {
   }
 
   // 5) Minimal config for Build Output v3 (filesystem only)
-  // "/" will serve /index.html automatically because it's in the static filesystem.
   const config = {
     version: 3,
     routes: [{ handle: "filesystem" }],
@@ -56,21 +68,6 @@ async function main() {
   console.log("✓ Static output ready for Vercel");
   console.log('✓ wrote .vercel/output/config.json (version 3, filesystem + "/index.html")');
 }
-// scripts/vercel-dist.mjs
-import fs from "fs";
-import path from "path";
-
-const ROOT = process.cwd();
-const OUT = path.join(ROOT, ".vercel", "output", "static");
-
-// ✅ Force Vercel to serve the curated posts index from /public
-const curatedPostsIndex = path.join(ROOT, "public", "posts", "index.html");
-const vercelPostsIndex  = path.join(OUT, "posts", "index.html");
-
-fs.mkdirSync(path.dirname(vercelPostsIndex), { recursive: true });
-fs.copyFileSync(curatedPostsIndex, vercelPostsIndex);
-
-console.log("✓ overwrote Vercel posts index from public/posts/index.html");
 
 main().catch((err) => {
   console.error(err);
