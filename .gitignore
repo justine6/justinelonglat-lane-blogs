@@ -46,3 +46,24 @@ _backup_repo_*/
 public/_partials/
 scripts/public/
 .vercel/output/
+# ==============================
+# Generated site output (DO NOT COMMIT)
+# ==============================
+
+drafts/_zero-byte-quarantine/
+
+public/assets/js/
+public/js/
+public/blog/
+public/favicon.ico
+public/logo.png
+public/feed.xml
+public/sitemap.xml
+public/tags/
+
+# Generated content folders
+public/posts/
+public/projects/
+
+# Backup files
+public/projects/*.bak-*
