@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>When a Single Warning Turned Into a Docs-as-Code Masterclass</title>
+  <meta
+    name="description"
+    content="How a stubborn html-validate warning about a raw '>' pushed a docs pipeline to production-grade rigor."
+  />
+  <meta name="tags" content="devops, documentation, ci/cd, html, automation, powershell, bash" />
+
+  <link rel="icon" href="/assets/css/favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  
+</head>
+<body>
+
+  <header class="site-header">
+  <div class="container header-row">
+
+    <!-- BRAND -->
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/assets/img/logo.png" alt="Justine Longla T. logo" />
+      <span class="brand-title">
+        Justine Longla T.
+        <span class="brand-subtitle">DevSecOps • Cloud • Sustainability</span>
+      </span>
+    </a>
+
+    <!-- NAVIGATION -->
+    <nav class="site-nav" aria-label="Primary">
+
+      <!-- Ecosystem (canonical) -->
+      <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site</a>
+      <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting</a>
+      <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs</a>
+      <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
+
+      <!-- Blog (internal) -->
+      <a href="/">Home</a>
+      <a href="/posts/">All Blog Posts</a>
+      <a href="/projects/">Projects</a>
+
+      <!-- Primary CTA (canonical) -->
+      <a href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
+         target="_blank"
+         rel="noopener noreferrer">
+        Automation Toolkit
+      </a>
+
+      <a href="/tags/">Tags</a>
+      <a href="/feed.xml">RSS</a>
+      <a href="/sitemap.xml">Sitemap</a>
+      <a href="https://github.com/justine6/jutellane-blogs"
+         target="_blank"
+         rel="noopener noreferrer">GitHub</a>
+    </nav>
+
+    <!-- ✅ NEW: Profile Pill (ecosystem-unified) -->
+    <div class="nav-profile" aria-label="Site signature">
+      <img
+        src="/assets/img/justine-profile.jpg"
+        alt="Justine Longla T."
+        class="nav-profile-avatar"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="nav-profile-text">
+        <span class="nav-profile-eyebrow">Blog by</span>
+        <span class="nav-profile-name">Justine Longla T.</span>
+      </div>
+
+      <button
+        id="themeToggle"
+        class="nav-theme-toggle"
+        type="button"
+        aria-label="Toggle theme"
+        title="Toggle theme"
+      >🌙</button>
+    </div>
+
+  </div>
+</header>
+
+
+  <main class="post-wrap">
+    <h1>When a Single Warning Turned Into a Docs-as-Code Masterclass</h1>
+    <p class="post-meta">
+      Published 2026-01-06 · Tags: DevOps, Docs-as-Code, CI/CD, HTML, Automation
+    </p>
+
+    <p>
+      I spent this week refining the documentation pipeline for one of my projects — the kind
+      of work that usually feels quiet and invisible, but ends up supporting everything else.
+    </p>
+
+    <p>
+      The goal sounded simple: lint Markdown, format everything consistently, validate links,
+      validate generated HTML, and make sure the pipeline fails when something is wrong.
+      In other words, treat <strong>documentation with the same discipline as production code</strong>.
+    </p>
+
+    <p>Everything worked beautifully… except for one stubborn warning:</p>
+
+    <pre><code>Raw "&gt;" must be encoded as "&amp;gt;"</code></pre>
+
+    <p>
+      One line. One symbol. But that warning ended up teaching me more than I expected about
+      encoding, automation discipline, and docs-as-code workflows.
+    </p>
+
+    <h2>The Docs Tooling Stack</h2>
+
+    <p>Here’s the tooling stack behind this particular docs pipeline:</p>
+
+    <ul>
+      <li><code>markdownlint-cli2</code> — Markdown style &amp; structure</li>
+      <li><code>Prettier</code> — formatting for HTML/CSS/JS/JSON/YAML</li>
+      <li><code>linkinator</code> — internal &amp; external link validation</li>
+      <li><code>html-validate</code> — standards-compliant HTML</li>
+      <li><code>npm</code> scripts — the glue for the pipeline</li>
+    </ul>
+
+    <p>
+      The philosophy was simple: <em>if something breaks, the CI should say so, loudly</em>.
+      And it did — very loudly — about a single <code>&gt;</code>.
+    </p>
+
+    <h2>Hunting Down the Offending Character</h2>
+
+    <p>
+      I wanted to be sure this was a real problem, not noise, so I started by searching for
+      raw <code>&gt;</code> characters that were <em>not</em> part of HTML tags.
+    </p>
+
+    <div class="code-tabs">
+      <div class="code-tab active">PowerShell</div>
+      <div class="code-tab">Bash</div>
+    </div>
+
+    <pre><code># PowerShell – find &gt; that isn't part of &lt;tags&gt;
+Select-String -Path .\tooling-setup.html -Pattern '(?&lt;!&lt;)&gt;' -AllMatches</code></pre>
+
+    <pre><code># Bash – rough equivalent
+grep -RIn "&gt;" tooling-setup.html | grep -v "&lt;"</code></pre>
+
+    <p>
+      That surfaced exactly what I needed: raw text like
+      <code>Next: CI/CD Pipelines &gt;</code> — safe for browsers, but not for a strict HTML validator.
+    </p>
+
+    <h2>The Real Fix (Not a Hack)</h2>
+
+    <p>
+      Instead of blindly replacing every <code>&gt;</code>, I fixed only the text that was truly raw:
+    </p>
+
+    <pre><code>Next: CI/CD Pipelines &amp;gt;</code></pre>
+
+    <p>
+      For shell redirection examples, I kept the command semantics but encoded the output operator
+      in HTML:
+    </p>
+
+    <div class="code-tabs">
+      <div class="code-tab active">PowerShell</div>
+      <div class="code-tab">Bash</div>
+    </div>
+
+    <pre><code># PowerShell
+echo "npx lint-staged" `&gt; .husky/pre-commit
+
+# Bash
+echo "npx lint-staged" &gt; .husky/pre-commit</code></pre>
+
+    <p>
+      In the HTML docs, those become:
+    </p>
+
+    <pre><code>echo "npx lint-staged" &amp;gt; .husky/pre-commit</code></pre>
+
+    <p>
+      After a few careful edits, I re-ran the full pipeline and finally got the quiet CI
+      I was looking for — <strong>0 errors, 0 warnings</strong> from
+      <code>markdownlint</code>, <code>Prettier</code>, <code>linkinator</code>, and
+      <code>html-validate</code>.
+    </p>
+
+    <h2>What This Experience Reinforced</h2>
+
+    <ul>
+      <li><strong>Documentation is engineering work.</strong> It deserves the same rigor as application code.</li>
+      <li><strong>Warnings are invitations.</strong> Suppressing them is fast; understanding them is growth.</li>
+      <li><strong>Automation doesn’t replace thinking.</strong> It forces better thinking.</li>
+      <li><strong>Quiet CI is healthy CI.</strong> Noise trains teams to ignore real problems.</li>
+    </ul>
+
+    <div class="note">
+      <strong>My rule going forward:</strong> fix the root cause. Don’t teach your tools to ignore you.
+      One warning today can become ten bugs tomorrow.
+    </div>
+
+    <h2>Final Thoughts</h2>
+
+    <p>
+      This wasn’t really a story about a <code>&gt;</code> symbol. It was a story about quality
+      culture, craftsmanship, docs-as-code discipline, and respecting the feedback loops that CI gives us.
+    </p>
+
+    <p>
+      If you’re building your own docs pipeline: enable HTML validation, don’t suppress the warnings,
+      and follow the trail. You’ll always learn something — and that learning is worth documenting.
+    </p>
+  </main>
+
+  <footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="footer-brand">
+        <img
+          src="/assets/img/logo.png"
+          alt="Justine Longla T. logo"
+          class="footer-logo"
+          width="40"
+          height="40"
+        />
+        <div class="footer-brand-text">
+          <span class="footer-name">Justine Longla T.</span>
+          <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+        </div>
+      </div>
+
+      <p class="footer-copy">
+        © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting.
+        All rights reserved.
+      </p>
+
+      <!-- ✅ Ecosystem strip (canonical + consistent) -->
+      <nav class="eco-footer" aria-label="Ecosystem">
+        <span class="eco-footer__label">Ecosystem:</span>
+        <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site ↗</a>
+        <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
+        <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
+        <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
+      </nav>
+    </div>
+
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site</a>
+      <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting</a>
+      <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs</a>
+      <a href="https://docs.justinelonglat-lane.com/automation-toolkit.html" target="_blank" rel="noopener noreferrer">
+        Automation Toolkit
+      </a>
+    </nav>
+  </div>
+
+  <script>
+    (function () {
+      var el = document.getElementById("footer-year");
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+</footer>
+
+
+</body>
+</html>
