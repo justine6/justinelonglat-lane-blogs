@@ -2,155 +2,106 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>All Blog Posts</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Deep dives on reproducible environments, observability, secure delivery, and sustainable cloud systems." />
 
+  <title>All Blog Posts</title>
+  <meta name="description" content="Browse deep dives on reproducible environments, observability, secure delivery, and sustainable cloud systems." />
+
+  <!-- Favicons (root-safe + GH Pages fallback) -->
+  <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+  <link rel="icon" href="/justinelonglat-lane-blogs/favicon.ico?v=2" sizes="any" />
+
+  <!-- Global styles -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <!-- Theme bootstrap (same as your homepage) -->
+  <script>
+  (function () {
+    const root = document.documentElement;
+    const KEY = "jlt-theme";
+    function apply(theme) { root.setAttribute("data-theme", theme); }
+    const saved = localStorage.getItem(KEY);
+    apply(saved === "dark" ? "dark" : "light");
+    window.__toggleTheme = function () {
+      const current = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+      const next = current === "dark" ? "light" : "dark";
+      localStorage.setItem(KEY, next);
+      apply(next);
+    };
+  })();
+  </script>
+
+  <script src="/assets/js/nav-active.js" defer></script>
+
+  <!-- Page-local styles: ONLY for the posts grid/search (keeps your global look) -->
   <style>
-    :root{
-      --bg: #0b1220;
-      --panel: rgba(2, 6, 23, .72);
-      --card: rgba(15, 23, 42, .72);
-      --card2: rgba(2, 6, 23, .62);
-      --text: #e5e7eb;
-      --muted: rgba(226, 232, 240, .74);
-      --border: rgba(148, 163, 184, .20);
-      --ring: rgba(59, 130, 246, .30);
-      --link: #60a5fa;
-      --chip: rgba(148, 163, 184, .16);
-      --shadow: 0 18px 60px rgba(0,0,0,.35);
-      --radius: 16px;
-    }
+    .posts-wrap { padding: 2.25rem 0 3rem; }
+    .posts-title { margin: 0 0 1rem; font-size: clamp(2rem, 3vw, 3rem); line-height: 1.05; }
 
-    /* Respect your global theme toggle if present */
-    html[data-theme="light"]{
-      --bg: #ffffff;
-      --panel: rgba(255,255,255,.92);
-      --card: #ffffff;
-      --card2: #f8fafc;
-      --text: #0f172a;
-      --muted: #475569;
-      --border: rgba(148,163,184,.22);
-      --ring: rgba(2,132,199,.18);
-      --link: #0284c7;
-      --chip: rgba(2,6,23,.06);
-      --shadow: 0 16px 50px rgba(2,6,23,.10);
-    }
-
-    html,body{height:100%}
-    body{
-      margin:0;
-      color: var(--text);
-      background: radial-gradient(1200px 800px at 20% 10%, rgba(59,130,246,.12), transparent 60%),
-                  radial-gradient(900px 700px at 80% 20%, rgba(34,197,94,.10), transparent 55%),
-                  var(--bg);
-      font: 16px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu;
-    }
-
-    .container{
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2.5rem 1.25rem 3.25rem;
-    }
-
-    .top{
-      display:flex;
-      flex-direction:column;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
-    }
-
-    .title{
-      font-size: clamp(2rem, 3.2vw, 3rem);
-      line-height: 1.05;
-      margin: 0;
-      letter-spacing: -0.02em;
-    }
-
-    .sub{
-      margin: .35rem 0 0;
-      max-width: 70ch;
-      color: var(--muted);
-    }
-
-    .bar{
-      display:flex;
-      flex-wrap:wrap;
-      gap: .75rem;
-      align-items:center;
-      margin-top: .65rem;
-    }
-
-    .search{
-      flex: 1 1 320px;
-      display:flex;
-      align-items:center;
-      gap: .55rem;
-      background: var(--panel);
-      border: 1px solid var(--border);
+    .posts-search {
+      width: 100%;
       border-radius: 999px;
-      padding: .65rem .9rem;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(10px);
+      border: 1px solid rgba(148,163,184,.28);
+      padding: .85rem 1rem;
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 12px 35px rgba(2,6,23,.10);
+      outline: none;
     }
-
-    .search svg{opacity:.75}
-    .search input{
-      width:100%;
-      border:0;
-      outline:0;
-      background: transparent;
-      color: var(--text);
-      font-size: .98rem;
+    html[data-theme="dark"] .posts-search{
+      background: rgba(2,6,23,.55);
+      border-color: rgba(148,163,184,.18);
+      box-shadow: 0 16px 45px rgba(0,0,0,.35);
+      color: rgba(226,232,240,.95);
     }
-    .search input::placeholder{color: var(--muted)}
+    .posts-search::placeholder { opacity: .75; }
 
-    .meta{
-      color: var(--muted);
-      font-size: .95rem;
-    }
-
-    .grid{
-      list-style:none;
-      padding:0;
+    .posts-grid{
+      list-style: none;
+      padding: 0;
       margin: 1.25rem 0 0;
-      display:grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 1rem;
     }
 
-    .card{
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, var(--card), var(--card2));
-      box-shadow: var(--shadow);
+    .post-card{
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,.18);
+      background: rgba(2,6,23,.62);
+      box-shadow: 0 14px 42px rgba(0,0,0,.28);
       padding: 1rem 1rem 1.05rem;
-      transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
-      backdrop-filter: blur(10px);
-      min-height: 150px;
+      transition: transform .14s ease, border-color .14s ease, box-shadow .14s ease;
       display:flex;
       flex-direction:column;
-      gap: .55rem;
+      gap:.55rem;
+      min-height: 150px;
     }
-
-    .card:hover{
+    html[data-theme="light"] .post-card{
+      background: rgba(255,255,255,.95);
+      border-color: rgba(148,163,184,.25);
+      box-shadow: 0 14px 42px rgba(2,6,23,.10);
+    }
+    .post-card:hover{
       transform: translateY(-2px);
-      border-color: rgba(96,165,250,.45);
-      box-shadow: 0 22px 70px rgba(0,0,0,.40);
+      border-color: rgba(59,130,246,.40);
+      box-shadow: 0 18px 56px rgba(0,0,0,.32);
+    }
+    html[data-theme="light"] .post-card:hover{
+      box-shadow: 0 18px 56px rgba(2,6,23,.14);
     }
 
-    .card a{
-      color: var(--link);
+    .post-card a{
       font-weight: 800;
       text-decoration: none;
-      font-size: 1.02rem;
-      line-height: 1.25;
+      color: inherit;
     }
-    .card a:hover{text-decoration: underline}
+    html[data-theme="dark"] .post-card a{ color: rgba(226,232,240,.96); }
+    html[data-theme="light"] .post-card a{ color: #0f172a; }
+    .post-card a:hover{ text-decoration: underline; }
 
-    .desc{
-      color: var(--muted);
+    .post-desc{
       margin: 0;
+      opacity: .85;
       font-size: .95rem;
       line-height: 1.5;
       overflow: hidden;
@@ -159,133 +110,178 @@
       -webkit-box-orient: vertical;
     }
 
-    .tags{
+    .post-tags{
       margin-top: auto;
-      display:flex;
-      flex-wrap: wrap;
-      gap: .35rem;
-      padding-top: .35rem;
-    }
-
-    .chip{
       font-size: .82rem;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      background: var(--chip);
-      padding: .22rem .55rem;
-      border-radius: 999px;
-      white-space: nowrap;
+      opacity: .75;
+      line-height: 1.35;
     }
 
     .empty{
-      color: var(--muted);
-      font-style: italic;
-      border: 1px dashed var(--border);
-      border-radius: var(--radius);
       padding: 1rem;
-      background: var(--panel);
+      border-radius: 18px;
+      border: 1px dashed rgba(148,163,184,.25);
+      opacity: .8;
     }
   </style>
 </head>
 
 <body>
-  <main class="container">
-    <div class="top">
-      <div>
-        <h1 class="title">All Blog Posts</h1>
-        <p class="sub">
-          Browse the grid, search by title/description/tags, and open deep dives.
-        </p>
-      </div>
 
-      <div class="bar">
-        <div class="search" role="search" aria-label="Search posts">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M21 21l-4.3-4.3m1.8-5.2a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <input id="q" type="search" placeholder="Search posts (title, description, tag)..." autocomplete="off" />
-        </div>
-        <div class="meta"><span id="count">0</span> posts</div>
-      </div>
+<!-- Unified header (same as your homepage) -->
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <a class="site-brand" href="/" aria-label="Home">
+      <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+      <span class="site-brand-text">
+        <span class="site-brand-name">Justine Longla T.</span>
+        <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/posts/" data-nav="posts">All Blog Posts</a>
+
+      <a
+        class="is-primary"
+        href="https://justinelonglat-lane.com/engineering-mesh"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="nav-ico">🧩</span>
+        Engineering MeshHub
+      </a>
+
+      <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">
+        Docs site
+      </a>
+
+      <a class="is-primary" href="/docs/" data-nav="toolkit">
+        <span class="nav-ico">🛠️</span>
+        Automation toolkit
+      </a>
+    </nav>
+
+    <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+      <a
+        class="header-profile-pill"
+        href="https://justinelonglat-lane.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open main site"
+        title="Open main site"
+      >
+        <img
+          src="/assets/img/justine-profile.jpg"
+          alt="Justine Longla T."
+          class="header-profile-avatar"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="header-profile-label">Justine</span>
+      </a>
+
+      <button
+        id="theme-toggle"
+        class="theme-toggle-pill"
+        type="button"
+        aria-label="Toggle light/dark mode"
+        title="Toggle theme"
+        onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
+      >
+        <span class="theme-icon light">☀️</span>
+        <span class="theme-icon dark">🌙</span>
+      </button>
     </div>
+  </div>
+</header>
 
-    <ul id="grid" class="grid" aria-live="polite"></ul>
-  </main>
+<main class="container posts-wrap">
+  <h1 class="posts-title">All Blog Posts</h1>
 
-  <script type="module">
-    const $grid = document.getElementById("grid");
-    const $q = document.getElementById("q");
-    const $count = document.getElementById("count");
+  <input
+    id="q"
+    class="posts-search"
+    type="search"
+    placeholder="Search posts (title, description, tag)..."
+    autocomplete="off"
+    aria-label="Search posts"
+  />
 
-    function esc(s) {
-      return String(s ?? "").replace(/[&<>"']/g, (c) => ({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-      }[c]));
+  <ul id="grid" class="posts-grid" aria-live="polite"></ul>
+</main>
+
+<script type="module">
+  const $grid = document.getElementById("grid");
+  const $q = document.getElementById("q");
+
+  function esc(s) {
+    return String(s ?? "").replace(/[&<>"']/g, (c) => ({
+      "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    }[c]));
+  }
+
+  function norm(s){ return String(s ?? "").toLowerCase().trim(); }
+
+  function render(items){
+    if (!items.length) {
+      $grid.innerHTML = '<li class="empty">No matching posts.</li>';
+      return;
     }
 
-    function norm(s){ return String(s ?? "").toLowerCase().trim(); }
+    $grid.innerHTML = items.map(x => {
+      const title = esc(x.title || x.slug || "Untitled");
+      const url = esc(x.url || "#");
+      const desc = x.description ? `<p class="post-desc">${esc(x.description)}</p>` : `<p class="post-desc"></p>`;
+      const tags = Array.isArray(x.tags) ? x.tags : [];
+      const tagLine = tags.length ? `<div class="post-tags"># ${esc(tags.join(", "))}</div>` : `<div class="post-tags"></div>`;
 
-    function render(items){
-      $count.textContent = String(items.length);
+      return `
+        <li class="post-card">
+          <a href="${url}">${title}</a>
+          ${desc}
+          ${tagLine}
+        </li>
+      `;
+    }).join("");
+  }
 
-      if (!items.length) {
-        $grid.innerHTML = '<li class="empty">No matching posts.</li>';
-        return;
-      }
+  async function load(){
+    const res = await fetch("/_data/posts.json", { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to load /_data/posts.json: " + res.status);
+    const data = await res.json();
+    return Array.isArray(data) ? data : [];
+  }
 
-      $grid.innerHTML = items.map(x => {
-        const title = esc(x.title || x.slug || "Untitled");
-        const url = esc(x.url || "#");
-        const desc = x.description ? `<p class="desc">${esc(x.description)}</p>` : `<p class="desc"></p>`;
-        const tags = Array.isArray(x.tags) ? x.tags : [];
-        const chips = tags.slice(0, 8).map(t => `<span class="chip">#${esc(t)}</span>`).join("");
-        return `
-          <li class="card">
-            <a href="${url}">${title}</a>
-            ${desc}
-            <div class="tags">${chips}</div>
-          </li>
-        `;
-      }).join("");
+  let all = [];
+
+  function applyFilter(){
+    const q = norm($q.value);
+    if (!q) return render(all);
+
+    const filtered = all.filter(x => {
+      const hay = [
+        x.title, x.slug, x.description,
+        ...(Array.isArray(x.tags) ? x.tags : [])
+      ].map(norm).join(" ");
+      return hay.includes(q);
+    });
+
+    render(filtered);
+  }
+
+  (async function main(){
+    try {
+      all = await load();
+      render(all);
+      $q.addEventListener("input", applyFilter);
+    } catch (e) {
+      console.error(e);
+      $grid.innerHTML = '<li class="empty">Unable to load posts right now.</li>';
     }
+  })();
+</script>
 
-    async function load(){
-      const res = await fetch("/_data/posts.json", { cache: "no-store" });
-      if (!res.ok) throw new Error("Failed to load /_data/posts.json: " + res.status);
-      return await res.json();
-    }
-
-    let all = [];
-    let filtered = [];
-
-    function applyFilter(){
-      const q = norm($q.value);
-      if (!q) {
-        filtered = all.slice();
-        render(filtered);
-        return;
-      }
-      filtered = all.filter(x => {
-        const hay = [
-          x.title, x.slug, x.description,
-          ...(Array.isArray(x.tags) ? x.tags : [])
-        ].map(norm).join(" ");
-        return hay.includes(q);
-      });
-      render(filtered);
-    }
-
-    (async function main(){
-      try {
-        all = await load();
-        if (!Array.isArray(all)) all = [];
-        render(all);
-        $q.addEventListener("input", applyFilter);
-      } catch (e) {
-        console.error(e);
-        $grid.innerHTML = '<li class="empty">Unable to load posts right now.</li>';
-      }
-    })();
-  </script>
 </body>
 </html>
