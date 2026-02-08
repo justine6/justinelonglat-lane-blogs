@@ -7,15 +7,20 @@ import slugify from "slugify";
 
 const ROOT = process.cwd();
 
-// where your source posts/projects live
+// where your source posts live
 const SRC_POSTS_DIR = path.join(ROOT, "posts");
-const SRC_PROJECTS_DIR = path.join(ROOT, "projects");
 
 // where the built site lives
 const PUBLIC_DIR = path.join(ROOT, "public");
 const PUBLIC_DATA_DIR = path.join(PUBLIC_DIR, "_data");
 const PUBLIC_POSTS_DIR = path.join(PUBLIC_DIR, "posts");
-const PUBLIC_PROJECTS_DIR = path.join(PUBLIC_DIR, "projects");
+
+// If true: we NEVER touch public/posts/index.html (curated file wins).
+// If false: we will generate it only if missing.
+const PRESERVE_CURATED_POSTS_INDEX = true;
+
+// Optional: keep /blog/ as alias to /posts/
+const KEEP_BLOG_ALIAS = true;
 
 function norm(p) {
   return p.replace(/\\/g, "/");
@@ -36,7 +41,6 @@ function textOfFirst(el, name) {
   while (stack.length) {
     const n = stack.shift();
     if (n.name === name) {
-      // find first text child anywhere under this node
       const inner = [];
       const q = [...(n.children || [])];
       while (q.length) {
@@ -63,7 +67,7 @@ function findMeta(doc, metaName) {
   return null;
 }
 
-// copy posts/projects into public so http-server can serve them
+// copy posts into public so Vercel/static can serve them
 async function copyTree(srcRoot, dstRoot) {
   if (!(await exists(srcRoot))) return;
   const files = await globby("**/*.*", { cwd: srcRoot, dot: false });
@@ -95,7 +99,6 @@ async function collectFrom(srcDir, kind, urlBase) {
       .map((s) => s.trim())
       .filter(Boolean);
 
-    // URL as it will be seen in the browser (public is the web root)
     const relDir = path.dirname(rel); // e.g. "2025/10/perfect-build"
     const urlPath = "/" + norm(path.join(urlBase, relDir)) + "/";
 
@@ -109,7 +112,6 @@ async function collectFrom(srcDir, kind, urlBase) {
     });
   }
 
-  // newest-ish first (paths usually contain year/month)
   items.sort((a, b) => (a.url < b.url ? 1 : -1));
   return items;
 }
@@ -176,56 +178,55 @@ async function ensureIndexPage(browserJsonPath, pagePath, heading) {
   </script>
 </body>
 </html>`;
+
   await fs.mkdir(path.dirname(pagePath), { recursive: true });
   await fs.writeFile(pagePath, html, "utf8");
 }
 
 async function main() {
-  // ensure data + content folders exist
+  // ensure data + posts folder exist
   await fs.mkdir(PUBLIC_DATA_DIR, { recursive: true });
   await fs.mkdir(PUBLIC_POSTS_DIR, { recursive: true });
-  await fs.mkdir(PUBLIC_PROJECTS_DIR, { recursive: true });
 
-  // copy raw HTML into public
+  // copy raw built HTML into public
   await copyTree(SRC_POSTS_DIR, PUBLIC_POSTS_DIR);
-  await copyTree(SRC_PROJECTS_DIR, PUBLIC_PROJECTS_DIR);
 
   // collect metadata
   const posts = await collectFrom(SRC_POSTS_DIR, "post", "posts");
-  const projects = await collectFrom(SRC_PROJECTS_DIR, "project", "projects");
 
   await fs.writeFile(
     path.join(PUBLIC_DATA_DIR, "posts.json"),
     JSON.stringify(posts || [], null, 2),
     "utf8"
   );
-  await fs.writeFile(
-    path.join(PUBLIC_DATA_DIR, "projects.json"),
-    JSON.stringify(projects || [], null, 2),
-    "utf8"
-  );
 
-  // listing pages (already inside public/)
-  await ensureIndexPage(
-    "/_data/posts.json",
-    path.join(PUBLIC_DIR, "posts", "index.html"),
-    "All Blog Posts"
-  );
+  // IMPORTANT: Do NOT overwrite curated posts index
+  const curatedPostsIndex = path.join(PUBLIC_POSTS_DIR, "index.html");
+  const curatedExists = await exists(curatedPostsIndex);
 
-  await ensureIndexPage(
-    "/_data/projects.json",
-    path.join(PUBLIC_DIR, "projects", "index.html"),
-    "Projects"
-  );
+  if (PRESERVE_CURATED_POSTS_INDEX && curatedExists) {
+    console.log("✓ preserved curated public/posts/index.html (not overwritten)");
+  } else {
+    await ensureIndexPage(
+      "/_data/posts.json",
+      curatedPostsIndex,
+      "All Blog Posts"
+    );
+    console.log("✓ generated public/posts/index.html (fallback mode)");
+  }
 
-  // OPTIONAL: keep /blog/ as a friendly alias for /posts/
-  await ensureIndexPage(
-    "/_data/posts.json",
-    path.join(PUBLIC_DIR, "blog", "index.html"),
-    "All Blog Posts"
-  );
+  // OPTIONAL: keep /blog/ as alias for /posts/
+  if (KEEP_BLOG_ALIAS) {
+    const blogIndex = path.join(PUBLIC_DIR, "blog", "index.html");
+    const blogDir = path.dirname(blogIndex);
+    await fs.mkdir(blogDir, { recursive: true });
 
-  console.log(`\n✓ generated ${(posts || []).length} posts and ${(projects || []).length} projects`);
+    // If you prefer /blog/ to *redirect* instead of duplicating content,
+    // you can swap this ensureIndexPage() with a small meta-refresh page.
+    await ensureIndexPage("/_data/posts.json", blogIndex, "All Blog Posts");
+  }
+
+  console.log(`\n✓ generated ${(posts || []).length} posts`);
 }
 
 await main().catch((e) => {
