@@ -16,6 +16,78 @@
 </head>
 
 <body>
+  <header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <!-- Brand -->
+    <a class="site-brand" href="/" aria-label="Home">
+      <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+      <span class="site-brand-text">
+        <span class="site-brand-name">Justine Longla T.</span>
+        <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+      </span>
+    </a>
+
+    <!-- Primary nav -->
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
+
+      <!-- ✅ Canonical posts index -->
+      <a href="/posts/" data-nav="posts">All Blog Posts</a>
+
+      <a
+        class="is-primary"
+        href="https://www.justinelonglat-lane.com/engineering-mesh"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="nav-ico">🧩</span>
+        Engineering MeshHub
+      </a>
+
+      <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">
+        Docs site
+      </a>
+
+      <a class="is-primary" href="/docs/" data-nav="toolkit">
+        <span class="nav-ico">🛠️</span>
+        Automation toolkit
+      </a>
+    </nav>
+
+    <!-- Right side -->
+    <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+      <a
+        class="header-profile-pill"
+        href="https://justinelonglat-lane.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open main site"
+        title="Open main site"
+      >
+        <img
+          src="/assets/img/justine-profile.jpg"
+          alt="Justine Longla T."
+          class="header-profile-avatar"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="header-profile-label">Justine</span>
+      </a>
+
+      <button
+        id="theme-toggle"
+        class="theme-toggle-pill"
+        type="button"
+        aria-label="Toggle light/dark mode"
+        title="Toggle theme"
+        onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
+      >
+        <span class="theme-icon light">☀️</span>
+        <span class="theme-icon dark">🌙</span>
+      </button>
+    </div>
+  </div>
+</header>
   <a class="skip" href="#content">Skip to content</a>
 
   <!-- Main article -->
@@ -102,7 +174,7 @@
     <div class="container footer-grid">
       <div class="footer-left">
         <a class="brand small" href="/">
-          <img class="brand-logo small" src="/logo.png" alt="JustineLonglaT-Lane logo" />
+          <img class="brand-logo small" src="/assets/img/logo.png" alt="JustineLonglaT-Lane logo" />
           <span class="brand-title small">Justine Longla T. DevOps Blog</span>
         </a>
 

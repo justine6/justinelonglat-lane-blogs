@@ -1,5 +1,22 @@
 [
   {
+    "title": "Reproducible Static Blog Guardrails",
+    "description": "I turned a static blog into a reproducible engineering system with deterministic builds, curated index pinning, and a canonical CSS layer to eliminate cascade drift.",
+    "tags": [
+      "devops",
+      "reproducibility",
+      "ci/cd",
+      "static-sites",
+      "guardrails",
+      "automation",
+      "build-contract",
+      "css"
+    ],
+    "url": "/posts/2026/02/reproducible-static-blog-guardrails/",
+    "slug": "reproducible-static-blog-guardrails",
+    "kind": "post"
+  },
+  {
     "title": "When a Single Warning Turned Into a Docs-as-Code Masterclass",
     "description": "How a stubborn html-validate warning about a raw '>' pushed a docs pipeline to production-grade rigor.",
     "tags": [

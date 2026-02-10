@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Reproducible Static Blog Guardrails</title>
+  <meta name="description" content="I turned a static blog into a reproducible engineering system with deterministic builds, curated index pinning, and a canonical CSS layer to eliminate cascade drift." />
+  <meta name="tags" content="devops,reproducibility,ci/cd,static-sites,guardrails,automation,build-contract,css" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <script src="/js/theme-toggle.js" defer></script>
+  <script src="/js/nav-active.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header" role="banner">
+    <div class="site-header-inner">
+      <a class="site-brand" href="/" aria-label="Home">
+        <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+        <span class="site-brand-text">
+          <span class="site-brand-name">Justine Longla T.</span>
+          <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/posts/">All Blog Posts</a>
+        <a class="is-primary" href="https://www.justinelonglat-lane.com/engineering-mesh" target="_blank" rel="noopener noreferrer">🧩 Engineering MeshHub</a>
+        <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Docs site</a>
+        <a class="is-primary" href="/docs/">🛠️ Automation toolkit</a>
+      </nav>
+
+      <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+        <a class="header-profile-pill"
+           href="https://www.justinelonglat-lane.com/engineering-mesh"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Open main site"
+           title="Open main site">
+          <img src="/assets/img/justine-profile.jpg" alt="Justine Longla T." class="header-profile-avatar" loading="lazy" decoding="async" />
+          <span class="header-profile-label">Justine</span>
+        </a>
+
+        <button id="theme-toggle" class="theme-toggle-pill" type="button" aria-label="Toggle light/dark mode" title="Toggle theme">
+          <span class="theme-icon light">☀️</span>
+          <span class="theme-icon dark">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container page" role="main">
+    <article class="post">
+      <header class="post-header">
+        <p class="post-kicker">Case study • Guardrails</p>
+        <h1>Reproducible Static Blog Guardrails</h1>
+        <p class="post-subtitle">
+          I turned a static blog into a reproducible engineering system with deterministic builds,
+          curated index pinning, and a canonical CSS layer to eliminate cascade drift.
+        </p>
+
+        <div class="post-meta">
+          <span>2026-02-08</span>
+          <span>•</span>
+          <span>#devops #reproducibility #guardrails</span>
+        </div>
+      </header>
+
+      <section class="post-body">
+        <p>
+          This post is a case study of how a “simple static site” becomes a real engineering system when you treat
+          <strong>output correctness</strong> as a contract — not a hope.
+        </p>
+
+        <h2>The failure mode: static sites drift quietly</h2>
+        <ul>
+          <li>CSS blocks get duplicated and the cascade starts behaving differently.</li>
+          <li>A generator overwrites an index page you meant to hand-curate.</li>
+          <li>A stray <code>&lt;style&gt;</code> sneaks into a stylesheet from copy/paste.</li>
+          <li>The build “works locally” but differs in CI or on Vercel.</li>
+        </ul>
+        <p>These are drift problems. They’re usually invariants being violated — so I added guardrails.</p>
+
+        <h2>Guardrail #1 — No HTML inside CSS</h2>
+        <p>
+          If a <code>&lt;style&gt;</code> tag ends up inside <code>main.css</code>, it can break parsers/minifiers
+          and create unpredictable build differences.
+        </p>
+        <p>
+          The fix: a prebuild script that strips CSS comments (to avoid false positives) and fails on real
+          <code>&lt;style&gt;</code> tags.
+        </p>
+        <p><strong>Script:</strong> <code>scripts/check-css.mjs</code></p>
+
+        <h2>Guardrail #2 — Canonical CSS layer to stop cascade drift</h2>
+        <p>
+          CSS drift happens when the same selector exists in multiple places. The last one wins — and your UI becomes unstable.
+        </p>
+        <p>
+          I introduced a canonical posts grid block that must exist exactly once and sit at the very bottom of the stylesheet,
+          ending with:
+        </p>
+        <pre><code>/* JLT_CANONICAL_POSTS_GRID_V1 */</code></pre>
+        <p><strong>Script:</strong> <code>scripts/check-canonical-grid.mjs</code></p>
+
+        <h2>Guardrail #3 — Curated index pinning</h2>
+        <p>
+          Sometimes you want editorial control. My <code>/posts/</code> page is curated, so I pin the source of truth and
+          prevent generators from overwriting it.
+        </p>
+
+        <h2>Guardrail #4 — Output contract verification</h2>
+        <p>
+          A successful build can still produce broken deployment output. I verify the output contract after build to ensure
+          key pages and data exist in <code>.vercel/output/static</code>.
+        </p>
+
+        <h2>Copy/paste snippets</h2>
+        <h3>Run the full guardrail chain</h3>
+        <pre><code>npm run deploy:check</code></pre>
+
+        <h3>Run guards individually</h3>
+        <pre><code>node scripts/check-css.mjs
+node scripts/check-canonical-grid.mjs</code></pre>
+
+        <h3>Debug canonical-grid locally (PowerShell)</h3>
+        <pre><code>$env:DEBUG="1"; node scripts/check-canonical-grid.mjs</code></pre>
+
+        <h2>What building this taught me</h2>
+        <p>
+          Static doesn’t mean simple. Static can be <strong>reproducible</strong> — if you enforce invariants, validate outputs,
+          and keep the workflow intentionally boring.
+        </p>
+      </section>
+
+      <footer class="post-footer">
+        <p>
+          Back to <a href="/posts/">All Blog Posts</a> • Visit the <a href="/docs/">Automation toolkit</a>
+        </p>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="/assets/img/logo.png" alt="Justine Longla T. logo" class="footer-logo" width="40" height="40" />
+          <div class="footer-brand-text">
+            <span class="footer-name">Justine Longla T.</span>
+            <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+          </div>
+        </div>
+
+        <p class="footer-copy">
+          © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting. All rights reserved.
+        </p>
+
+        <nav class="eco-footer" aria-label="Ecosystem">
+          <span class="eco-footer__label">Ecosystem:</span>
+          <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site ↗</a>
+          <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
+          <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
+          <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
+        </nav>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/posts/">All posts</a>
+        <a href="/docs/">Toolkit</a>
+        <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
+        <a href="https://justinelonglat-lane.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+      </nav>
+    </div>
+
+    <script>
+      (function () {
+        var el = document.getElementById("footer-year");
+        if (el) el.textContent = new Date().getFullYear();
+      })();
+    </script>
+  </footer>
+</body>
+</html>

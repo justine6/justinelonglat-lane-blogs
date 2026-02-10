@@ -479,6 +479,7 @@
     }
   </style>
 </head>
+<body>
 <script>
   (function () {
     var path = location.pathname || "/";
@@ -517,7 +518,6 @@
     };
   })();
 </script>
-<body>
 
 <header class="site-header" role="banner">
   <div class="site-header-inner">
@@ -933,6 +933,7 @@
         <span>Where these patterns show up in real projects.</span>
       </div>
 
+      <!-- Existing card (keep or replace) -->
       <div class="tool-card">
         <p class="tool-desc" style="margin-bottom:0.8rem;">
           This toolkit doesn’t live in isolation — it supports the DevOps stories and deep dives
@@ -945,6 +946,36 @@
           <a href="/projects/2025/11/self-healing-pipeline/">Self-Healing Delivery Pipeline for Legacy Apps</a>
         </div>
       </div>
+
+      <!-- NEW: Guardrails post card -->
+      <article class="tool-card" style="margin-top:1rem;">
+        <div class="tool-label">Case study</div>
+        <h3 class="tool-name">Reproducible Static Blog Guardrails</h3>
+
+        <p class="tool-desc">
+          How the blog evolved from “static pages” into a deterministic engineering system:
+          build output contracts, curated index pinning, and a canonical CSS layer to stop cascade drift.
+        </p>
+
+        <div class="tool-path">
+          <span class="label">read</span>
+          <code>/posts/2026/02/reproducible-static-blog-guardrails/</code>
+        </div>
+
+        <div class="tool-stack">
+          <span>Deterministic builds</span>
+          <span>Guardrails</span>
+          <span>Build contract</span>
+          <span>CSS canonical layer</span>
+          <span>Curated pinning</span>
+        </div>
+
+        <div class="pill-row" style="margin-top:.85rem;">
+          <a href="/posts/2026/02/reproducible-static-blog-guardrails/">Read the post →</a>
+          <a href="/posts/">Browse posts →</a>
+        </div>
+      </article>
+    </div>
 
       <footer class="site-footer">
         <div class="footer-inner">
@@ -1011,3 +1042,4 @@
 
 </body>
 </html>
+
