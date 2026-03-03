@@ -241,7 +241,55 @@ a:hover{ text-decoration:underline; text-underline-offset:3px; }
   }
   .site-cta-nav{ order:2; }
 }
+/* =========================================================
+   BLOGS: White header (match Docs) — light theme only
+   Keep dark theme as-is.
+   ========================================================= */
+:root:not([data-theme="dark"]) .site-header{
+  background: #ffffff !important;
+  border-bottom: 1px solid rgba(15,23,42,.10) !important;
+  backdrop-filter: none; /* optional: remove frosted glass on white */
+}
 
+/* Links in the header (your header.html uses .nav-right) */
+:root:not([data-theme="dark"]) .site-header .nav-right a,
+:root:not([data-theme="dark"]) .site-header .site-nav a{
+  color: #0f172a !important;
+}
+
+:root:not([data-theme="dark"]) .site-header .nav-right a:hover,
+:root:not([data-theme="dark"]) .site-header .site-nav a:hover{
+  color: #2563eb !important;
+  border-bottom-color: #2563eb !important;
+}
+
+/* Brand text (your header.html uses .brand-title / .brand-subtitle) */
+:root:not([data-theme="dark"]) .site-header .brand-title,
+:root:not([data-theme="dark"]) .site-header .site-brand-name{
+  color: #0f172a !important;
+}
+
+:root:not([data-theme="dark"]) .site-header .brand-subtitle,
+:root:not([data-theme="dark"]) .site-header .site-brand-tagline{
+  color: #2563eb !important;
+  opacity: .9;
+}
+
+/* Profile pill (your header.html uses .nav-profile) */
+:root:not([data-theme="dark"]) .site-header .nav-profile,
+:root:not([data-theme="dark"]) .site-header .header-profile-pill{
+  background: rgba(15,23,42,.06) !important;
+  border: 1px solid rgba(15,23,42,.12) !important;
+  color: #0f172a !important;
+}
+
+/* Theme toggle button (your header.html uses #themeToggle.nav-theme-toggle) */
+:root:not([data-theme="dark"]) .site-header .nav-theme-toggle,
+:root:not([data-theme="dark"]) .site-header .theme-toggle-pill{
+  background: rgba(15,23,42,.06) !important;
+  border: 1px solid rgba(15,23,42,.12) !important;
+  color: #0f172a !important;
+}
 /* =========================
    Footer
    ========================= */

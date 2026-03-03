@@ -1,73 +1,82 @@
 <!-- PARTIAL: header.html -->
-<header class="site-header" role="banner">
-  <div class="site-header-inner">
-    <!-- Brand -->
-    <a class="site-brand" href="/" aria-label="Home">
-      <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
-      <span class="site-brand-text">
-        <span class="site-brand-name">Justine Longla T.</span>
-        <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
-      </span>
+<!-- =========================
+JLT-Lane Mesh Universal Nav (v1)
+Drop-in header snippet for: Docs + Blogs + Consulting
+Contract: MeshHub • Docs • Blogs • Consulting • Projects (Proof)
+========================== -->
+header class="site-header" role="banner">
+  <div class="container navbar">
+    <!-- Brand (left) -->
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/assets/img/crest.png" alt="JLT-Lane crest" />
+      <div class="brand-text">
+        <div class="brand-title">JustineLonglaT-Lane</div>
+        <div class="brand-subtitle">Cloud Confidence. Delivered.</div>
+      </div>
     </a>
 
-    <!-- Primary nav -->
-    <nav class="site-nav" aria-label="Primary">
-      <a href="/">Home</a>
-
-      <!-- ✅ Canonical posts index -->
-      <a href="/posts/" data-nav="posts">All Blog Posts</a>
-
+    <!-- Primary Mesh links (middle) -->
+    <nav class="nav-right" aria-label="Primary">
+      <!-- Control plane -->
       <a
-        class="is-primary"
         href="https://www.justinelonglat-lane.com/engineering-mesh"
         target="_blank"
         rel="noopener noreferrer"
-      >
-        <span class="nav-ico">🧩</span>
-        Engineering MeshHub
-      </a>
+      >MeshHub ↗</a>
 
-      <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">
-        Docs site
-      </a>
-
-      <a class="is-primary" href="/docs/" data-nav="toolkit">
-        <span class="nav-ico">🛠️</span>
-        Automation toolkit
-      </a>
-    </nav>
-
-    <!-- Right side -->
-    <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+      <!-- Knowledge -->
       <a
-        class="header-profile-pill"
-        href="https://justinelonglat-lane.com/"
+        href="https://docs.justinelonglat-lane.com/"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Open main site"
-        title="Open main site"
-      >
+      >Docs ↗</a>
+
+      <!-- Narrative -->
+      <a
+        href="https://blogs.justinelonglat-lane.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Blogs ↗</a>
+
+      <!-- Revenue -->
+      <a
+        href="https://consulting.justinelonglat-lane.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Consulting ↗</a>
+
+      <!-- Proof (choose canonical destination) -->
+      <a
+        href="https://www.justinelonglat-lane.com/projects"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Projects ↗</a>
+    </nav>
+
+    <!-- Signature pill (right) -->
+    <div class="nav-shell">
+      <div class="nav-profile" aria-label="Signature">
         <img
-          src="/assets/img/justine-profile.jpg"
+          src="/assets/img/profile.jpg"
           alt="Justine Longla T."
-          class="header-profile-avatar"
+          class="nav-profile-avatar"
           loading="lazy"
           decoding="async"
         />
-        <span class="header-profile-label">Justine</span>
-      </a>
+        <div class="nav-profile-text">
+          <span class="nav-profile-eyebrow">Built by</span>
+          <span class="nav-profile-name">Justine Longla T.</span>
+        </div>
 
-      <button
-        id="theme-toggle"
-        class="theme-toggle-pill"
-        type="button"
-        aria-label="Toggle light/dark mode"
-        title="Toggle theme"
-        onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
-      >
-        <span class="theme-icon light">☀️</span>
-        <span class="theme-icon dark">🌙</span>
-      </button>
+        <!-- Optional theme toggle (keep if your site supports it) -->
+        <button
+          id="themeToggle"
+          class="nav-theme-toggle"
+          type="button"
+          aria-label="Toggle theme"
+          title="Toggle theme"
+        >🌙</button>
+      </div>
     </div>
   </div>
 </header>
