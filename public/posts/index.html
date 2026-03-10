@@ -83,6 +83,50 @@
       white-space: nowrap;
     }
 
+    .series-section{
+      margin: 1rem 0 1.25rem;
+      padding: 1rem 1rem 1.05rem;
+      border-radius: 16px;
+      border: 1px solid rgba(148,163,184,.22);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 14px 40px rgba(2,6,23,.08);
+    }
+
+    html[data-theme="dark"] .series-section{
+      background: rgba(2,6,23,.55);
+      border-color: rgba(148,163,184,.18);
+      box-shadow: 0 18px 55px rgba(0,0,0,.30);
+    }
+
+    .series-section h2{
+      margin: 0 0 .45rem;
+      font-size: 1.1rem;
+    }
+
+    .series-section p{
+      margin: 0 0 .45rem;
+      line-height: 1.6;
+      opacity: .86;
+    }
+
+    .series-section p:last-child{
+      margin-bottom: 0;
+    }
+
+    .series-section a{
+      font-weight: 700;
+      text-decoration: none;
+      color: #0284c7;
+    }
+
+    html[data-theme="dark"] .series-section a{
+      color: #60a5fa;
+    }
+
+    .series-section a:hover{
+      text-decoration: underline;
+    }
+
     /* Grid + cards */
     .posts-grid{
       list-style: none;
@@ -273,6 +317,12 @@
         <div class="posts-meta"><span id="count">0</span> posts</div>
       </div>
     </div>
+
+    <section class="series-section" aria-label="Featured series">
+      <h2>The JLT-Lane Platform Engineering Framework</h2>
+      <p>Explore the connected series on architecture, observability, operations, optimization, and the capstone platform map.</p>
+      <p><a href="/series/platform-engineering-framework/">Open the series page →</a></p>
+    </section>
 
     <ul id="grid" class="posts-grid" aria-live="polite"></ul>
   </main>

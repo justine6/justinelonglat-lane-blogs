@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>The JLT-Lane Platform Engineering Framework</title>
+  <meta
+    name="description"
+    content="A structured platform engineering series by Justine Longla T. covering architecture, observability, operations, optimization, and the capstone platform map."
+  />
+  <meta
+    name="tags"
+    content="platform-engineering,observability,architecture,operations,optimization,devops,reliability"
+  />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <script src="/js/theme-toggle.js" defer></script>
+  <script src="/js/nav-active.js" defer></script>
+
+  <style>
+    .series-page{
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 2.25rem 1.25rem 3rem;
+    }
+
+    .series-hero{
+      display: grid;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 980px){
+      .series-hero{
+        grid-template-columns: 1.2fr 0.9fr;
+        align-items: stretch;
+      }
+    }
+
+    .series-hero-card,
+    .series-diagram-card,
+    .series-section,
+    .series-post-card{
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,.22);
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 14px 40px rgba(2,6,23,.10);
+    }
+
+    html[data-theme="dark"] .series-hero-card,
+    html[data-theme="dark"] .series-diagram-card,
+    html[data-theme="dark"] .series-section,
+    html[data-theme="dark"] .series-post-card{
+      background: rgba(2,6,23,.55);
+      border-color: rgba(148,163,184,.18);
+      box-shadow: 0 18px 55px rgba(0,0,0,.35);
+    }
+
+    .series-hero-card{
+      padding: 1.4rem 1.35rem;
+    }
+
+    .series-kicker{
+      margin: 0 0 .65rem;
+      font-size: .78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: #0284c7;
+    }
+
+    html[data-theme="dark"] .series-kicker{
+      color: #60a5fa;
+    }
+
+    .series-title{
+    margin-bottom: .45rem;
+    }
+
+    .series-subtitle{
+    margin-bottom: .6rem;
+    line-height: 1.65;
+    max-width: 60ch;
+    }
+
+    .series-pill-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.45rem;
+    margin-top:.2rem;
+    }
+
+    .series-pill{
+      display: inline-flex;
+      align-items: center;
+      padding: .4rem .7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,.22);
+      background: rgba(2,6,23,.04);
+      font-size: .84rem;
+      font-weight: 700;
+    }
+
+    html[data-theme="dark"] .series-pill{
+      background: rgba(148,163,184,.10);
+      border-color: rgba(148,163,184,.18);
+    }
+
+    .series-diagram-card{
+      padding: 1rem;
+      display: grid;
+      gap: .75rem;
+    }
+
+    .series-diagram-card img{
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      display: block;
+      border: 1px solid rgba(148,163,184,.16);
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    }
+
+    .series-diagram-card h2{
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .series-diagram-card p{
+      margin: 0 0 .7rem;
+      opacity: .82;
+      line-height: 1.6;
+    }
+
+    .series-diagram-card p:last-child{
+      margin-bottom: 0;
+    }
+
+    .series-section{
+      padding: 1.2rem 1.2rem 1.15rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .series-section h2{
+      margin: 0 0 .65rem;
+      font-size: 1.15rem;
+    }
+
+    .series-section p{
+      margin: 0 0 .7rem;
+      line-height: 1.7;
+      opacity: .88;
+    }
+
+    .series-section p:last-child{
+      margin-bottom: 0;
+    }
+
+    .series-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .series-post-card{
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .55rem;
+      min-height: 210px;
+      transition: transform .14s ease, box-shadow .14s ease, border-color .14s ease;
+    }
+
+    .series-post-card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(96,165,250,.45);
+      box-shadow: 0 22px 70px rgba(0,0,0,.20);
+    }
+
+    html[data-theme="dark"] .series-post-card:hover{
+      box-shadow: 0 22px 70px rgba(0,0,0,.45);
+    }
+
+    .series-post-label{
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #0284c7;
+    }
+
+    html[data-theme="dark"] .series-post-label{
+      color: #60a5fa;
+    }
+
+    .series-post-card a{
+      color: inherit;
+      text-decoration: none;
+      display: block;
+    }
+
+    .series-post-card h3{
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.35;
+    }
+
+    .series-post-card a:hover h3{
+      text-decoration: underline;
+    }
+
+    .series-post-card p{
+      margin: 0;
+      opacity: .84;
+      line-height: 1.6;
+      font-size: .95rem;
+    }
+
+    .series-capstone{
+      grid-column: 1 / -1;
+      min-height: auto;
+    }
+  </style>
+</head>
+
+<body>
+    
+<!-- PARTIAL:HEADER -->
+
+  <main class="series-page" aria-labelledby="series-title">
+    <section class="series-hero">
+      <div class="series-hero-card">
+        <p class="series-kicker">Platform Engineering Series</p>
+        <h1 id="series-title" class="series-title">The JLT-Lane Platform Engineering Framework</h1>
+        <p class="series-subtitle">
+            This series presents the JLT-Lane Platform Engineering Framework — a practical
+            way to understand how modern platforms evolve from architecture decisions
+            to observability, operational readiness, and continuous optimization.
+            Each article builds on the previous one, connecting real engineering
+            practices such as reproducible environments, metrics-driven observability,
+            operational runbooks, and performance tuning into a single coherent model
+            for building reliable production systems.
+        </p>
+        <div class="series-progress">
+
+            <a href="/posts/2026/02/reproducible-static-blog-guardrails/" class="series-step complete">
+                <span class="series-step-number">1</span>
+                <span class="series-step-label">Guardrails</span>
+            </a>
+
+            <span class="series-progress-line"></span>
+
+            <a href="/posts/2026/02/observability-foundations/" class="series-step complete">
+                <span class="series-step-number">2</span>
+                <span class="series-step-label">Observability</span>
+            </a>
+
+            <span class="series-progress-line"></span>
+
+            <a href="/posts/2026/02/grafana-dashboard-engineering/" class="series-step complete">
+                <span class="series-step-number">3</span>
+                <span class="series-step-label">Dashboards</span>
+            </a>
+
+            <span class="series-progress-line"></span>
+
+            <a href="/posts/2026/02/runbooks-and-operational-readiness/" class="series-step complete">
+                <span class="series-step-number">4</span>
+                <span class="series-step-label">Runbooks</span>
+            </a>
+
+            <span class="series-progress-line"></span>
+
+            <a href="/posts/2026/02/performance-optimization-in-the-ecosystem/" class="series-step complete">
+                <span class="series-step-number">5</span>
+                <span class="series-step-label">Optimization</span>
+            </a>
+
+            <span class="series-progress-line"></span>
+
+            <a href="/series/platform-engineering-framework/" class="series-step current">
+                <span class="series-step-number">★</span>
+                <span class="series-step-label">Framework</span>
+            </a>
+
+            </div>
+
+
+        <div class="series-pill-row">
+          <span class="series-pill">Architecture</span>
+          <span class="series-pill">Observability</span>
+          <span class="series-pill">Operations</span>
+          <span class="series-pill">Optimization</span>
+          <span class="series-pill">Platform Map</span>
+        </div>
+      </div>
+
+        <aside class="series-diagram-card">
+        <div class="platform-map platform-map-animated">
+
+            <img
+            src="/assets/img/jlt-platform-engineering-model.png"
+            alt="JLT-Lane Platform Engineering Model showing Control Plane, Data Plane, and Operations Plane"
+            class="platform-map-img"
+            loading="lazy"
+            decoding="async"
+            />
+
+            <a
+            class="map-node node-control"
+            href="/posts/2026/02/reproducible-static-blog-guardrails/"
+            title="Control Plane — identity, policy, and platform automation"
+            >
+            <span class="map-node-ring"></span>
+            <span class="map-node-label">Control Plane</span>
+            </a>
+
+            <a
+            class="map-node node-data"
+            href="/posts/2026/02/observability-foundations/"
+            title="Data Plane — services, APIs, and runtime workloads"
+            >
+            <span class="map-node-ring"></span>
+            <span class="map-node-label">Data Plane</span>
+            </a>
+
+            <a
+            class="map-node node-ops"
+            href="/posts/2026/02/runbooks-and-operational-readiness/"
+            title="Operations Plane — observability and runbooks"
+            >
+            <span class="map-node-ring"></span>
+            <span class="map-node-label">Operations Plane</span>
+            </a>
+
+            <a
+            class="map-node node-opt"
+            href="/posts/2026/02/performance-optimization-in-the-ecosystem/"
+            title="Optimization Loop — performance tuning and system feedback"
+            >
+            <span class="map-node-ring"></span>
+            <span class="map-node-label">Optimization Loop</span>
+            </a>
+
+        </div>
+
+        <h2>Featured Diagram</h2>
+
+        <p>
+            This diagram acts as the capstone visual for the series — a single map that ties
+            together platform thinking, observability flows, operational runbooks, and system tuning.
+        </p>
+
+        <p>
+            The model structures platform engineering into three cooperating layers:
+            the <strong>Control Plane</strong> governing identity and automation,
+            the <strong>Data Plane</strong> running application workloads,
+            and the <strong>Operations Plane</strong> providing observability,
+            runbooks, and reliability feedback loops.
+        </p>
+        </aside>
+    </section>
+
+    </section>
+
+    <div class="series-divider"></div>
+
+    <section class="series-section">
+    <h2>Why this framework matters</h2>
+      <p>
+        Most engineers publish isolated ideas. This series is designed as a connected framework:
+        mindset leads to architecture, architecture enables observability, observability strengthens
+        operations, and operations create the conditions for optimization.
+      </p>
+      <p>
+        The result is not just a set of posts, but a reusable platform engineering playbook.
+      </p>
+    </section>
+
+    <section class="series-section">
+      <h2>Series posts</h2>
+
+      <div class="series-grid">
+        <article class="series-post-card">
+          <div class="series-post-label">Part 1</div>
+          <a href="/posts/2026/02/reproducible-static-blog-guardrails/">
+            <h3>Reproducible Static Blog Guardrails</h3>
+          </a>
+          <p>
+            How deterministic builds, curated index pinning, and canonical CSS guardrails turn a static
+            site into a reproducible engineering system.
+          </p>
+        </article>
+
+        <article class="series-post-card">
+          <div class="series-post-label">Part 2</div>
+          <a href="/posts/2026/02/observability-foundations/">
+            <h3>Observability Foundations</h3>
+          </a>
+          <p>
+            Why metrics, logs, and traces should be treated as first-class platform building blocks,
+            not last-minute debugging aids.
+          </p>
+        </article>
+
+        <article class="series-post-card">
+          <div class="series-post-label">Part 3</div>
+          <a href="/posts/2026/02/grafana-dashboard-engineering/">
+            <h3>Grafana Dashboard Engineering</h3>
+          </a>
+          <p>
+            Translating raw system metrics into a platform dashboard engineers can actually use for
+            decision-making and recovery.
+          </p>
+        </article>
+
+        <article class="series-post-card">
+          <div class="series-post-label">Part 4</div>
+          <a href="/posts/2026/02/runbooks-and-operational-readiness/">
+            <h3>Runbooks and Operational Readiness</h3>
+          </a>
+          <p>
+            Why documentation, diagnostic flows, and recovery paths are part of platform maturity,
+            not just support artifacts.
+          </p>
+        </article>
+
+        <article class="series-post-card">
+          <div class="series-post-label">Part 5</div>
+          <a href="/posts/2026/02/performance-optimization-in-the-ecosystem/">
+            <h3>Performance Optimization in the Ecosystem</h3>
+          </a>
+          <p>
+            Connecting system behavior, heap pressure, throughput, and tuning decisions to the realities
+            of platform resilience.
+          </p>
+        </article>
+
+        <article class="series-post-card series-capstone">
+          <div class="series-post-label">Capstone</div>
+          <a href="/series/platform-engineering-framework/">
+            <h3>JLT-Lane Platform Engineering Map</h3>
+          </a>
+          <p>
+            The synthesis layer: one visual and one navigable page that brings the whole framework
+            together from architecture through operations and optimization.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="/assets/img/logo.png" alt="Justine Longla T. logo" class="footer-logo" width="40" height="40" />
+          <div class="footer-brand-text">
+            <span class="footer-name">Justine Longla T.</span>
+            <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+          </div>
+        </div>
+
+        <p class="footer-copy">
+          © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting. All rights reserved.
+        </p>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/posts/">All posts</a>
+        <a href="/docs/">Toolkit</a>
+        <a href="/series/platform-engineering-framework/" aria-current="page">Series</a>
+      </nav>
+    </div>
+
+    <script>
+      (function () {
+        var el = document.getElementById("footer-year");
+        if (el) el.textContent = new Date().getFullYear();
+      })();
+    </script>
+  </footer>
+</body>
+</html>

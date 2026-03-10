@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Performance Optimization in the Ecosystem</title>
+  <meta
+    name="description"
+    content="How platform teams connect telemetry, runtime behavior, and tuning decisions to improve resilience and efficiency."
+  />
+  <meta
+    name="tags"
+    content="performance,optimization,reliability,platform-engineering,observability,memory,cpu,scaling"
+  />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <script src="/js/theme-toggle.js" defer></script>
+  <script src="/js/nav-active.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header" role="banner">
+    <div class="site-header-inner">
+      <a class="site-brand" href="/" aria-label="Home">
+        <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+        <span class="site-brand-text">
+          <span class="site-brand-name">Justine Longla T.</span>
+          <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/posts/">All Blog Posts</a>
+        <a class="is-primary" href="https://www.justinelonglat-lane.com/engineering-mesh" target="_blank" rel="noopener noreferrer">🧩 Engineering MeshHub</a>
+        <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Docs site</a>
+        <a class="is-primary" href="/docs/">🛠️ Automation toolkit</a>
+      </nav>
+
+      <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+        <a class="header-profile-pill"
+           href="https://www.justinelonglat-lane.com/engineering-mesh"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Open main site"
+           title="Open main site">
+          <img src="/assets/img/justine-profile.jpg" alt="Justine Longla T." class="header-profile-avatar" loading="lazy" decoding="async" />
+          <span class="header-profile-label">Justine</span>
+        </a>
+
+        <button id="theme-toggle" class="theme-toggle-pill" type="button" aria-label="Toggle light/dark mode" title="Toggle theme">
+          <span class="theme-icon light">☀️</span>
+          <span class="theme-icon dark">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container page" role="main">
+    <article class="post">
+      <header class="post-header">
+        <p class="post-kicker">Platform Engineering Series • Part 5</p>
+        <h1>Performance Optimization in the Ecosystem</h1>
+        <p class="post-subtitle">
+          How platform teams connect telemetry, runtime behavior, and tuning decisions to improve resilience and efficiency.
+        </p>
+
+        <div class="post-meta">
+          <span>2026-02-12</span>
+          <span>•</span>
+          <span>#performance #optimization #reliability #platform-engineering #observability</span>
+        </div>
+      </header>
+
+      <section class="post-series-nav" aria-label="Series navigation">
+        <p class="post-series-kicker">Platform Engineering Series</p>
+        <h2 class="post-series-title">The JLT-Lane Platform Engineering Framework</h2>
+        <p class="post-series-meta">Part 5 of 5</p>
+
+        <div class="post-series-links">
+          <a class="post-series-link" href="/posts/2026/02/runbooks-and-operational-readiness/">
+            ← Previous: Runbooks and Operational Readiness
+          </a>
+          <a class="post-series-link" href="/series/platform-engineering-framework/">
+            View series hub →
+          </a>
+          <a class="post-series-link is-current" href="/posts/2026/02/performance-optimization-in-the-ecosystem/" aria-current="page">
+            Current: Performance Optimization in the Ecosystem
+          </a>
+        </div>
+      </section>
+
+      <section class="post-body">
+        <p>
+          Performance optimization becomes meaningful when it is connected to the wider ecosystem.
+          A service does not exist alone. It runs inside a platform, shares resources, depends on other
+          components, and participates in operational feedback loops. That is why optimization should be
+          treated as a platform concern, not just an application concern.
+        </p>
+
+        <h2>Optimization starts with evidence</h2>
+        <p>
+          The fastest way to make poor tuning decisions is to optimize from intuition alone. Platform teams
+          need evidence: request behavior, latency trends, CPU load, memory growth, saturation signals, and
+          failure patterns over time. Optimization works best when it begins with observed behavior.
+        </p>
+
+        <h2>Why memory and CPU need to be read together</h2>
+        <p>
+          One of the most important lessons in runtime analysis is that memory pressure and CPU pressure are
+          often related, but not interchangeable. A service can consume CPU because it is under legitimate
+          request load, or because garbage collection is working hard to reclaim memory. Looking at one
+          signal without the other can lead to the wrong conclusion.
+        </p>
+
+        <p>
+          That is why process memory, request throughput, and CPU behavior should be reviewed together.
+          The question is rarely “Is CPU high?” The better question is “Why is CPU high in this system state?”
+        </p>
+
+        <h2>Optimization is a feedback loop</h2>
+        <p>
+          In the JLT-Lane platform model, the operations plane feeds back into the rest of the platform.
+          That is intentional. Observability and runbooks are not the end of the story. They create the
+          feedback required to improve service behavior over time.
+        </p>
+
+        <p>
+          A healthy optimization loop often looks like this:
+        </p>
+        <pre><code>Observe behavior
+  ↓
+Identify pressure point
+  ↓
+Form a tuning hypothesis
+  ↓
+Change one meaningful variable
+  ↓
+Measure the result
+  ↓
+Keep, refine, or roll back</code></pre>
+
+        <h2>Examples of meaningful tuning questions</h2>
+        <ul>
+          <li>Is request latency rising because of code path complexity or resource saturation?</li>
+          <li>Is memory growth steady, bursty, or unbounded?</li>
+          <li>Is the cache reducing database pressure as intended?</li>
+          <li>Would horizontal scaling help, or would it simply multiply inefficiency?</li>
+          <li>Is the platform spending effort on recovery because of missing limits or poor defaults?</li>
+        </ul>
+
+        <h2>Optimization should preserve reliability</h2>
+        <p>
+          Not every optimization is worth making. A tuning change that saves a small amount of CPU but
+          reduces operational clarity or increases incident risk may not be a good trade. Performance work
+          should strengthen resilience, not undermine it.
+        </p>
+
+        <p>
+          This is where platform thinking matters. The best optimization decisions balance speed, stability,
+          recoverability, and clarity.
+        </p>
+
+        <h2>Document what you learn</h2>
+        <p>
+          Optimization work is easy to lose if it only lives in memory. Once a team identifies a meaningful
+          tuning pattern, that knowledge should flow back into dashboards, defaults, and runbooks. That is
+          what turns a one-time fix into platform maturity.
+        </p>
+
+        <h2>Closing thought</h2>
+        <p>
+          Performance optimization is strongest when it is grounded in telemetry and connected to platform
+          operations. At that point, it stops being reactive tweaking and becomes a deliberate engineering
+          practice that improves the ecosystem as a whole.
+        </p>
+      </section>
+
+      <footer class="post-footer">
+        <p>
+          Back to <a href="/posts/">All Blog Posts</a> • Explore the
+          <a href="/series/platform-engineering-framework/">Platform Engineering Framework</a>
+        </p>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="/assets/img/logo.png" alt="Justine Longla T. logo" class="footer-logo" width="40" height="40" />
+          <div class="footer-brand-text">
+            <span class="footer-name">Justine Longla T.</span>
+            <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+          </div>
+        </div>
+
+        <p class="footer-copy">
+          © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting. All rights reserved.
+        </p>
+
+        <nav class="eco-footer" aria-label="Ecosystem">
+          <span class="eco-footer__label">Ecosystem:</span>
+          <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site ↗</a>
+          <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
+          <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
+          <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
+        </nav>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/posts/">All posts</a>
+        <a href="/docs/">Toolkit</a>
+        <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
+        <a href="https://justinelonglat-lane.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+      </nav>
+    </div>
+
+    <script>
+      (function () {
+        var el = document.getElementById("footer-year");
+        if (el) el.textContent = new Date().getFullYear();
+      })();
+    </script>
+  </footer>
+</body>
+</html>

@@ -1,13 +1,15 @@
 <!-- PARTIAL: header.html -->
 <!-- =========================
-JLT-Lane Mesh Universal Nav (v1)
+JLT-Lane Mesh Universal Nav (v2)
 Drop-in header snippet for: Docs + Blogs + Consulting
-Contract: MeshHub • Docs • Blogs • Consulting • Projects (Proof)
+Contract: MeshHub • Framework • Docs • Blogs • Consulting • Projects
 ========================== -->
-header class="site-header" role="banner">
+
+<header class="site-header" role="banner">
   <div class="container navbar">
+
     <!-- Brand (left) -->
-    <a class="brand" href="/">
+    <a class="brand" href="/" aria-label="JustineLonglaT-Lane home">
       <img class="brand-logo" src="/assets/img/crest.png" alt="JLT-Lane crest" />
       <div class="brand-text">
         <div class="brand-title">JustineLonglaT-Lane</div>
@@ -15,47 +17,69 @@ header class="site-header" role="banner">
       </div>
     </a>
 
-    <!-- Primary Mesh links (middle) -->
+    <!-- Primary Mesh links -->
     <nav class="nav-right" aria-label="Primary">
-      <!-- Control plane -->
+
+      <!-- Architecture -->
       <a
         href="https://www.justinelonglat-lane.com/engineering-mesh"
         target="_blank"
         rel="noopener noreferrer"
-      >MeshHub ↗</a>
+      >
+        MeshHub ↗
+      </a>
+
+      <!-- ⭐ Platform Engineering Framework (NEW) -->
+      <a
+        class="nav-highlight"
+        href="/series/platform-engineering-framework/"
+        title="Explore the JLT-Lane Platform Engineering Framework"
+      >
+        Framework
+      </a>
 
       <!-- Knowledge -->
       <a
         href="https://docs.justinelonglat-lane.com/"
         target="_blank"
         rel="noopener noreferrer"
-      >Docs ↗</a>
+      >
+        Docs ↗
+      </a>
 
       <!-- Narrative -->
       <a
         href="https://blogs.justinelonglat-lane.com/"
         target="_blank"
         rel="noopener noreferrer"
-      >Blogs ↗</a>
+      >
+        Blogs ↗
+      </a>
 
       <!-- Revenue -->
       <a
         href="https://consulting.justinelonglat-lane.com/"
         target="_blank"
         rel="noopener noreferrer"
-      >Consulting ↗</a>
+      >
+        Consulting ↗
+      </a>
 
-      <!-- Proof (choose canonical destination) -->
+      <!-- Proof -->
       <a
         href="https://www.justinelonglat-lane.com/projects"
         target="_blank"
         rel="noopener noreferrer"
-      >Projects ↗</a>
+      >
+        Projects ↗
+      </a>
+
     </nav>
 
-    <!-- Signature pill (right) -->
+    <!-- Signature pill -->
     <div class="nav-shell">
       <div class="nav-profile" aria-label="Signature">
+
         <img
           src="/assets/img/profile.jpg"
           alt="Justine Longla T."
@@ -63,20 +87,25 @@ header class="site-header" role="banner">
           loading="lazy"
           decoding="async"
         />
+
         <div class="nav-profile-text">
           <span class="nav-profile-eyebrow">Built by</span>
           <span class="nav-profile-name">Justine Longla T.</span>
         </div>
 
-        <!-- Optional theme toggle (keep if your site supports it) -->
+        <!-- Theme toggle -->
         <button
           id="themeToggle"
           class="nav-theme-toggle"
           type="button"
           aria-label="Toggle theme"
           title="Toggle theme"
-        >🌙</button>
+        >
+          🌙
+        </button>
+
       </div>
     </div>
+
   </div>
 </header>

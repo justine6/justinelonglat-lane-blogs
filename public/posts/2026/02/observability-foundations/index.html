@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Observability Foundations</title>
+  <meta
+    name="description"
+    content="Why metrics, logs, and traces are foundational platform capabilities for reliability, debugging, and engineering decision-making."
+  />
+  <meta
+    name="tags"
+    content="observability,metrics,logging,tracing,platform-engineering,reliability,devops"
+  />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <script src="/js/theme-toggle.js" defer></script>
+  <script src="/js/nav-active.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header" role="banner">
+    <div class="site-header-inner">
+      <a class="site-brand" href="/" aria-label="Home">
+        <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+        <span class="site-brand-text">
+          <span class="site-brand-name">Justine Longla T.</span>
+          <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/posts/">All Blog Posts</a>
+        <a class="is-primary" href="https://www.justinelonglat-lane.com/engineering-mesh" target="_blank" rel="noopener noreferrer">🧩 Engineering MeshHub</a>
+        <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Docs site</a>
+        <a class="is-primary" href="/docs/">🛠️ Automation toolkit</a>
+      </nav>
+
+      <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+        <a class="header-profile-pill"
+           href="https://www.justinelonglat-lane.com/engineering-mesh"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Open main site"
+           title="Open main site">
+          <img src="/assets/img/justine-profile.jpg" alt="Justine Longla T." class="header-profile-avatar" loading="lazy" decoding="async" />
+          <span class="header-profile-label">Justine</span>
+        </a>
+
+        <button id="theme-toggle" class="theme-toggle-pill" type="button" aria-label="Toggle light/dark mode" title="Toggle theme">
+          <span class="theme-icon light">☀️</span>
+          <span class="theme-icon dark">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container page" role="main">
+    <article class="post">
+      <header class="post-header">
+        <p class="post-kicker">Platform Engineering Series • Part 2</p>
+        <h1>Observability Foundations</h1>
+        <p class="post-subtitle">
+          Why metrics, logs, and traces are foundational platform capabilities for reliability,
+          debugging, and engineering decision-making.
+        </p>
+
+        <div class="post-meta">
+          <span>2026-02-09</span>
+          <span>•</span>
+          <span>#observability #metrics #logging #tracing #platform-engineering</span>
+        </div>
+      </header>
+
+      <section class="post-series-nav" aria-label="Series navigation">
+        <p class="post-series-kicker">Platform Engineering Series</p>
+        <h2 class="post-series-title">The JLT-Lane Platform Engineering Framework</h2>
+        <p class="post-series-meta">Part 2 of 5</p>
+
+        <div class="post-series-links">
+          <a class="post-series-link" href="/posts/2026/02/reproducible-static-blog-guardrails/">
+            ← Previous: Reproducible Static Blog Guardrails
+          </a>
+          <a class="post-series-link" href="/series/platform-engineering-framework/">
+            View series hub →
+          </a>
+          <a class="post-series-link" href="/posts/2026/02/grafana-dashboard-engineering/">
+            Next: Grafana Dashboard Engineering →
+          </a>
+        </div>
+      </section>
+
+      <section class="post-body">
+        <p>
+          Observability is not a dashboard you add at the end of a project. It is a platform capability.
+          The moment a service goes live, engineers need a reliable way to understand what the system is
+          doing, why it is behaving that way, and where to act when something drifts.
+        </p>
+
+        <p>
+          In practical terms, observability gives a platform team three things: visibility, context, and
+          decision support. Visibility tells you that something changed. Context helps you understand why.
+          Decision support helps you decide whether to scale, roll back, tune, or investigate further.
+        </p>
+
+        <h2>The three pillars still matter</h2>
+        <p>
+          The classic pillars are metrics, logs, and traces. Each one serves a different purpose:
+        </p>
+        <ul>
+          <li><strong>Metrics</strong> tell you what is happening over time.</li>
+          <li><strong>Logs</strong> tell you what happened at specific moments.</li>
+          <li><strong>Traces</strong> tell you how a request moved through the system.</li>
+        </ul>
+
+        <p>
+          A mature platform treats these as cooperating signals, not isolated tools. Metrics may show a
+          latency spike, logs may reveal an authentication error burst, and traces may identify the exact
+          dependency call that caused the slowdown.
+        </p>
+
+        <h2>Why observability belongs in platform engineering</h2>
+        <p>
+          Platform engineering is about enabling teams to build and operate systems with consistency.
+          That consistency breaks down quickly if teams cannot see what their services are doing in
+          production. Observability belongs in the operations plane because it is the feedback mechanism
+          that turns raw runtime behavior into engineering action.
+        </p>
+
+        <p>
+          Without observability, runbooks become guesswork, dashboards become decoration, and incident
+          response becomes slower than it should be.
+        </p>
+
+        <h2>What I look for first</h2>
+        <p>
+          When I think about observability foundations, I start with a few basic questions:
+        </p>
+        <ul>
+          <li>Do I have a health endpoint that actually reflects application readiness?</li>
+          <li>Do I expose metrics in a format my monitoring stack can scrape?</li>
+          <li>Can I distinguish normal traffic from failure patterns quickly?</li>
+          <li>Do logs contain enough structured detail to be actionable?</li>
+          <li>Can I tell which component is responsible when latency rises?</li>
+        </ul>
+
+        <p>
+          These questions turn observability from a vague concept into a practical engineering checklist.
+        </p>
+
+        <h2>Start simple, but start intentionally</h2>
+        <p>
+          A small platform does not need an elaborate telemetry program on day one, but it does need
+          intentional instrumentation. Even a basic service should expose request count, error count,
+          latency, process memory, and CPU behavior. Those signals are enough to establish a baseline.
+        </p>
+
+        <p>
+          From there, teams can layer in richer logging, dashboard views, alerting, and eventually traces.
+          The key is that the instrumentation should be treated as part of the service contract, not as an
+          optional extra.
+        </p>
+
+        <h2>What this changes operationally</h2>
+        <p>
+          Once observability is built into the platform, incident response improves. Engineers stop asking
+          “What is happening?” and start asking “What is the fastest safe action?” That shift matters.
+          It reduces mean time to understanding, sharpens runbooks, and improves confidence under pressure.
+        </p>
+
+        <p>
+          Observability also strengthens engineering conversations. Instead of debating from intuition,
+          teams can discuss trend lines, request behavior, saturation patterns, and failure signatures.
+        </p>
+
+        <h2>Closing thought</h2>
+        <p>
+          Observability is one of the clearest dividing lines between a system that merely runs and a
+          platform that can be operated with confidence. It is not just about seeing systems. It is about
+          making them understandable enough to improve.
+        </p>
+      </section>
+
+      <footer class="post-footer">
+        <p>
+          Back to <a href="/posts/">All Blog Posts</a> • Explore the
+          <a href="/series/platform-engineering-framework/">Platform Engineering Framework</a>
+        </p>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="/assets/img/logo.png" alt="Justine Longla T. logo" class="footer-logo" width="40" height="40" />
+          <div class="footer-brand-text">
+            <span class="footer-name">Justine Longla T.</span>
+            <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+          </div>
+        </div>
+
+        <p class="footer-copy">
+          © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting. All rights reserved.
+        </p>
+
+        <nav class="eco-footer" aria-label="Ecosystem">
+          <span class="eco-footer__label">Ecosystem:</span>
+          <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site ↗</a>
+          <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
+          <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
+          <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
+        </nav>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/posts/">All posts</a>
+        <a href="/docs/">Toolkit</a>
+        <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
+        <a href="https://justinelonglat-lane.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+      </nav>
+    </div>
+
+    <script>
+      (function () {
+        var el = document.getElementById("footer-year");
+        if (el) el.textContent = new Date().getFullYear();
+      })();
+    </script>
+  </footer>
+</body>
+</html>

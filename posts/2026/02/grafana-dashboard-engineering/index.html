@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Grafana Dashboard Engineering</title>
+  <meta
+    name="description"
+    content="How to turn raw telemetry into dashboards that support diagnosis, reliability, and operational decisions."
+  />
+  <meta
+    name="tags"
+    content="grafana,observability,prometheus,dashboards,platform-engineering,metrics,reliability"
+  />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <script src="/js/theme-toggle.js" defer></script>
+  <script src="/js/nav-active.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header" role="banner">
+    <div class="site-header-inner">
+      <a class="site-brand" href="/" aria-label="Home">
+        <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+        <span class="site-brand-text">
+          <span class="site-brand-name">Justine Longla T.</span>
+          <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/posts/">All Blog Posts</a>
+        <a class="is-primary" href="https://www.justinelonglat-lane.com/engineering-mesh" target="_blank" rel="noopener noreferrer">🧩 Engineering MeshHub</a>
+        <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Docs site</a>
+        <a class="is-primary" href="/docs/">🛠️ Automation toolkit</a>
+      </nav>
+
+      <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+        <a class="header-profile-pill"
+           href="https://www.justinelonglat-lane.com/engineering-mesh"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Open main site"
+           title="Open main site">
+          <img src="/assets/img/justine-profile.jpg" alt="Justine Longla T." class="header-profile-avatar" loading="lazy" decoding="async" />
+          <span class="header-profile-label">Justine</span>
+        </a>
+
+        <button id="theme-toggle" class="theme-toggle-pill" type="button" aria-label="Toggle light/dark mode" title="Toggle theme">
+          <span class="theme-icon light">☀️</span>
+          <span class="theme-icon dark">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container page" role="main">
+    <article class="post">
+      <header class="post-header">
+        <p class="post-kicker">Platform Engineering Series • Part 3</p>
+        <h1>Grafana Dashboard Engineering</h1>
+        <p class="post-subtitle">
+          How to turn raw telemetry into dashboards that support diagnosis, reliability, and operational decisions.
+        </p>
+
+        <div class="post-meta">
+          <span>2026-02-10</span>
+          <span>•</span>
+          <span>#grafana #observability #prometheus #dashboards #platform-engineering</span>
+        </div>
+      </header>
+
+      <section class="post-series-nav" aria-label="Series navigation">
+        <p class="post-series-kicker">Platform Engineering Series</p>
+        <h2 class="post-series-title">The JLT-Lane Platform Engineering Framework</h2>
+        <p class="post-series-meta">Part 3 of 5</p>
+
+        <div class="post-series-links">
+          <a class="post-series-link" href="/posts/2026/02/observability-foundations/">
+            ← Previous: Observability Foundations
+          </a>
+          <a class="post-series-link" href="/series/platform-engineering-framework/">
+            View series hub →
+          </a>
+          <a class="post-series-link" href="/posts/2026/02/runbooks-and-operational-readiness/">
+            Next: Runbooks and Operational Readiness →
+          </a>
+        </div>
+      </section>
+
+      <section class="post-body">
+        <p>
+          A dashboard is only useful if it helps an engineer answer a real question. That sounds obvious,
+          but many dashboards fail because they are built as collections of charts rather than operational
+          tools. Good dashboard engineering starts with decision-making, not decoration.
+        </p>
+
+        <h2>Dashboards should answer operator questions</h2>
+        <p>
+          When I design a Grafana dashboard, I think about the questions someone will ask under pressure:
+        </p>
+        <ul>
+          <li>Is the service healthy right now?</li>
+          <li>Are requests succeeding or failing?</li>
+          <li>Is latency increasing?</li>
+          <li>Is the process under CPU or memory pressure?</li>
+          <li>Is this application behavior or infrastructure behavior?</li>
+        </ul>
+
+        <p>
+          If the dashboard does not help answer those questions quickly, it is probably too noisy or too abstract.
+        </p>
+
+        <h2>The telemetry path matters</h2>
+        <p>
+          In my sandbox suite, the flow is straightforward and intentionally repeatable:
+        </p>
+        <pre><code>Application
+  ↓
+/metrics endpoint
+  ↓
+Prometheus scrapes metrics
+  ↓
+Prometheus stores time-series data
+  ↓
+Grafana visualizes trends and behavior</code></pre>
+
+        <p>
+          This path matters because each layer has a role. The application exposes measurable signals.
+          Prometheus collects and stores them. Grafana turns them into views that support analysis.
+        </p>
+
+        <h2>The first panels I want</h2>
+        <p>
+          A practical platform dashboard usually starts with:
+        </p>
+        <ul>
+          <li>Request throughput</li>
+          <li>Error count or error rate</li>
+          <li>Latency trends</li>
+          <li>CPU usage</li>
+          <li>Memory footprint</li>
+          <li>Process health indicators</li>
+        </ul>
+
+        <p>
+          In a Node.js service, useful examples include:
+        </p>
+        <pre><code>process_cpu_seconds_total
+process_resident_memory_bytes
+nodejs_active_handles
+auth_service_http_requests_total</code></pre>
+
+        <h2>What makes a dashboard operationally useful</h2>
+        <p>
+          A good dashboard is not just accurate. It is readable under stress. That means grouping related
+          signals together, avoiding excessive chart clutter, and putting the most important information
+          near the top. A dashboard should guide attention, not scatter it.
+        </p>
+
+        <p>
+          For example, request rate and error behavior belong near each other because engineers often need
+          to compare them. CPU and memory trends also belong together because saturation rarely tells a full
+          story when viewed in isolation.
+        </p>
+
+        <h2>Dashboards should support patterns, not snapshots</h2>
+        <p>
+          Raw values matter less than patterns over time. A CPU value by itself tells very little.
+          A rising trend during increased request load tells much more. The same is true for memory,
+          latency, and errors. Good dashboard engineering helps teams see relationships.
+        </p>
+
+        <h2>Use dashboards to sharpen runbooks</h2>
+        <p>
+          One of the strongest uses of a dashboard is operational alignment. If a runbook says “check
+          request throughput, error rate, and process memory first,” the dashboard should make those
+          signals immediately visible. That way the dashboard and the runbook reinforce each other.
+        </p>
+
+        <h2>What dashboard maturity looks like</h2>
+        <p>
+          A mature dashboard is not the one with the most panels. It is the one that helps an engineer
+          move from detection to diagnosis with minimal friction. It makes it easier to notice drift,
+          verify healthy behavior, and understand whether a system is stabilizing or degrading.
+        </p>
+
+        <h2>Closing thought</h2>
+        <p>
+          Grafana becomes powerful when it is treated as an operational surface for the platform, not just
+          a visualization layer. Dashboards are where telemetry becomes judgment, and judgment is what
+          turns observability into reliability.
+        </p>
+      </section>
+
+      <footer class="post-footer">
+        <p>
+          Back to <a href="/posts/">All Blog Posts</a> • Explore the
+          <a href="/series/platform-engineering-framework/">Platform Engineering Framework</a>
+        </p>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="/assets/img/logo.png" alt="Justine Longla T. logo" class="footer-logo" width="40" height="40" />
+          <div class="footer-brand-text">
+            <span class="footer-name">Justine Longla T.</span>
+            <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+          </div>
+        </div>
+
+        <p class="footer-copy">
+          © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting. All rights reserved.
+        </p>
+
+        <nav class="eco-footer" aria-label="Ecosystem">
+          <span class="eco-footer__label">Ecosystem:</span>
+          <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site ↗</a>
+          <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
+          <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
+          <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
+        </nav>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/posts/">All posts</a>
+        <a href="/docs/">Toolkit</a>
+        <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
+        <a href="https://justinelonglat-lane.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+      </nav>
+    </div>
+
+    <script>
+      (function () {
+        var el = document.getElementById("footer-year");
+        if (el) el.textContent = new Date().getFullYear();
+      })();
+    </script>
+  </footer>
+</body>
+</html>

@@ -1,5 +1,21 @@
 [
   {
+    "title": "Runbooks and Operational Readiness",
+    "description": "Why runbooks, recovery paths, and operational clarity are core parts of platform maturity.",
+    "tags": [
+      "runbooks",
+      "operations",
+      "reliability",
+      "incident-response",
+      "platform-engineering",
+      "observability",
+      "documentation"
+    ],
+    "url": "/posts/2026/02/runbooks-and-operational-readiness/",
+    "slug": "runbooks-and-operational-readiness",
+    "kind": "post"
+  },
+  {
     "title": "Reproducible Static Blog Guardrails",
     "description": "I turned a static blog into a reproducible engineering system with deterministic builds, curated index pinning, and a canonical CSS layer to eliminate cascade drift.",
     "tags": [
@@ -14,6 +30,55 @@
     ],
     "url": "/posts/2026/02/reproducible-static-blog-guardrails/",
     "slug": "reproducible-static-blog-guardrails",
+    "kind": "post"
+  },
+  {
+    "title": "Performance Optimization in the Ecosystem",
+    "description": "How platform teams connect telemetry, runtime behavior, and tuning decisions to improve resilience and efficiency.",
+    "tags": [
+      "performance",
+      "optimization",
+      "reliability",
+      "platform-engineering",
+      "observability",
+      "memory",
+      "cpu",
+      "scaling"
+    ],
+    "url": "/posts/2026/02/performance-optimization-in-the-ecosystem/",
+    "slug": "performance-optimization-in-the-ecosystem",
+    "kind": "post"
+  },
+  {
+    "title": "Observability Foundations",
+    "description": "Why metrics, logs, and traces are foundational platform capabilities for reliability, debugging, and engineering decision-making.",
+    "tags": [
+      "observability",
+      "metrics",
+      "logging",
+      "tracing",
+      "platform-engineering",
+      "reliability",
+      "devops"
+    ],
+    "url": "/posts/2026/02/observability-foundations/",
+    "slug": "observability-foundations",
+    "kind": "post"
+  },
+  {
+    "title": "Grafana Dashboard Engineering",
+    "description": "How to turn raw telemetry into dashboards that support diagnosis, reliability, and operational decisions.",
+    "tags": [
+      "grafana",
+      "observability",
+      "prometheus",
+      "dashboards",
+      "platform-engineering",
+      "metrics",
+      "reliability"
+    ],
+    "url": "/posts/2026/02/grafana-dashboard-engineering/",
+    "slug": "grafana-dashboard-engineering",
     "kind": "post"
   },
   {
@@ -34,7 +99,7 @@
   },
   {
     "title": "Building My Own Ecosystem Changed How I Learn",
-    "description": "Creating my own ecosystem unlocked deeper end-to-end learning—deployment, debugging, routing, recovery, and platform ownership—without the constraints of corporate boundaries.",
+    "description": "",
     "tags": [],
     "url": "/posts/2026/01/building-my-own-ecosystem/",
     "slug": "building-my-own-ecosystem-changed-how-i-learn",

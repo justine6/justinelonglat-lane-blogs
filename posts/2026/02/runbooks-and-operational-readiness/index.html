@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Runbooks and Operational Readiness</title>
+  <meta
+    name="description"
+    content="Why runbooks, recovery paths, and operational clarity are core parts of platform maturity."
+  />
+  <meta
+    name="tags"
+    content="runbooks,operations,reliability,incident-response,platform-engineering,observability,documentation"
+  />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <script src="/js/theme-toggle.js" defer></script>
+  <script src="/js/nav-active.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header" role="banner">
+    <div class="site-header-inner">
+      <a class="site-brand" href="/" aria-label="Home">
+        <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+        <span class="site-brand-text">
+          <span class="site-brand-name">Justine Longla T.</span>
+          <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/posts/">All Blog Posts</a>
+        <a class="is-primary" href="https://www.justinelonglat-lane.com/engineering-mesh" target="_blank" rel="noopener noreferrer">🧩 Engineering MeshHub</a>
+        <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Docs site</a>
+        <a class="is-primary" href="/docs/">🛠️ Automation toolkit</a>
+      </nav>
+
+      <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+        <a class="header-profile-pill"
+           href="https://www.justinelonglat-lane.com/engineering-mesh"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Open main site"
+           title="Open main site">
+          <img src="/assets/img/justine-profile.jpg" alt="Justine Longla T." class="header-profile-avatar" loading="lazy" decoding="async" />
+          <span class="header-profile-label">Justine</span>
+        </a>
+
+        <button id="theme-toggle" class="theme-toggle-pill" type="button" aria-label="Toggle light/dark mode" title="Toggle theme">
+          <span class="theme-icon light">☀️</span>
+          <span class="theme-icon dark">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main" class="container page" role="main">
+    <article class="post">
+      <header class="post-header">
+        <p class="post-kicker">Platform Engineering Series • Part 4</p>
+        <h1>Runbooks and Operational Readiness</h1>
+        <p class="post-subtitle">
+          Why runbooks, recovery paths, and operational clarity are core parts of platform maturity.
+        </p>
+
+        <div class="post-meta">
+          <span>2026-02-11</span>
+          <span>•</span>
+          <span>#runbooks #operations #reliability #incident-response #platform-engineering</span>
+        </div>
+      </header>
+
+      <section class="post-series-nav" aria-label="Series navigation">
+        <p class="post-series-kicker">Platform Engineering Series</p>
+        <h2 class="post-series-title">The JLT-Lane Platform Engineering Framework</h2>
+        <p class="post-series-meta">Part 4 of 5</p>
+
+        <div class="post-series-links">
+          <a class="post-series-link" href="/posts/2026/02/grafana-dashboard-engineering/">
+            ← Previous: Grafana Dashboard Engineering
+          </a>
+          <a class="post-series-link" href="/series/platform-engineering-framework/">
+            View series hub →
+          </a>
+          <a class="post-series-link" href="/posts/2026/02/performance-optimization-in-the-ecosystem/">
+            Next: Performance Optimization in the Ecosystem →
+          </a>
+        </div>
+      </section>
+
+      <section class="post-body">
+        <p>
+          Reliability is not just about building systems that work. It is also about preparing teams to
+          respond when those systems behave unexpectedly. That is where runbooks matter. A runbook is not
+          paperwork. It is a reusable operational decision path.
+        </p>
+
+        <h2>What operational readiness really means</h2>
+        <p>
+          Operational readiness means a team can detect issues, understand likely causes, and take safe
+          action without improvising from scratch every time. When that readiness is missing, even small
+          incidents consume too much time and too much confidence.
+        </p>
+
+        <p>
+          Platform engineering should reduce that uncertainty by making common response patterns explicit.
+        </p>
+
+        <h2>Why runbooks are part of the operations plane</h2>
+        <p>
+          In the JLT-Lane platform model, the operations plane includes observability, runbooks, and
+          reliability. That grouping is intentional. Observability tells you something changed. Runbooks
+          tell you what to check next. Reliability improves when those two work together.
+        </p>
+
+        <h2>What makes a runbook useful</h2>
+        <p>
+          A useful runbook is specific, readable, and executable. It should tell an engineer:
+        </p>
+        <ul>
+          <li>What symptom triggered the investigation</li>
+          <li>What signals to check first</li>
+          <li>What commands or dashboards to use</li>
+          <li>What normal versus abnormal behavior looks like</li>
+          <li>What recovery options are safe</li>
+        </ul>
+
+        <p>
+          The goal is not to predict every incident. The goal is to reduce ambiguity during the first
+          critical minutes of response.
+        </p>
+
+        <h2>Examples from a practical stack</h2>
+        <p>
+          In a platform-oriented workflow, useful runbooks often include topics like:
+        </p>
+        <ul>
+          <li>Prometheus target debugging</li>
+          <li>Grafana dashboard setup</li>
+          <li>Metrics endpoint verification</li>
+          <li>Docker recovery and service restart sequencing</li>
+        </ul>
+
+        <p>
+          Each of these supports a repeatable diagnostic path. The value comes from preserving operational
+          knowledge before it disappears into memory or chat history.
+        </p>
+
+        <h2>Runbooks improve more than incidents</h2>
+        <p>
+          One of the underrated benefits of runbooks is onboarding. New engineers become productive faster
+          when the platform explains itself. A good runbook captures not just commands, but reasoning:
+          what to look for, why it matters, and how to interpret the result.
+        </p>
+
+        <p>
+          That reduces dependence on tribal knowledge and makes operations more scalable.
+        </p>
+
+        <h2>Good runbooks connect directly to dashboards</h2>
+        <p>
+          The best runbooks do not live in isolation. They point to the exact dashboard views, metrics,
+          logs, and service checks that matter. A runbook that says “check the latency panel, then compare
+          memory growth and request rate” is far more useful than one that says “investigate performance.”
+        </p>
+
+        <h2>Write them while the work is fresh</h2>
+        <p>
+          Operational knowledge has a short memory window. After a successful debug session, the reasoning
+          feels obvious for a few hours and then fades. That is the best moment to write or update a runbook.
+          Capturing the sequence while it is fresh turns one engineer’s effort into a reusable platform asset.
+        </p>
+
+        <h2>Closing thought</h2>
+        <p>
+          Mature platforms do not just expose capabilities. They preserve response knowledge. Runbooks are
+          one of the clearest signs that a team is thinking beyond code and toward operational resilience.
+        </p>
+      </section>
+
+      <footer class="post-footer">
+        <p>
+          Back to <a href="/posts/">All Blog Posts</a> • Explore the
+          <a href="/series/platform-engineering-framework/">Platform Engineering Framework</a>
+        </p>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <img src="/assets/img/logo.png" alt="Justine Longla T. logo" class="footer-logo" width="40" height="40" />
+          <div class="footer-brand-text">
+            <span class="footer-name">Justine Longla T.</span>
+            <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
+          </div>
+        </div>
+
+        <p class="footer-copy">
+          © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting. All rights reserved.
+        </p>
+
+        <nav class="eco-footer" aria-label="Ecosystem">
+          <span class="eco-footer__label">Ecosystem:</span>
+          <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site ↗</a>
+          <a href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
+          <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
+          <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
+        </nav>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="/posts/">All posts</a>
+        <a href="/docs/">Toolkit</a>
+        <a href="https://www.justinelonglat-lane.com/projects" target="_blank" rel="noopener noreferrer">Projects</a>
+        <a href="https://justinelonglat-lane.com/contact" target="_blank" rel="noopener noreferrer">Contact</a>
+      </nav>
+    </div>
+
+    <script>
+      (function () {
+        var el = document.getElementById("footer-year");
+        if (el) el.textContent = new Date().getFullYear();
+      })();
+    </script>
+  </footer>
+</body>
+</html>

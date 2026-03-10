@@ -26,5 +26,5 @@ Later CSS wins when selectors match.
 
 ### Correct `<head>`
 ```html
-<link rel="stylesheet" href="/assets/css/main.css">
 
+<link rel="stylesheet" href="/assets/css/main.css" />
