@@ -230,81 +230,84 @@
 <body>
     
 <!-- Unified header (single-source look) -->
-<header class="site-header" role="banner">
-  <div class="site-header-inner">
-    <!-- Brand -->
-    <a class="site-brand" href="/" aria-label="Home">
-      <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
-      <span class="site-brand-text">
-        <span class="site-brand-name">Justine Longla T.</span>
-        <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+<!-- inject:header -->
+<!-- injected:begin -->
+<header class="site-header" role="banner" data-header-variant="eco">
+  <div class="container eco-header-bar">
+
+    <a class="eco-header-brand" href="/" aria-label="Justine Longla T. Blog home">
+      <img class="eco-header-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+      <span class="eco-header-brand-text">
+        <strong class="eco-header-brand-title">JustineLonglaT-Lane Blog</strong>
+        <span class="eco-header-brand-subtitle">DevSecOps · Cloud · Sustainability</span>
       </span>
     </a>
 
-    <!-- Primary nav -->
-    <nav class="site-nav" aria-label="Primary">
-      <a href="/">Home</a>
-
-      <!-- ✅ Canonical posts index -->
-     <a href="/posts/" data-nav="posts">All Blog Posts</a> 
+    <nav class="eco-header-nav" aria-label="Primary">
+      <a href="/" data-nav="home">Home</a>
+      <a href="/posts/" data-nav="posts">All Blog Posts</a>
 
       <a
-        class="is-primary"
         href="https://www.justinelonglat-lane.com/engineering-mesh"
         target="_blank"
         rel="noopener noreferrer"
+        data-eco="true"
       >
-        <span class="nav-ico">🧩</span>
-        Engineering MeshHub
-      </a>
-      <a class="nav-highlight" href="/series/platform-engineering-framework/" title="Explore the JLT-Lane Platform Engineering Framework" > Framework </a>
-
-      <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">
-        Docs site
+        Engineering MeshHub ↗
       </a>
 
-      <a class="is-primary" href="/docs/" data-nav="toolkit">
-        <span class="nav-ico">🛠️</span>
-        Automation toolkit
-      </a>
+      <a href="/docs/" class="eco-header-cta" data-nav="toolkit">Automation Toolkit</a>
+
+      <div class="eco-header-dropdown">
+        <button
+          class="eco-header-dropdown-toggle"
+          type="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-label="Open ecosystem links"
+        >
+          Ecosystem <span class="eco-header-caret">▾</span>
+        </button>
+
+        <div class="eco-header-dropdown-menu" role="menu" aria-label="Ecosystem links">
+          <a role="menuitem" href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Main Site ↗</a>
+          <a role="menuitem" href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Consulting ↗</a>
+          <a role="menuitem" href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs ↗</a>
+          <a role="menuitem" href="/series/platform-engineering-framework/">Platform Framework</a>
+          <a role="menuitem" href="https://docs.justinelonglat-lane.com/runbooks.html" target="_blank" rel="noopener noreferrer">Runbooks ↗</a>
+          <a role="menuitem" href="https://docs.justinelonglat-lane.com/observability-architecture.html" target="_blank" rel="noopener noreferrer">Observability Architecture ↗</a>
+          <a role="menuitem" href="https://docs.justinelonglat-lane.com/architecture.html" target="_blank" rel="noopener noreferrer">Platform Architecture ↗</a>
+          <a role="menuitem" href="https://www.justinelonglat-lane.com/projects/system-design-ecosystem-b" target="_blank" rel="noopener noreferrer">System Design ↗</a>
+        </div>
+      </div>
     </nav>
 
-    <!-- Right side -->
-    <div class="site-cta-nav" role="group" aria-label="Profile and theme">
-      <a
-        class="header-profile-pill"
-        href="https://justinelonglat-lane.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Open main site"
-        title="Open main site"
-      >
-        <img
-          src="/assets/img/justine-profile.jpg"
-          alt="Justine Longla T."
-          class="header-profile-avatar"
-          loading="lazy"
-          decoding="async"
-        />
-        <span class="header-profile-label">Justine</span>
-      </a>
-
+    <div class="eco-header-profile" aria-label="Blog signature">
+      <img
+        src="/assets/img/justine-profile.jpg"
+        alt="Justine Longla T."
+        class="eco-header-profile-avatar"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="eco-header-profile-text">
+        <span class="eco-header-profile-eyebrow">Blog by</span>
+        <span class="eco-header-profile-name">Justine Longla T.</span>
+      </div>
       <button
-        id="theme-toggle"
-        class="theme-toggle-pill"
+        id="themeToggle"
+        class="eco-header-theme-toggle"
         type="button"
-        
+        aria-label="Toggle theme"
         title="Toggle theme"
         onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
-      >
-        <span class="theme-icon light">☀️</span>
-        <span class="theme-icon dark">🌙</span>
-      </button>
+      >🌙</button>
     </div>
+
   </div>
 </header>
-
-  <main class="series-page" aria-labelledby="series-title">
+<!-- injected:end -->
+<main class="series-page" aria-labelledby="series-title">
     <section class="series-hero">
       <div class="series-hero-card">
         <p class="series-kicker">Platform Engineering Series</p>
@@ -537,35 +540,26 @@
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-left">
-        <div class="footer-brand">
-          <img src="/assets/img/logo.png" alt="Justine Longla T. logo" class="footer-logo" width="40" height="40" />
-          <div class="footer-brand-text">
-            <span class="footer-name">Justine Longla T.</span>
-            <span class="footer-tagline">DevSecOps • Cloud • Sustainability</span>
-          </div>
-        </div>
+  <!-- inject:footer -->
+<!-- injected:begin -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>© <span id="year"></span> Justine Longla T.</div>
 
-        <p class="footer-copy">
-          © <span id="footer-year"></span> Justine Longla T. · JustineLonglaT-Lane Consulting. All rights reserved.
-        </p>
-      </div>
-
-      <nav class="footer-links" aria-label="Footer navigation">
-        <a href="/posts/">All posts</a>
-        <a href="/docs/">Toolkit</a>
-        <a href="/series/platform-engineering-framework/" aria-current="page">Series</a>
-      </nav>
+    <div class="footer-links" aria-label="Footer navigation">
+      <a href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Top site</a>
+      <a href="https://docs.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">Docs</a>
+      <a href="https://blogs.justinelonglat-lane.com" aria-current="page">Blog</a>
     </div>
+  </div>
 
-    <script>
-      (function () {
-        var el = document.getElementById("footer-year");
-        if (el) el.textContent = new Date().getFullYear();
-      })();
-    </script>
-  </footer>
+  <script>
+    (function () {
+      var el = document.getElementById("year");
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+</footer>
+<!-- injected:end -->
 </body>
 </html>
