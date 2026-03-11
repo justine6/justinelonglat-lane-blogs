@@ -229,7 +229,80 @@
 
 <body>
     
-<!-- PARTIAL:HEADER -->
+<!-- Unified header (single-source look) -->
+<header class="site-header" role="banner">
+  <div class="site-header-inner">
+    <!-- Brand -->
+    <a class="site-brand" href="/" aria-label="Home">
+      <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+      <span class="site-brand-text">
+        <span class="site-brand-name">Justine Longla T.</span>
+        <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+      </span>
+    </a>
+
+    <!-- Primary nav -->
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/">Home</a>
+
+      <!-- ✅ Canonical posts index -->
+     <a href="/posts/" data-nav="posts">All Blog Posts</a> 
+
+      <a
+        class="is-primary"
+        href="https://www.justinelonglat-lane.com/engineering-mesh"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="nav-ico">🧩</span>
+        Engineering MeshHub
+      </a>
+      <a class="nav-highlight" href="/series/platform-engineering-framework/" title="Explore the JLT-Lane Platform Engineering Framework" > Framework </a>
+
+      <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">
+        Docs site
+      </a>
+
+      <a class="is-primary" href="/docs/" data-nav="toolkit">
+        <span class="nav-ico">🛠️</span>
+        Automation toolkit
+      </a>
+    </nav>
+
+    <!-- Right side -->
+    <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+      <a
+        class="header-profile-pill"
+        href="https://justinelonglat-lane.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open main site"
+        title="Open main site"
+      >
+        <img
+          src="/assets/img/justine-profile.jpg"
+          alt="Justine Longla T."
+          class="header-profile-avatar"
+          loading="lazy"
+          decoding="async"
+        />
+        <span class="header-profile-label">Justine</span>
+      </a>
+
+      <button
+        id="theme-toggle"
+        class="theme-toggle-pill"
+        type="button"
+        
+        title="Toggle theme"
+        onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
+      >
+        <span class="theme-icon light">☀️</span>
+        <span class="theme-icon dark">🌙</span>
+      </button>
+    </div>
+  </div>
+</header>
 
   <main class="series-page" aria-labelledby="series-title">
     <section class="series-hero">
@@ -299,70 +372,80 @@
         </div>
       </div>
 
-        <aside class="series-diagram-card">
-        <div class="platform-map platform-map-animated">
+    <aside class="series-diagram-card">
+    <div class="platform-map platform-map-animated">
 
-            <img
-            src="/assets/img/jlt-platform-engineering-model.png"
-            alt="JLT-Lane Platform Engineering Model showing Control Plane, Data Plane, and Operations Plane"
-            class="platform-map-img"
-            loading="lazy"
-            decoding="async"
-            />
+    <!-- Clickable diagram -->
+    <a
+        href="/assets/img/jlt-platform-engineering-model.png"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="platform-map-link"
+        title="Open full architecture diagram"
+    >
+        <img
+        src="/assets/img/jlt-platform-engineering-model.png"
+        alt="JLT-Lane Platform Engineering Model showing Control Plane, Data Plane, and Operations Plane"
+        class="platform-map-img"
+        loading="lazy"
+        decoding="async"
+        />
+    </a>
 
-            <a
-            class="map-node node-control"
-            href="/posts/2026/02/reproducible-static-blog-guardrails/"
-            title="Control Plane — identity, policy, and platform automation"
-            >
-            <span class="map-node-ring"></span>
-            <span class="map-node-label">Control Plane</span>
-            </a>
+    <a
+        class="map-node node-control"
+        href="/posts/2026/02/reproducible-static-blog-guardrails/"
+        title="Control Plane — identity, policy, and platform automation"
+    >
+        <span class="map-node-ring"></span>
+        <span class="map-node-label">Control Plane</span>
+    </a>
 
-            <a
-            class="map-node node-data"
-            href="/posts/2026/02/observability-foundations/"
-            title="Data Plane — services, APIs, and runtime workloads"
-            >
-            <span class="map-node-ring"></span>
-            <span class="map-node-label">Data Plane</span>
-            </a>
+    <a
+        class="map-node node-data"
+        href="/posts/2026/02/observability-foundations/"
+        title="Data Plane — services, APIs, and runtime workloads"
+    >
+        <span class="map-node-ring"></span>
+        <span class="map-node-label">Data Plane</span>
+    </a>
 
-            <a
-            class="map-node node-ops"
-            href="/posts/2026/02/runbooks-and-operational-readiness/"
-            title="Operations Plane — observability and runbooks"
-            >
-            <span class="map-node-ring"></span>
-            <span class="map-node-label">Operations Plane</span>
-            </a>
+    <a
+        class="map-node node-ops"
+        href="/posts/2026/02/runbooks-and-operational-readiness/"
+        title="Operations Plane — observability and runbooks"
+    >
+        <span class="map-node-ring"></span>
+        <span class="map-node-label">Operations Plane</span>
+    </a>
 
-            <a
-            class="map-node node-opt"
-            href="/posts/2026/02/performance-optimization-in-the-ecosystem/"
-            title="Optimization Loop — performance tuning and system feedback"
-            >
-            <span class="map-node-ring"></span>
-            <span class="map-node-label">Optimization Loop</span>
-            </a>
+    <a
+        class="map-node node-opt"
+        href="/posts/2026/02/performance-optimization-in-the-ecosystem/"
+        title="Optimization Loop — performance tuning and system feedback"
+    >
+        <span class="map-node-ring"></span>
+        <span class="map-node-label">Optimization Loop</span>
+    </a>
 
-        </div>
-
+    </div>
+    <div class="series-diagram-copy">
         <h2>Featured Diagram</h2>
 
         <p>
-            This diagram acts as the capstone visual for the series — a single map that ties
-            together platform thinking, observability flows, operational runbooks, and system tuning.
+        This diagram acts as the capstone visual for the series — a single map that ties
+        together platform thinking, observability flows, operational runbooks, and system tuning.
         </p>
 
         <p>
-            The model structures platform engineering into three cooperating layers:
-            the <strong>Control Plane</strong> governing identity and automation,
-            the <strong>Data Plane</strong> running application workloads,
-            and the <strong>Operations Plane</strong> providing observability,
-            runbooks, and reliability feedback loops.
+        The model structures platform engineering into three cooperating layers: the
+        <strong>Control Plane</strong> governing identity and automation, the
+        <strong>Data Plane</strong> running application workloads, and the
+        <strong>Operations Plane</strong> providing observability, runbooks, and reliability
+        feedback loops.
         </p>
-        </aside>
+    </div>
+    </aside>
     </section>
 
     </section>

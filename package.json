@@ -3,7 +3,6 @@
     "node": "20.x"
   },
   "type": "module",
-
   "scripts": {
     "prebuild": "node scripts/check-css.mjs && node scripts/check-canonical-grid.mjs && node scripts/generate-indexes.mjs",
     "build": "node scripts/generate-indexes.mjs && node scripts/vercel-dist.mjs",
@@ -14,9 +13,9 @@
     "partials:check": "node scripts/check-partials.mjs",
 
     "validate": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/validate.ps1",
-    "validate:html-contracts": "node scripts/validate-head-body.js"
+    "validate:html-contracts": "node scripts/validate-head-body.js",
+    "validate:header": "node scripts/check-header-guardrails.mjs"
   },
-
   "devDependencies": {
     "cheerio": "^1.1.2",
     "fast-glob": "^3.3.3",

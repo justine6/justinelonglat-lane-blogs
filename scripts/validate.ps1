@@ -15,26 +15,41 @@ function Run($label, $cmd) {
 
 Push-Location $RepoRoot
 
-# If you have Node-based guardrails, keep them here:
-if (Test-Path ".\scripts\check-partials.mjs") {
-  Run "check-partials" "node scripts/check-partials.mjs"
-}
-
-if (Test-Path ".\scripts\check-heroes.mjs") {
-  Run "check-heroes" "node scripts/check-heroes.mjs"
-}
-
-# Optional: html validation if you have it wired
-if (Test-Path ".\package.json") {
-  # Only run if script exists
-  $pkg = Get-Content ".\package.json" -Raw | ConvertFrom-Json
-  if ($pkg.scripts -and $pkg.scripts.htmlvalidate) {
-    Run "htmlvalidate" "npm run -s htmlvalidate"
+try {
+  if (Test-Path ".\scripts\check-partials.mjs") {
+    Run "check-partials" "node scripts/check-partials.mjs"
   }
-  if ($pkg.scripts -and $pkg.scripts.linkcheck) {
-    Run "linkcheck" "npm run -s linkcheck"
-  }
-}
 
-Write-Host "`n✅ Validation OK" -ForegroundColor Green
-Pop-Location
+  if (Test-Path ".\scripts\check-header-guardrails.mjs") {
+    Run "check-header-guardrails" "node scripts/check-header-guardrails.mjs"
+  }
+
+  if (Test-Path ".\scripts\check-heroes.mjs") {
+    Run "check-heroes" "node scripts/check-heroes.mjs"
+  }
+
+  if (Test-Path ".\package.json") {
+    $pkg = Get-Content ".\package.json" -Raw | ConvertFrom-Json
+
+    if ($pkg.scripts -and $pkg.scripts."validate:html-contracts") {
+      Run "validate:html-contracts" "npm run -s validate:html-contracts"
+    }
+
+    if ($pkg.scripts -and $pkg.scripts."verify:output") {
+      Run "verify:output" "npm run -s verify:output"
+    }
+
+    if ($pkg.scripts -and $pkg.scripts.htmlvalidate) {
+      Run "htmlvalidate" "npm run -s htmlvalidate"
+    }
+
+    if ($pkg.scripts -and $pkg.scripts.linkcheck) {
+      Run "linkcheck" "npm run -s linkcheck"
+    }
+  }
+
+  Write-Host "`n✅ Validation OK" -ForegroundColor Green
+}
+finally {
+  Pop-Location
+}tion

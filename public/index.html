@@ -176,6 +176,7 @@
 <!-- Unified header (single-source look) -->
 <header class="site-header" role="banner">
   <div class="site-header-inner">
+
     <!-- Brand -->
     <a class="site-brand" href="/" aria-label="Home">
       <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
@@ -187,10 +188,11 @@
 
     <!-- Primary nav -->
     <nav class="site-nav" aria-label="Primary">
+
       <a href="/">Home</a>
 
-      <!-- ✅ Canonical posts index -->
-      <a href="./posts/" data-nav="posts">All Blog Posts</a>
+      <!-- Blog index -->
+      <a href="/posts/" data-nav="posts">All Blog Posts</a>
 
       <a
         class="is-primary"
@@ -202,7 +204,19 @@
         Engineering MeshHub
       </a>
 
-      <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">
+      <a
+        class="nav-highlight"
+        href="/series/platform-engineering-framework/"
+        title="Explore the JLT-Lane Platform Engineering Framework"
+      >
+        Framework
+      </a>
+
+      <a
+        href="https://docs.justinelonglat-lane.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         Docs site
       </a>
 
@@ -210,17 +224,18 @@
         <span class="nav-ico">🛠️</span>
         Automation toolkit
       </a>
+
     </nav>
 
     <!-- Right side -->
     <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+
       <a
         class="header-profile-pill"
         href="https://justinelonglat-lane.com/"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Open main site"
-        title="Open main site"
       >
         <img
           src="/assets/img/justine-profile.jpg"
@@ -237,13 +252,14 @@
         class="theme-toggle-pill"
         type="button"
         aria-label="Toggle light/dark mode"
-        title="Toggle theme"
         onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
       >
         <span class="theme-icon light">☀️</span>
         <span class="theme-icon dark">🌙</span>
       </button>
+
     </div>
+
   </div>
 </header>
 

@@ -1,111 +1,82 @@
-<!-- PARTIAL: header.html -->
-<!-- =========================
-JLT-Lane Mesh Universal Nav (v2)
-Drop-in header snippet for: Docs + Blogs + Consulting
-Contract: MeshHub • Framework • Docs • Blogs • Consulting • Projects
-========================== -->
-
+<!-- /partials/site-header.html -->
 <header class="site-header" role="banner">
-  <div class="container navbar">
-
-    <!-- Brand (left) -->
-    <a class="brand" href="/" aria-label="JustineLonglaT-Lane home">
-      <img class="brand-logo" src="/assets/img/crest.png" alt="JLT-Lane crest" />
-      <div class="brand-text">
-        <div class="brand-title">JustineLonglaT-Lane</div>
-        <div class="brand-subtitle">Cloud Confidence. Delivered.</div>
-      </div>
+  <div class="site-header-inner">
+    <a class="site-brand" href="/" aria-label="Home">
+      <img class="site-logo" src="/assets/img/logo.png" alt="Justine Longla T." />
+      <span class="site-brand-text">
+        <span class="site-brand-name">Justine Longla T.</span>
+        <span class="site-brand-tagline">DevSecOps • Cloud • Sustainability</span>
+      </span>
     </a>
 
-    <!-- Primary Mesh links -->
-    <nav class="nav-right" aria-label="Primary">
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/" data-nav="home">Home</a>
+      <a href="/posts/" data-nav="posts">All Blog Posts</a>
 
-      <!-- Architecture -->
       <a
+        class="is-primary"
         href="https://www.justinelonglat-lane.com/engineering-mesh"
         target="_blank"
         rel="noopener noreferrer"
+        data-external="true"
       >
-        MeshHub ↗
+        <span class="nav-ico">🧩</span>
+        Engineering MeshHub
       </a>
 
-      <!-- ⭐ Platform Engineering Framework (NEW) -->
       <a
         class="nav-highlight"
         href="/series/platform-engineering-framework/"
+        data-nav="framework"
         title="Explore the JLT-Lane Platform Engineering Framework"
       >
         Framework
       </a>
 
-      <!-- Knowledge -->
       <a
         href="https://docs.justinelonglat-lane.com/"
         target="_blank"
         rel="noopener noreferrer"
+        data-external="true"
       >
-        Docs ↗
+        Docs site
       </a>
 
-      <!-- Narrative -->
-      <a
-        href="https://blogs.justinelonglat-lane.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Blogs ↗
+      <a class="is-primary" href="/docs/" data-nav="toolkit">
+        <span class="nav-ico">🛠️</span>
+        Automation toolkit
       </a>
-
-      <!-- Revenue -->
-      <a
-        href="https://consulting.justinelonglat-lane.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Consulting ↗
-      </a>
-
-      <!-- Proof -->
-      <a
-        href="https://www.justinelonglat-lane.com/projects"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Projects ↗
-      </a>
-
     </nav>
 
-    <!-- Signature pill -->
-    <div class="nav-shell">
-      <div class="nav-profile" aria-label="Signature">
-
+    <div class="site-cta-nav" role="group" aria-label="Profile and theme">
+      <a
+        class="header-profile-pill"
+        href="https://justinelonglat-lane.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open main site"
+      >
         <img
-          src="/assets/img/profile.jpg"
+          src="/assets/img/justine-profile.jpg"
           alt="Justine Longla T."
-          class="nav-profile-avatar"
+          class="header-profile-avatar"
           loading="lazy"
           decoding="async"
         />
+        <span class="header-profile-label">Justine</span>
+      </a>
 
-        <div class="nav-profile-text">
-          <span class="nav-profile-eyebrow">Built by</span>
-          <span class="nav-profile-name">Justine Longla T.</span>
-        </div>
-
-        <!-- Theme toggle -->
-        <button
-          id="themeToggle"
-          class="nav-theme-toggle"
-          type="button"
-          aria-label="Toggle theme"
-          title="Toggle theme"
-        >
-          🌙
-        </button>
-
-      </div>
+      <button
+        id="theme-toggle"
+        class="theme-toggle-pill"
+        type="button"
+        aria-label="Toggle light/dark mode"
+        title="Toggle theme"
+        onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
+      >
+        <span class="theme-icon light">☀️</span>
+        <span class="theme-icon dark">🌙</span>
+      </button>
     </div>
-
   </div>
 </header>
