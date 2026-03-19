@@ -1,4 +1,26 @@
 :root{
+  --bg-page: #0b1f3a;
+  --bg-header:
+    linear-gradient(
+      90deg,
+      #061a3a 0%,
+      #0a2f66 50%,
+      #061a3a 100%
+    );
+
+  --text-primary: #0f172a;
+  --text-inverse: #ffffff;
+
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+
+  --pill-bg: rgba(255,255,255,.10);
+  --pill-hover: rgba(255,255,255,.18);
+
+  --footer-bg: rgba(239, 246, 255, 0.9);
+}
+
+:root{
   --bg:#ffffff;
   --text:#0f172a;
   --muted:#475569;
@@ -128,7 +150,9 @@ img{
   padding-bottom: .85rem;
   align-items: start;
 }
-
+.eco-header-bar{
+  background: var(--bg-header);
+}
 .eco-header-nav{
   margin-top: .4rem;
 }
@@ -186,11 +210,12 @@ img{
 
 .eco-header-nav a,
 .eco-header-dropdown-toggle{
-  min-height: 48px;
-  padding: .72rem 1rem;
-  border-radius: 24px;
-  font-size: 1rem;
-  font-weight: 700;
+  background: var(--pill-bg);
+  color: var(--text-inverse);
+}
+
+.eco-header-nav a:hover{
+  background: var(--pill-hover);
 }
 .eco-header-nav a:hover,
 .eco-header-dropdown-toggle:hover{
@@ -514,26 +539,31 @@ img{
 .eco-header-brand{
   margin-top: .15rem;
 }
-
-/* header shell */
 .eco-header-bar{
   display: grid;
   grid-template-columns: auto 1fr auto;
-  align-items: start;
+  align-items: center;
   gap: 1.1rem;
 
-  min-height: 108px;
+  padding: .85rem 1.2rem;
 
+  min-height: 108px;
   padding-top: 1.55rem;
   padding-bottom: .95rem;
   padding-left: max(1rem, calc((100vw - 1520px)/2));
   padding-right: max(1rem, calc((100vw - 1520px)/2));
+
+  align-items: start;
 }
-.eco-header-bar{
-  padding: .85rem 1.2rem;
 
-  .eco-header-nav{ ... }  ❌ invalid nesting
+.eco-header-nav{
+  gap: .45rem;
+  margin-top: .35rem;
+}
 
+.eco-header-brand{
+  margin-top: .15rem;
+}
   /* FULL WIDTH BAR */
   width: 100%;
   border-radius: 0;
@@ -612,6 +642,7 @@ img{
   background: rgba(255,255,255,.16);
   border: 1px solid rgba(255,255,255,.16);
 }
+
 /* =========================
    Homepage landing
    ========================= */
@@ -910,7 +941,46 @@ img{
   border-color:rgba(148,163,184,.18);
   box-shadow:0 10px 24px rgba(0,0,0,.22);
 }
+.jlt-hero__actions a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:.72rem 1rem;
+  border-radius:999px;
+  border:1px solid rgba(148,163,184,.22);
+  background:rgba(255,255,255,.85);
+  color:#0f172a;
+  font-weight:700;
+  font-size:.95rem;
+  text-decoration:none;
+  box-shadow:0 8px 22px rgba(15,23,42,.06);
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease,
+    border-color .16s ease,
+    background .16s ease;
+}
 
+.jlt-hero__actions a:hover{
+  transform:translateY(-1px);
+  text-decoration:none;
+  border-color:rgba(59,130,246,.35);
+  box-shadow:0 14px 28px rgba(15,23,42,.10);
+}
+
+.jlt-hero__actions a:first-child{
+  background:linear-gradient(180deg, #2563eb, #1d4ed8);
+  color:#ffffff;
+  border-color:rgba(37,99,235,.65);
+  box-shadow:0 14px 30px rgba(37,99,235,.22);
+}
+
+:root[data-theme="dark"] .jlt-hero__actions a{
+  background:rgba(15,23,42,.82);
+  color:#e5e7eb;
+  border-color:rgba(148,163,184,.18);
+}
 /* =========================
    Generic post page helpers
    ========================= */
@@ -1509,7 +1579,7 @@ img{
 }
 
 /* =========================
-   Network footer — shared system
+   Network footer — production-safe override
    ========================= */
 
 .site-footer.site-footer--network{
