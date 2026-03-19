@@ -30,14 +30,16 @@ if (!fs.existsSync(HEADER_PARTIAL)) {
 
 const headerHtml = fs.readFileSync(HEADER_PARTIAL, "utf8");
 
-const requiredHeaderBits = [
-  'class="site-header"',
+const requiredFragments = [
+  'data-header-variant="eco"',
   'href="/"',
   'href="/posts/"',
-  'href="/docs/"'
+  'href="https://docs.justinelonglat-lane.com"',
+  'href="https://www.justinelonglat-lane.com/engineering-mesh"',
+  'Ecosystem'
 ];
 
-for (const bit of requiredHeaderBits) {
+for (const bit of requiredFragments) {
   if (!headerHtml.includes(bit)) {
     fail(`header.html missing required fragment: ${bit}`);
   }
