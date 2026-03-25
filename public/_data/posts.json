@@ -221,14 +221,9 @@
   },
   {
     "title": "Why Every Engineer Needs a Reproducible Environment",
-    "description": "Reproducible environments turn fragile builds into reliable systems. Why every engineer should care about deterministic setups, repeatable pipelines, and confident releases.",
+    "description": "...",
     "tags": [
-      "devops",
-      "reproducibility",
-      "ci/cd",
-      "automation",
-      "environments",
-      "reliability"
+      "..."
     ],
     "url": "/posts/2025/10/reproducible-environments/",
     "slug": "why-every-engineer-needs-a-reproducible-environment",
