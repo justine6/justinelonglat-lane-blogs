@@ -1,6 +1,6 @@
 [
   {
-    "title": "Runbooks and Operational Readiness",
+    "title": "runbooks-and-operational-readiness",
     "description": "Why runbooks, recovery paths, and operational clarity are core parts of platform maturity.",
     "tags": [
       "runbooks",
@@ -33,7 +33,7 @@
     "kind": "post"
   },
   {
-    "title": "Performance Optimization in the Ecosystem",
+    "title": "performance-optimization-in-the-ecosystem",
     "description": "How platform teams connect telemetry, runtime behavior, and tuning decisions to improve resilience and efficiency.",
     "tags": [
       "performance",
@@ -66,7 +66,7 @@
     "kind": "post"
   },
   {
-    "title": "Grafana Dashboard Engineering",
+    "title": "grafana-dashboard-engineering",
     "description": "How to turn raw telemetry into dashboards that support diagnosis, reliability, and operational decisions.",
     "tags": [
       "grafana",
