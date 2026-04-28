@@ -642,6 +642,96 @@ img{
   background: rgba(255,255,255,.16);
   border: 1px solid rgba(255,255,255,.16);
 }
+.eco-header-logo {
+  height: 34px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.eco-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 260px;
+}
+
+.eco-header-brand-title {
+  white-space: nowrap;
+  font-size: 1rem;
+  line-height: 1.1;
+}
+
+.eco-header-brand-subtitle {
+  white-space: nowrap;
+  font-size: 0.8rem;
+}
+.eco-header-logo {
+  height: 34px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.eco-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 260px;
+}
+
+.eco-header-brand-title {
+  white-space: nowrap;
+  font-size: 1rem;
+  line-height: 1.1;
+}
+
+.eco-header-brand-subtitle {
+  white-space: nowrap;
+  font-size: 0.8rem;
+}
+.eco-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  /* 👇 THIS is the key */
+  max-width: 220px;
+  min-width: 0;
+
+  flex-shrink: 0;
+}
+
+.eco-header-logo {
+  height: 30px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+.eco-header-brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+
+  /* 👇 allows truncation */
+  min-width: 0;
+}
+
+.eco-header-brand-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eco-header-brand-subtitle {
+  font-size: 0.75rem;
+  opacity: 0.8;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* =========================
    Homepage landing
