@@ -1582,6 +1582,17 @@ a:hover{
     padding: .4rem .55rem;
   }
 }
+.eco-header-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.eco-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
 .eco-header-logo {
   height: 34px;
   width: auto;

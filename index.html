@@ -351,14 +351,33 @@
     </footer>
   </main>
 
-  <script>
-    // Highlight tags nav when on /tags
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // =========================
+    // Mobile header menu toggle
+    // =========================
+    const menuToggle = document.querySelector(".eco-header-menu-toggle");
+    const nav = document.querySelector(".eco-header-nav");
+
+    if (menuToggle && nav) {
+      menuToggle.addEventListener("click", () => {
+        const isOpen = nav.classList.toggle("is-open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.textContent = isOpen ? "×" : "☰";
+      });
+    }
+
+    // =========================
+    // Highlight tags nav
+    // =========================
     const path = window.location.pathname;
     if (path.includes("/tags")) {
       document.getElementById("nav-tags")?.classList.add("active");
     }
 
+    // =========================
     // Helpers
+    // =========================
     const $ = s => document.querySelector(s);
     const fmt = d =>
       new Date(d + "T00:00:00").toLocaleDateString(undefined, {
@@ -367,7 +386,9 @@
         day: "2-digit",
       });
 
+    // =========================
     // Render posts list
+    // =========================
     function render(list) {
       const ul = document.createElement("ul");
       ul.className = "postlist";
@@ -405,18 +426,22 @@
         ul.append(li);
       });
 
-      document.querySelector("#posts .postlist").replaceWith(ul);
+      document.querySelector("#posts .postlist")?.replaceWith(ul);
     }
 
-    // Load posts.json if available
+    // =========================
+    // Load posts.json
+    // =========================
     fetch("posts.json", { cache: "no-store" })
       .then(r => (r.ok ? r.json() : Promise.reject()))
       .then(render)
       .catch(() => {
-        // keep fallback
+        // fallback remains
       });
 
+    // =========================
     // Search filter
+    // =========================
     const input = $("#q");
     input?.addEventListener("input", () => {
       const q = input.value.trim().toLowerCase();
@@ -426,9 +451,15 @@
       });
     });
 
-    // Year in footer
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+    // =========================
+    // Footer year
+    // =========================
+    const yearEl = document.getElementById("y");
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+  });
+</script>
 </body>
 </html>
 
