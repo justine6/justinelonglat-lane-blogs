@@ -112,6 +112,10 @@
       gap: 0.6rem;
       margin-top: 1.25rem;
     }
+    .jlt-hero__grid {
+      grid-template-columns: 1fr; /* stack instead of side-by-side */
+      gap: 2.5rem;
+    }
 
     /* ===== Deep dives banner (secondary hero) ===== */
     .deepdives-hero {
@@ -134,7 +138,124 @@
       gap: 0.65rem;
       margin-top: 1.25rem;
     }
+    .jlt-hero__header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 3rem;
+    }
+    .jlt-hero__diagram {
+      width: 100%;
+      max-width: 1000px;   /* was ~560px before */
+      height: auto;
+      border-radius: 20px;
+      object-fit: contain;
 
+      box-shadow:
+        0 30px 80px rgba(15,23,42,0.18),
+        0 0 0 12px rgba(59,130,246,0.05);
+    }
+    .diagram-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.diagram-modal img {
+  max-width: 95%;
+  max-height: 95%;
+  border-radius: 12px;
+}
+.jlt-hero__diagramLabel {
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+.jlt-hero__actions a:first-child {
+  font-weight: 700;
+}
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+
+  padding: 0.65rem 1.1rem;
+  border-radius: 999px;
+
+  font-size: 0.9rem;
+  font-weight: 500;
+
+  color: #1e293b;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-cta:hover {
+  background: #f8fafc;
+  border-color: #cbd5f5;
+}
+
+.btn-cta-primary {
+  background: #4f46e5;
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.btn-cta-primary:hover {
+  background: #4338ca;
+}
+.btn-cta {
+  transform: translateY(0);
+}
+
+.btn-cta:hover {
+  transform: translateY(-1px);
+}
+.btn-cta-primary {
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.25);
+}
+
+.btn-cta-primary:hover {
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.35);
+}
+/* Subtle premium diagram interaction */
+.jlt-hero__diagram {
+  transform: translateY(0) scale(1);
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    filter 220ms ease;
+  will-change: transform;
+}
+
+.jlt-hero__diagramWrap:hover .jlt-hero__diagram {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow:
+    0 34px 90px rgba(15, 23, 42, 0.22),
+    0 0 0 12px rgba(59, 130, 246, 0.06);
+  filter: saturate(1.03);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .jlt-hero__diagram {
+    transition: none;
+  }
+
+  .jlt-hero__diagramWrap:hover .jlt-hero__diagram {
+    transform: none;
+  }
+}
     /* ===== Quick links row (3 cards) ===== */
     .quick-grid {
       display: grid;
@@ -170,6 +291,15 @@
     }
   </style>
 </head>
+<script>
+function openDiagramModal() {
+  document.getElementById("diagramModal").style.display = "flex";
+}
+
+function closeDiagramModal() {
+  document.getElementById("diagramModal").style.display = "none";
+}
+</script>
 
 <body>
 
@@ -311,141 +441,89 @@
 </header>
 <!-- injected:end -->
 <!-- =========================
-     HERO: Work with JLT-Lane
+     HERO: JLT Publishing Plane Model
      ========================= -->
-<section class="jlt-hero section-white" id="work-with-justine" aria-labelledby="work-with-justine-title">
+<section class="jlt-hero section-white" id="jlt-publishing-plane" aria-labelledby="jlt-publishing-plane-title">
   <div class="container">
+
+    <!-- 👇 NEW: Shared header (THIS is what you were missing) -->
+    <div class="jlt-hero__header">
+      <p class="jlt-hero__eyebrow">JLT Publishing Plane Model</p>
+
+      <h1 class="jlt-hero__title" id="jlt-publishing-plane-title">
+        A governed multi-channel content delivery architecture
+      </h1>
+    </div>
+
     <div class="jlt-hero__grid">
 
-      <!-- Avatar -->
-      <div class="jlt-hero__avatarWrap">
-        <img
-          class="jlt-hero__avatar"
-          src="/assets/img/justine-profile.jpg"
-          alt="Justine Longla T."
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
+      <!-- LEFT: Diagram -->
+       <p class="jlt-hero__diagramLabel">
+        JLT Publishing Plane Model (PPM)
+      </p>
+    <div class="jlt-hero__diagramWrap">
+      
+      <img
+        class="jlt-hero__diagram"
+        src="/assets/img/jlt-publishing-plane-diagram.png"
+        alt="JLT Publishing Plane Model architecture diagram"
+        onclick="openDiagramModal()"
+      />
+    </div>
 
-      <!-- Hero content -->
+    <!-- Modal -->
+    <div id="diagramModal" class="diagram-modal" onclick="closeDiagramModal()">
+      <img src="/assets/img/jlt-publishing-plane-diagram.png" />
+    </div>
+
+      <!-- RIGHT: Content -->
       <div>
-        <p class="jlt-hero__eyebrow">Work with JLT-Lane</p>
-
-        <h1 class="jlt-hero__title" id="work-with-justine-title">
-          grounded in production-grade engineering experience
-        </h1>
 
         <p class="jlt-hero__desc">
-          If you're looking to elevate reliability, security, and observability in real systems,
-          let’s talk. From intro calls to hands-on consulting, everything here is grounded in
-          production-grade engineering experience.
+          The JLT blog is not just a collection of posts. It is part of a publishing plane
+          where newsletters, blog posts, project showcase cards, whitepapers, and platform
+          notes flow through a structured system.
         </p>
 
-        <div class="jlt-hero__actions">
+        <p class="jlt-hero__desc">
+          Same content. Multiple controlled access paths — read inline, open in the browser,
+          download as a portable artifact, or follow the architecture behind the system.
+        </p>
 
-          <a class="btn-cta btn-cta-primary"
-             href="https://justinelonglat-lane.com/booking"
-             target="_blank"
-             rel="noopener noreferrer">
-             Intro call
-          </a>
+      <div class="jlt-hero__actions">
 
-          <a class="btn-cta"
-             href="https://justinelonglat-lane.com/resume"
-             target="_blank"
-             rel="noopener noreferrer">
-             Resume (PDF)
-          </a>
-
-          <a class="btn-cta"
-             href="https://www.justinelonglat-lane.com/files/JLT-Consulting-Brochure.pdf"
-             target="_blank"
-             rel="noopener noreferrer">
-             Brochure (PDF)
-          </a>
-
-          <a class="btn-cta"
-             href="/series/platform-engineering-framework/">
-             Platform framework
-          </a>
-
-          <a class="btn-cta"
-             href="/posts/">
-             All blog posts
-          </a>
-
-          <a class="btn-cta"
-             href="/docs/">
-             Automation toolkit
-          </a>
-
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- =========================
-     SECONDARY HERO: Deep dives
-     ========================= -->
-<section class="deepdives-hero" aria-labelledby="deepdives-title">
-  <div class="container">
-    <h2 class="deepdives-hero__title" id="deepdives-title">
-      Deep dives on reproducible environments, observability, secure delivery, and sustainable cloud systems.
-    </h2>
-
-    <p class="deepdives-hero__desc">
-      Practical notes from real pipelines: how I ship static sites with guardrails, keep builds deterministic,
-      and turn “blogging” into an engineering system.
-    </p>
-
-    <div class="deepdives-hero__actions">
-      <a class="btn-cta btn-cta-primary" href="/posts/">
-        Deep dives →
-      </a>
-      <a
-        href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Automation Toolkit
-      </a>
-      <a class="btn-cta" href="https://www.justinelonglat-lane.com/engineering-mesh" target="_blank" rel="noopener noreferrer">
-      Engineering MeshHub → 
-      </a>
-    </div>
-
-    <!-- Quick links (optional but matches your screenshot #2 style) -->
-    <div class="quick-grid" aria-label="Quick links">
-      <div class="quick-card">
-        <h3>Latest posts</h3>
-        <p>Browse the grid, search by tags, and open deep dives.</p>
-        <a href="/posts/">Go to All Blog Posts →</a>
-      </div>
-
-      <div class="quick-card">
-        <h3>Automation toolkit</h3>
-        <p>Scripts and guardrails: validate, inject partials, generate indexes, and keep releases safe.</p>
-        <a
-          href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Open toolkit ↗
+        <a class="btn-cta btn-cta-primary"
+          href="https://justinelonglat-lane.com/newsletter">
+          Read Platform Notes
         </a>
+
+        <a class="btn-cta"
+          href="https://justinelonglat-lane.com/files/jlt-platform-notes-latest.pdf"
+          target="_blank">
+          📖 Open Latest PDF
+        </a>
+
+        <a class="btn-cta" href="/posts/">
+          All blog posts
+        </a>
+
+        <a class="btn-cta" href="/series/platform-engineering-framework/">
+          Platform framework
+        </a>
+
+        <a class="btn-cta"
+          href="https://www.justinelonglat-lane.com/engineering-mesh"
+          target="_blank">
+          Engineering MeshHub →
+        </a>
+
       </div>
 
-      <div class="quick-card">
-        <h3>Work with JLT-Lane</h3>
-        <p>Intro call, resume, brochure, and the consulting entrypoint — on the full homepage.</p>
-        <a href="https://justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Open homepage →</a>
       </div>
+
     </div>
   </div>
 </section>
-
 <!-- =========================
      Footer
      ========================= -->
