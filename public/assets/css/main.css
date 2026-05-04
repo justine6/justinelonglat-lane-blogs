@@ -1713,4 +1713,15 @@ img{
 .eco-header-theme-toggle {
   margin-left: 0.5rem;
 }
+.eco-header-brand-subtitle {
+  display: block;
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.eco-header-brand-tagline {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
 /* JLT_CANONICAL_POSTS_GRID_V1 */
