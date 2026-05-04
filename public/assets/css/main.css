@@ -1702,4 +1702,15 @@ img{
 .site-header.scrolled{
   box-shadow:0 8px 24px rgba(15,23,42,.08);
 }
+.eco-header-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+}
+
+.eco-header-theme-toggle {
+  margin-left: 0.5rem;
+}
 /* JLT_CANONICAL_POSTS_GRID_V1 */
