@@ -291,20 +291,10 @@
     }
   </style>
 </head>
-<script>
-function openDiagramModal() {
-  document.getElementById("diagramModal").style.display = "flex";
-}
-
-function closeDiagramModal() {
-  document.getElementById("diagramModal").style.display = "none";
-}
-</script>
-
 <body>
 
-<!-- inject:header -->
 <!-- injected:begin -->
+<!-- inject:header -->
 <header class="site-header" role="banner" data-header-variant="eco">
   <div class="container eco-header-bar">
 
@@ -427,6 +417,8 @@ function closeDiagramModal() {
 
   </div>
 </header>
+<!-- endinject:header -->
+<!-- injected:end -->
 <!-- injected:end -->
 <!-- =========================
      HERO: JLT Publishing Plane Model
@@ -564,34 +556,29 @@ function closeDiagramModal() {
         >
           Automation Toolkit
         </a>
-        <a href="/docs/publication-replay.html">Publication Replay</a>      
-        </a>
+        <a href="/docs/publication-replay.html">Publication Replay</a>
       </div>
     </div>
 
     <nav class="footer-col footer-links" aria-label="Quick links">
       <h4 class="sr-only">Quick links</h4>
-      <ul class="footer-list"><a
-          href="https://blogs.justinelonglat-lane.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-current="page"
-        >
-          Publications
-        </a><a href="https://blogs.justinelonglat-lane.com/" aria-current="page">Publishing</a>
+      <ul class="footer-list">
         <li><a href="https://www.justinelonglat-lane.com/">Home</a></li>
         <li><a href="https://www.justinelonglat-lane.com/projects">Projects</a></li>
         <li>
-          <a
-            href="https://blogs.justinelonglat-lane.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-current="page"
-          >
-            Publications
+          <a href="https://blogs.justinelonglat-lane.com/" aria-current="page">
+            Blog
           </a>
         </li>
-        <li><a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Docs ↗</a></li>
+        <li>
+          <a
+            href="https://docs.justinelonglat-lane.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Docs ↗
+          </a>
+        </li>
         <li><a href="https://www.justinelonglat-lane.com/contact">Contact</a></li>
         <li><a href="https://www.justinelonglat-lane.com/hire-me">Hire Me</a></li>
         <li><a href="https://www.justinelonglat-lane.com/resume">Résumé</a></li>
@@ -615,14 +602,27 @@ function closeDiagramModal() {
             justine@justinelonglat-lane.com
           </a>
         </li>
+
+        <li>
+          <a href="tel:+14054374528">
+            +1 405.437-4528
+          </a>
+        </li>
+
+        <li>
+          <strong>JLT-Lane — Platform Engineering & DevSecOps</strong>
+        </li>
+
+        <li>128 W I-240 Service Rd, PMB [###]</li>
+        <li>Oklahoma City, OK 73139</li>
+        <li>United States</li>
+
         <li>
           <a href="https://www.justinelonglat-lane.com/videos">
             Videos
           </a>
         </li>
-        <li>
-          <a href="tel:+14059345864">+1 405.934.5864</a>
-        </li>
+
         <li>
           <a
             href="https://www.linkedin.com/in/longlatjustine"
@@ -631,6 +631,10 @@ function closeDiagramModal() {
           >
             LinkedIn: longlatjustine
           </a>
+        </li>
+
+        <li class="footer-tagline">
+          Secure Cloud Platforms • DevSecOps • Automation
         </li>
       </ul>
     </div>
@@ -645,7 +649,7 @@ function closeDiagramModal() {
       </p>
 
       <p class="footer-submeta">
-        Operating under <span class="footer-strong">JustineLonglaT-Lane LLC.</span>
+        Operating under <span class="footer-strong">Justine Longla T-Lane LLC</span> · JLT-Lane
       </p>
 
       <nav class="footer-network" aria-label="Justine Longla T. network">
@@ -663,7 +667,7 @@ function closeDiagramModal() {
       </div>
 
       <div class="footer-utility-links">
-        <a href="/">Publishing home</a>
+        <a href="/">Blog home</a>
         <a href="https://docs.justinelonglat-lane.com/sitemap.html" target="_blank" rel="noopener noreferrer">Sitemap</a>
       </div>
     </div>
@@ -677,6 +681,15 @@ function closeDiagramModal() {
   </script>
 </footer>
 <!-- injected:end -->
+<script>
+function openDiagramModal() {
+  document.getElementById("diagramModal").style.display = "flex";
+}
+
+function closeDiagramModal() {
+  document.getElementById("diagramModal").style.display = "none";
+}
+</script>
 </body>
 </html>
 

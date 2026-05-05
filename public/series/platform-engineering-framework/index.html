@@ -230,23 +230,25 @@
 <body>
     
 <!-- Unified header (single-source look) -->
-<!-- inject:header -->
 <!-- injected:begin -->
+<!-- inject:header -->
 <header class="site-header" role="banner" data-header-variant="eco">
   <div class="container eco-header-bar">
-    <a class="eco-header-brand" href="/" aria-label="JLT-Lane Publications home">
+
+    <a class="eco-header-brand" href="/" aria-label="JLT Publications home">
       <img
         class="eco-header-logo"
         src="/assets/img/logo-shield.png"
         alt="JLT-Lane logo"
       />
-      <span class="eco-header-brand-text">
-        <strong class="eco-header-brand-title">JLT-Lane Publications</strong
-        <span class="eco-header-brand-subtitle">Cloud Confidence. Delivered.</span>
-      </span><span class="eco-header-subtitle">
-        Publishing Plane
+
+      <span class="eco-header-brand-copy">
+      <strong class="eco-header-brand-title">JLT Publications</strong>
+      <span class="eco-header-brand-subtitle">
+        Publishing Plane · Cloud Confidence. Delivered.
       </span>
     </a>
+
     <button
       class="eco-header-menu-toggle"
       type="button"
@@ -262,6 +264,7 @@
       <a href="/series/platform-engineering-framework/" data-nav="framework">
         Platform Framework
       </a>
+
       <a
         href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
         target="_blank"
@@ -269,7 +272,9 @@
       >
         Open toolkit ↗
       </a>
+
       <a href="/docs/publication-replay.html">Publication Replay</a>
+
       <a
         href="https://docs.justinelonglat-lane.com"
         target="_blank"
@@ -278,6 +283,7 @@
       >
         Docs ↗
       </a>
+
       <a
         href="https://www.justinelonglat-lane.com/engineering-mesh"
         target="_blank"
@@ -299,59 +305,29 @@
         </button>
 
         <div class="eco-header-dropdown-menu" role="menu" aria-label="Ecosystem links">
-          <a
-            role="menuitem"
-            href="https://justinelonglat-lane.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a role="menuitem" href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">
             Main Site ↗
           </a>
-          <a
-            role="menuitem"
-            href="https://consulting.justinelonglat-lane.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a role="menuitem" href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">
             Consulting ↗
           </a>
-          <a
-            role="menuitem"
-            href="https://docs.justinelonglat-lane.com/runbooks.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a role="menuitem" href="https://docs.justinelonglat-lane.com/runbooks.html" target="_blank" rel="noopener noreferrer">
             Runbooks ↗
           </a>
-          <a
-            role="menuitem"
-            href="https://docs.justinelonglat-lane.com/observability-architecture.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a role="menuitem" href="https://docs.justinelonglat-lane.com/observability-architecture.html" target="_blank" rel="noopener noreferrer">
             Observability Architecture ↗
           </a>
-          <a
-            role="menuitem"
-            href="https://docs.justinelonglat-lane.com/architecture.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a role="menuitem" href="https://docs.justinelonglat-lane.com/architecture.html" target="_blank" rel="noopener noreferrer">
             Platform Architecture ↗
           </a>
-          <a
-            role="menuitem"
-            href="https://www.justinelonglat-lane.com/projects/system-design-ecosystem-b"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a role="menuitem" href="https://www.justinelonglat-lane.com/projects/system-design-ecosystem-b" target="_blank" rel="noopener noreferrer">
             System Design ↗
           </a>
         </div>
       </div>
     </nav>
 
-    <div class="eco-header-profile" aria-label="Publications signature">
+    <div class="eco-header-profile" aria-label="Publication signature">
       <img
         src="/assets/img/justine-profile.jpg"
         alt="Justine Longla T."
@@ -359,23 +335,27 @@
         loading="lazy"
         decoding="async"
       />
-    <div class="eco-header-profile-text">
-      
-      <span class="eco-header-profile-name">Justine Longla T.</span>
+      <div class="eco-header-profile-text">
+        <span class="eco-header-profile-eyebrow">Curated By</span>
+        <span class="eco-header-profile-name">Justine Longla T.</span>
+      </div>
     </div>
-      <button
-        id="themeToggle"
-        class="eco-header-theme-toggle"
-        type="button"
-        aria-label="Toggle theme"
-        title="Toggle theme"
-        onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
-      >
-        🌙
-      </button>
-    </div>
+
+    <button
+      id="themeToggle"
+      class="eco-header-theme-toggle"
+      type="button"
+      aria-label="Toggle theme"
+      title="Toggle theme"
+      onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
+    >
+      🌙
+    </button>
+
   </div>
 </header>
+<!-- endinject:header -->
+<!-- injected:end -->
 <!-- injected:end -->
 <main class="series-page" aria-labelledby="series-title">
     <section class="series-hero">
@@ -652,8 +632,7 @@
         >
           Automation Toolkit
         </a>
-        <a href="/docs/publication-replay.html">Publication Replay</a>      
-        </a>
+        <a href="/docs/publication-replay.html">Publication Replay</a>
       </div>
     </div>
 
@@ -667,7 +646,15 @@
             Blog
           </a>
         </li>
-        <li><a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Docs ↗</a></li>
+        <li>
+          <a
+            href="https://docs.justinelonglat-lane.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Docs ↗
+          </a>
+        </li>
         <li><a href="https://www.justinelonglat-lane.com/contact">Contact</a></li>
         <li><a href="https://www.justinelonglat-lane.com/hire-me">Hire Me</a></li>
         <li><a href="https://www.justinelonglat-lane.com/resume">Résumé</a></li>
@@ -691,14 +678,27 @@
             justine@justinelonglat-lane.com
           </a>
         </li>
+
+        <li>
+          <a href="tel:+14054374528">
+            +1 405.437-4528
+          </a>
+        </li>
+
+        <li>
+          <strong>JLT-Lane — Platform Engineering & DevSecOps</strong>
+        </li>
+
+        <li>128 W I-240 Service Rd, PMB [###]</li>
+        <li>Oklahoma City, OK 73139</li>
+        <li>United States</li>
+
         <li>
           <a href="https://www.justinelonglat-lane.com/videos">
             Videos
           </a>
         </li>
-        <li>
-          <a href="tel:+14059345864">+1 405.934.5864</a>
-        </li>
+
         <li>
           <a
             href="https://www.linkedin.com/in/longlatjustine"
@@ -707,6 +707,10 @@
           >
             LinkedIn: longlatjustine
           </a>
+        </li>
+
+        <li class="footer-tagline">
+          Secure Cloud Platforms • DevSecOps • Automation
         </li>
       </ul>
     </div>
@@ -721,7 +725,7 @@
       </p>
 
       <p class="footer-submeta">
-        Operating under <span class="footer-strong">JustineLonglaT-Lane LLC.</span>
+        Operating under <span class="footer-strong">Justine Longla T-Lane LLC</span> · JLT-Lane
       </p>
 
       <nav class="footer-network" aria-label="Justine Longla T. network">
