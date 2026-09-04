@@ -20,7 +20,6 @@ Set-Location $root
 $pub = "public"
 $css = Join-Path $pub "assets\css"
 $img = Join-Path $pub "assets\img"
-$ico = Join-Path $pub "favicon.ico"
 
 # --- GUARD: never treat public/posts or public/tags as source-of-truth -------
 $publicPosts = Join-Path $pub "posts"
@@ -56,12 +55,6 @@ a:hover { text-decoration: underline; }
 "@ | Set-Content -Encoding UTF8 $cssFile
 }
 
-# --- 3) Ensure favicon.ico exists -------------------------------------------
-if (!(Test-Path $ico)) {
-  Warn "favicon.ico missing → creating minimal placeholder."
-  $icoBytes = [byte[]](0x00,0x00,0x01,0x00,0x01,0x00,0x10,0x10,0x00,0x00,0x01,0x00,0x04,0x00,0x28,0x01,0x00,0x00)
-  [IO.File]::WriteAllBytes($ico, $icoBytes)
-}
 
 # --- 4) Ensure index.html exists --------------------------------------------
 $index = Join-Path $pub "index.html"
@@ -73,7 +66,7 @@ if (!(Test-Path $index)) {
 <head>
   <meta charset="utf-8">
   <title>Welcome 👋 | Justine Longla T. DevOps Blog</title>
-  <link rel="icon" href="/favicon.ico">
+  <link rel="icon" type="image/png" href="/assets/img/crest.png" />
   <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>

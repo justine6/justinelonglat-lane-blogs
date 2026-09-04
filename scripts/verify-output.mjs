@@ -15,6 +15,55 @@ const htmlFilesToInspect = [
   ".vercel/output/static/posts/index.html",
 ];
 
+const outputStaticDir = path.resolve(ROOT, ".vercel/output/static");
+const canonicalFaviconPath = path.join(
+  outputStaticDir,
+  "assets",
+  "img",
+  "crest.png",
+);
+const canonicalFaviconHref = "/assets/img/crest.png";
+const retiredFaviconPaths = [
+  path.join(outputStaticDir, "favicon.ico"),
+  path.join(outputStaticDir, "assets", "img", "favicon.ico"),
+  path.join(outputStaticDir, "assets", "css", "favicon.ico"),
+];
+
+function collectHtmlFiles(directory) {
+  if (!fs.existsSync(directory)) return [];
+
+  const files = [];
+
+  for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
+    const absolutePath = path.join(directory, entry.name);
+
+    if (entry.isDirectory()) {
+      files.push(...collectHtmlFiles(absolutePath));
+    } else if (entry.isFile() && entry.name.toLowerCase().endsWith(".html")) {
+      files.push(absolutePath);
+    }
+  }
+
+  return files.sort();
+}
+
+function attributeValue(tag, attributeName) {
+  const pattern = new RegExp(
+    `\\b${attributeName}\\s*=\\s*["']([^"']+)["']`,
+    "i",
+  );
+  const match = tag.match(pattern);
+  return match ? match[1].trim() : null;
+}
+
+function isIconLink(tag) {
+  const rel = attributeValue(tag, "rel");
+  if (!rel) return false;
+
+  const tokens = rel.toLowerCase().split(/\s+/);
+  return tokens.includes("icon") || tokens.includes("apple-touch-icon");
+}
+
 let ok = true;
 
 function fail(message) {
@@ -28,6 +77,70 @@ for (const p of mustExist) {
     fail(`Missing required output: ${p}`);
   } else {
     console.log(`✓ ${p}`);
+  }
+}
+
+if (!fs.existsSync(canonicalFaviconPath)) {
+  fail(
+    "Missing canonical favicon output: " +
+      path.relative(ROOT, canonicalFaviconPath),
+  );
+} else {
+  const signature = fs.readFileSync(canonicalFaviconPath).subarray(0, 8);
+  const expectedPngSignature = Buffer.from([
+    0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a,
+  ]);
+
+  if (!signature.equals(expectedPngSignature)) {
+    fail("Canonical favicon output is not a valid PNG.");
+  }
+}
+
+for (const retiredPath of retiredFaviconPaths) {
+  if (fs.existsSync(retiredPath)) {
+    fail(
+      "Retired favicon output still exists: " +
+        path.relative(ROOT, retiredPath),
+    );
+  }
+}
+
+const allOutputHtmlFiles = collectHtmlFiles(outputStaticDir);
+
+for (const absoluteHtmlPath of allOutputHtmlFiles) {
+  const relativeHtmlPath = path.relative(ROOT, absoluteHtmlPath);
+  const html = fs.readFileSync(absoluteHtmlPath, "utf8");
+
+  if (/favicon\.ico/i.test(html)) {
+    fail(`${relativeHtmlPath}: contains a retired favicon.ico reference`);
+  }
+
+  const linkTags = html.match(/<link\b[^>]*>/gi) || [];
+  const iconLinks = linkTags.filter(isIconLink);
+
+  if (iconLinks.length > 1) {
+    fail(
+      `${relativeHtmlPath}: expected at most 1 icon declaration, ` +
+        `found ${iconLinks.length}`,
+    );
+  }
+
+  for (const tag of iconLinks) {
+    const href = attributeValue(tag, "href");
+    const type = attributeValue(tag, "type");
+
+    if (href !== canonicalFaviconHref) {
+      fail(
+        `${relativeHtmlPath}: non-canonical icon href ` +
+          `${JSON.stringify(href)}`,
+      );
+    }
+
+    if (!type || type.toLowerCase() !== "image/png") {
+      fail(
+        `${relativeHtmlPath}: canonical icon must declare type="image/png"`,
+      );
+    }
   }
 }
 

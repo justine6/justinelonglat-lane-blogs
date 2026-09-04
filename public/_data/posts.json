@@ -99,7 +99,7 @@
   },
   {
     "title": "Building My Own Ecosystem Changed How I Learn",
-    "description": "",
+    "description": "Building an independent technology ecosystem as a practical training ground for end-to-end platform ownership.",
     "tags": [],
     "url": "/posts/2026/01/building-my-own-ecosystem/",
     "slug": "building-my-own-ecosystem-changed-how-i-learn",
@@ -114,9 +114,14 @@
     "kind": "post"
   },
   {
-    "title": "shipping-content-like-code",
-    "description": "",
-    "tags": [],
+    "title": "Shipping Content Like Code",
+    "description": "Why my blog now ships through the same CI/CD pipeline as my applications — and what that unlocks.",
+    "tags": [
+      "devops",
+      "cicd",
+      "content-automation",
+      "platform-engineering"
+    ],
     "url": "/posts/2025/12/shipping-content-like-code/",
     "slug": "shipping-content-like-code",
     "kind": "post"

@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "prebuild": "node scripts/check-css.mjs && node scripts/check-canonical-grid.mjs && node scripts/generate-indexes.mjs",
-    "build": "node scripts/generate-indexes.mjs && node scripts/vercel-dist.mjs",
+    "build": "node scripts/generate-indexes.mjs && node scripts/inject-partials.mjs && node scripts/vercel-dist.mjs",
     "verify:output": "node scripts/verify-output.mjs",
     "deploy:check": "npm run build && npm run verify:output",
 

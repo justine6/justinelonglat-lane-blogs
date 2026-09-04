@@ -15,8 +15,8 @@ $html   = Get-Content $IndexPath -Raw
 if($html -notmatch '<link[^>]+href="/assets/blog.css"'){
   $html = $html -replace '(\</head\>)',"`n  <link rel=""stylesheet"" href=""/assets/blog.css"" />`n`$1"
 }
-if($html -notmatch '<link[^>]+rel="icon"[^>]+/assets/img/logo-32.png'){
-  $html = $html -replace '(\</head\>)',"`n  <link rel=""icon"" href=""/assets/img/logo-32.png"" />`n`$1"
+if($html -notmatch '<link[^>]+rel="icon"[^>]+/assets/img/crest.png'){
+  $html = $html -replace '(\</head\>)',"`n  <link rel=""icon"" type=""image/png"" href=""/assets/img/crest.png"" />`n`$1"
 }
 
 # Inject HEADER right after <body> (once)

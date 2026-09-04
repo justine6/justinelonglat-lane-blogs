@@ -1,8 +1,372 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <!-- Minimal post page template -->
-    {{content}}
-  </body>
-</html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Shipping Content Like Code — Justine Longla T.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Why my blog now ships through the same CI/CD pipeline as my applications — and what that unlocks."
+  />
+  <meta
+    name="tags"
+    content="devops, cicd, content-automation, platform-engineering"
+  />
+  <!-- Canonical JLT-LANE favicon -->
+  <link rel="icon" type="image/png" href="/assets/img/crest.png" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+<!-- inject:header -->
+<!-- injected:begin -->
+<header class="site-header" role="banner" data-header-variant="eco">
+  <div class="container eco-header-bar">
 
+    <a class="eco-header-brand" href="/" aria-label="JLT Publications home">
+      <img
+        class="eco-header-logo"
+        src="/assets/img/logo-shield.png"
+        alt="JLT-LANE"
+      />
+
+      <span class="eco-header-brand-copy">
+      <strong class="eco-header-brand-title">JLT Publications</strong>
+      <span class="eco-header-brand-subtitle">
+        Publishing Plane · Cloud Confidence. Delivered.
+      </span>
+    </a>
+
+    <button
+      class="eco-header-menu-toggle"
+      type="button"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+    >
+      ☰
+    </button>
+
+    <nav class="eco-header-nav" aria-label="Primary">
+      <a href="/" data-nav="home">Home</a>
+      <a href="/posts/" data-nav="posts">All Blog Posts</a>
+      <a href="/series/platform-engineering-framework/" data-nav="framework">
+        Platform Framework
+      </a>
+
+      <a
+        href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Open toolkit ↗
+      </a>
+
+      <a href="/docs/publication-replay.html">Publication Replay</a>
+
+      <a
+        href="https://docs.justinelonglat-lane.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-nav="docs-site"
+      >
+        Docs ↗
+      </a>
+
+      <a
+        href="https://www.justinelonglat-lane.com/engineering-mesh"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-eco="true"
+      >
+        MeshHub ↗
+      </a>
+
+      <div class="eco-header-dropdown">
+        <button
+          class="eco-header-dropdown-toggle"
+          type="button"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-label="Open ecosystem links"
+        >
+          Ecosystem <span class="eco-header-caret">▾</span>
+        </button>
+
+        <div class="eco-header-dropdown-menu" role="menu" aria-label="Ecosystem links">
+          <a role="menuitem" href="https://justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">
+            Main Site ↗
+          </a>
+          <a role="menuitem" href="https://consulting.justinelonglat-lane.com" target="_blank" rel="noopener noreferrer">
+            Consulting ↗
+          </a>
+          <a role="menuitem" href="https://docs.justinelonglat-lane.com/runbooks.html" target="_blank" rel="noopener noreferrer">
+            Runbooks ↗
+          </a>
+          <a role="menuitem" href="https://docs.justinelonglat-lane.com/observability-architecture.html" target="_blank" rel="noopener noreferrer">
+            Observability Architecture ↗
+          </a>
+          <a role="menuitem" href="https://docs.justinelonglat-lane.com/architecture.html" target="_blank" rel="noopener noreferrer">
+            Platform Architecture ↗
+          </a>
+          <a role="menuitem" href="https://www.justinelonglat-lane.com/projects/system-design-ecosystem-b" target="_blank" rel="noopener noreferrer">
+            System Design ↗
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="eco-header-profile" aria-label="Publication signature">
+      <img
+        src="/assets/img/justine-profile.jpg"
+        alt="Justine Longla T."
+        class="eco-header-profile-avatar"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="eco-header-profile-text">
+        <span class="eco-header-profile-eyebrow">Curated By</span>
+        <span class="eco-header-profile-name">Justine Longla T.</span>
+      </div>
+    </div>
+
+    <button
+      id="themeToggle"
+      class="eco-header-theme-toggle"
+      type="button"
+      aria-label="Toggle theme"
+      title="Toggle theme"
+      onclick="window.__toggleTheme && window.__toggleTheme(); return false;"
+    >
+      🌙
+    </button>
+
+  </div>
+</header>
+<!-- injected:end -->
+<main id="main-content" class="container">
+    <article class="post">
+      <header class="post-header">
+        <p class="post-meta">
+          <time datetime="2025-12-20">December 20, 2025</time>
+          <span aria-hidden="true">·</span>
+          <span>DevOps · CI/CD · Content Automation · Platform Engineering</span>
+        </p>
+
+        <h1>Shipping Content Like Code</h1>
+
+        <p class="post-subtitle">
+          Why my blog now ships through the same CI/CD pipeline as my applications—and what that unlocks.
+        </p>
+      </header>
+
+      <section class="post-body">
+        <p>
+          Every change you see on this blog now moves through a proper pipeline.
+        </p>
+
+        <p>
+          No more “quick edits in production.” Posts are written as Markdown,
+          tracked in Git, validated locally, and then shipped through the same
+          CI/CD flow that I use for real applications.
+        </p>
+
+        <p>That discipline buys me a few things:</p>
+
+        <ul>
+          <li>
+            <strong>Reproducible builds</strong> — I can regenerate the entire
+            blog from source at any time.
+          </li>
+          <li>
+            <strong>Automated checks</strong> — internal links, HTML structure,
+            RSS, and sitemap get validated on every run.
+          </li>
+          <li>
+            <strong>Versioned releases</strong> — content goes out in tagged
+            releases, not invisible edits.
+          </li>
+        </ul>
+
+        <p>
+          It might look like “just content,” but I treat it like any other
+          production system: if users depend on it, it deserves reliability.
+        </p>
+
+        <p>
+          This December post is the bridge between the old way of publishing
+          and the new pipeline-driven approach you’re seeing now.
+        </p>
+
+        <p class="post-backlink">
+          <a href="/posts/">← Back to all blog posts</a>
+        </p>
+      </section>
+    </article>
+  </main>
+<!-- inject:footer -->
+<!-- injected:begin -->
+<footer class="site-footer site-footer--network" role="contentinfo">
+  <div class="footer-top">
+    <div class="footer-col footer-brand">
+      <h3 class="footer-brand-title">JLT-LANE</h3>
+      <p class="footer-brand-copy">
+        Cloud Confidence. Delivered. Secure, performance-tuned solutions — built the
+        right way.
+      </p>
+
+      <div class="footer-brand-ctas">
+        <a
+          class="footer-btn footer-btn--primary"
+          href="https://consulting.justinelonglat-lane.com/intro-call"
+          aria-label="Schedule your intro call"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Schedule Your Intro Call
+        </a>
+
+        <a
+          class="footer-btn footer-btn--secondary"
+          href="https://consulting.justinelonglat-lane.com/hire-me"
+          aria-label="Hire me"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Hire Me
+        </a>
+      </div>
+
+      <div class="footer-utility-links" style="margin-top: 1rem;">
+        <a
+          href="https://docs.justinelonglat-lane.com/automation-toolkit.html"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Automation Toolkit
+        </a>
+        <a href="/docs/publication-replay.html">Publication Replay</a>
+      </div>
+    </div>
+
+    <nav class="footer-col footer-links" aria-label="Quick links">
+      <h4 class="sr-only">Quick links</h4>
+      <ul class="footer-list">
+        <li><a href="https://www.justinelonglat-lane.com/">Home</a></li>
+        <li><a href="https://www.justinelonglat-lane.com/projects">Projects</a></li>
+        <li>
+          <a href="https://blogs.justinelonglat-lane.com/" aria-current="page">
+            Blog
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://docs.justinelonglat-lane.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Docs ↗
+          </a>
+        </li>
+        <li><a href="https://www.justinelonglat-lane.com/contact">Contact</a></li>
+        <li><a href="https://www.justinelonglat-lane.com/hire-me">Hire Me</a></li>
+        <li><a href="https://www.justinelonglat-lane.com/resume">Résumé</a></li>
+        <li>
+          <a
+            href="https://www.justinelonglat-lane.com/Justine-Longla-T-Lane-Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Download Résumé (PDF)
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="footer-col footer-contact">
+      <h4 class="footer-heading">CONTACT</h4>
+      <ul class="footer-list">
+        <li>
+          <a href="mailto:justine@justinelonglat-lane.com">
+            justine@justinelonglat-lane.com
+          </a>
+        </li>
+
+        <li>
+          <a href="tel:+14054374528">
+            +1 405.437-4528
+          </a>
+        </li>
+
+        <li>
+          <strong>JLT-LANE — Platform Engineering & DevSecOps</strong>
+        </li>
+
+        <li>128 W I-240 Service Rd, PMB [###]</li>
+        <li>Oklahoma City, OK 73139</li>
+        <li>United States</li>
+
+        <li>
+          <a href="https://www.justinelonglat-lane.com/videos">
+            Videos
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="https://www.linkedin.com/in/longlatjustine"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn: longlatjustine
+          </a>
+        </li>
+
+        <li class="footer-tagline">
+          Secure Cloud Platforms • DevSecOps • Automation
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <p class="footer-meta">
+        © <span id="year"></span>
+        <span class="footer-strong">Justine Longla T-Lane.</span>
+        · DevSecOps • Cloud • Sustainability
+      </p>
+
+      <p class="footer-submeta">
+        Operating under <span class="footer-strong">Justine Longla T-Lane LLC</span> · JLT-LANE
+      </p>
+
+      <nav class="footer-network" aria-label="Justine Longla T. network">
+        <a href="https://blogs.justinelonglat-lane.com/" aria-current="page">Publishing</a>
+        <a href="https://www.justinelonglat-lane.com/projects">Projects</a>
+        <a href="https://docs.justinelonglat-lane.com/" target="_blank" rel="noopener noreferrer">Docs</a>
+        <a href="https://docs.justinelonglat-lane.com/automation-toolkit.html" target="_blank" rel="noopener noreferrer">Automation Toolkit</a>
+        <a href="/docs/publication-replay.html">Publication Replay</a>
+      </nav>
+
+      <div class="footer-divider" aria-hidden="true"></div>
+
+      <div class="footer-version">
+        Engineering Mesh v1.2.0 — Blog surface — Unified network footer baseline
+      </div>
+
+      <div class="footer-utility-links">
+        <a href="/">Blog home</a>
+        <a href="https://docs.justinelonglat-lane.com/sitemap.html" target="_blank" rel="noopener noreferrer">Sitemap</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var el = document.getElementById("year");
+      if (el) el.textContent = new Date().getFullYear();
+    })();
+  </script>
+</footer>
+<!-- injected:end -->
+</body>
+</html>

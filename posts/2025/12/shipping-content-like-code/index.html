@@ -1,8 +1,83 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <!-- Minimal post page template -->
-    {{content}}
-  </body>
-</html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Shipping Content Like Code — Justine Longla T.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta
+    name="description"
+    content="Why my blog now ships through the same CI/CD pipeline as my applications — and what that unlocks."
+  />
+  <meta
+    name="tags"
+    content="devops, cicd, content-automation, platform-engineering"
+  />
+  <!-- Canonical JLT-LANE favicon -->
+  <link rel="icon" type="image/png" href="/assets/img/crest.png" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+</head>
+<body>
+<!-- inject:header -->
+  <main id="main-content" class="container">
+    <article class="post">
+      <header class="post-header">
+        <p class="post-meta">
+          <time datetime="2025-12-20">December 20, 2025</time>
+          <span aria-hidden="true">·</span>
+          <span>DevOps · CI/CD · Content Automation · Platform Engineering</span>
+        </p>
 
+        <h1>Shipping Content Like Code</h1>
+
+        <p class="post-subtitle">
+          Why my blog now ships through the same CI/CD pipeline as my applications—and what that unlocks.
+        </p>
+      </header>
+
+      <section class="post-body">
+        <p>
+          Every change you see on this blog now moves through a proper pipeline.
+        </p>
+
+        <p>
+          No more “quick edits in production.” Posts are written as Markdown,
+          tracked in Git, validated locally, and then shipped through the same
+          CI/CD flow that I use for real applications.
+        </p>
+
+        <p>That discipline buys me a few things:</p>
+
+        <ul>
+          <li>
+            <strong>Reproducible builds</strong> — I can regenerate the entire
+            blog from source at any time.
+          </li>
+          <li>
+            <strong>Automated checks</strong> — internal links, HTML structure,
+            RSS, and sitemap get validated on every run.
+          </li>
+          <li>
+            <strong>Versioned releases</strong> — content goes out in tagged
+            releases, not invisible edits.
+          </li>
+        </ul>
+
+        <p>
+          It might look like “just content,” but I treat it like any other
+          production system: if users depend on it, it deserves reliability.
+        </p>
+
+        <p>
+          This December post is the bridge between the old way of publishing
+          and the new pipeline-driven approach you’re seeing now.
+        </p>
+
+        <p class="post-backlink">
+          <a href="/posts/">← Back to all blog posts</a>
+        </p>
+      </section>
+    </article>
+  </main>
+<!-- inject:footer -->
+</body>
+</html>

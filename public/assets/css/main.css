@@ -760,6 +760,31 @@ img{
     flex-wrap: wrap;
   }
 
+  /*
+   * Responsive identity contract.
+   * The canonical compact lockup retains its intrinsic aspect ratio;
+   * the consuming header owns containment at constrained widths.
+   */
+  .eco-header-brand {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .eco-header-logo {
+    width: auto;
+    max-width: min(132px, 34vw);
+    height: auto;
+    max-height: 30px;
+    object-fit: contain;
+    flex-shrink: 1;
+  }
+
+  .eco-header-brand-text {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
   .eco-header-menu-toggle {
     display: inline-flex;
     align-items: center;
